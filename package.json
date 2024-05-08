@@ -1,0 +1,39 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
+    "prepare": "cd ../../ && husky install dashboard/.husky",
+    "pre-push-lint": "pnpm build"
+  },
+  "author": "Kien Dinh",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@parcel/config-default": "^2.9.3",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.49.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.1",
+    "parcel": "^2.9.3",
+    "parcel-reporter-static-files-copy": "^1.5.2",
+    "prettier": "^3.0.3",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
+  "staticFiles": {
+    "staticPath": "src/assets"
+  }
+}
