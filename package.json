@@ -1,11 +1,10 @@
 {
   "name": "dashboard",
   "version": "1.0.0",
-  "source": "src/index.html",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build",
-    "prepare": "cd ../../ && husky install dashboard/.husky",
+    "start": "pnpx parcel src/pages/*.html",
+    "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/pages/*.html --no-cache --no-source-maps --dist-dir dist",
+    "prepare": "husky install",
     "pre-push-lint": "pnpm build"
   },
   "author": "Kien Dinh",
