@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "jsxImportSource": "preact",
+    "isolatedModules": true,
+    "lib": ["es6", "dom"],
+    "outDir": "./build",
+    "rootDir": "./src",
+
+    /* Alias */
+    "paths": {
+      "@/*": ["./src/scripts/*"]
+    }
+  },
+  "include": ["**/*.ts"]
+}
