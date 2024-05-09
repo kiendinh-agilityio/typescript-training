@@ -11,6 +11,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/authen", "destination": "/authen.html" }
+    { "source": "/auth", "destination": "/auth.html" }
   ]
 }
