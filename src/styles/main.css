@@ -1,0 +1,5 @@
+@import url(base/index.css);
+@import url(components/index.css);
+
+@import url(pages/auth.css);
+@import url(pages/home.css);

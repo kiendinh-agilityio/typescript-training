@@ -1,0 +1,10 @@
+.input {
+  width: 100%;
+  color: var(--color-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.input::placeholder {
+  color: var(--color-input-placeholder);
+  font-size: var(--font-size-sm);
+}

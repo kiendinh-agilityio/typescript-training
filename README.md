@@ -1,50 +1,59 @@
-# TypeScript Training
+# TYPESCRIPT PRACTICE
 
-TypeScript is a programming language developed by Microsoft that extends JavaScript by adding optional static typing. It helps catch type-related errors during development, enhances code readability, and provides better tooling support for building robust and maintainable applications
+## OVERVIEW
 
-## Targets
+- This document provides the requirement for TypeScript Practice
 
-- Get familiar with and understand the power of TypeScript language in the specific and typed language in general, get ready to ability reading comprehension for the next training course/framework (React, Angular, Node… or anything related to TypeScript language)
+## AUTHOR
 
-## Timeline
+- This is the author **[Kien.Dinh](https://gitlab.asoft-python.com/kien.dinh)**
 
-- 24 days (Mar 25, 2024 - Apr 25, 2024) (This already includes practice timeline)
+## TIMELINE
 
-  - Reading : **[E-book: TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)**
-    - **PART I**
-      - Basic Type
-      - Variable Declarations
-    - **PART II**
-      - Interface
-      - Class
-      - Function
-      - Enum
-      - Union Types
-    - **PART III (ADVANCED - OPTIONAL)**
-      - Generics
-      - Decorators
-      - Modules
-      - Mixins
+- 11 days (May 7, 2024 - May 22, 2024)
 
-## Environment
+## TECH STACKS
 
-- **Development Tools**
-  - [Parcel](https://parceljs.org/getting-started/webapp)
-  - [Commitlint](https://commitlint.js.org/#/)
-  - [Husky](https://www.npmjs.com/package/husky)
-- **VS Code Suggestion**
-  - [ESLint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-  - [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- HTML5/CSS3
+- TypeScript v5.4.5
+- Husky v8.0.0
+- Eslint v8.49.0
+- Prettier v3.0.3
+- Commitlint v17.7.1
+- Parcel v2.9.3
 
-## Authors
+## DEVELOPMENT ENVIRONMENT
 
-- Kien Dinh
-- Email: [kien.dinh@asnet.com.vn](kien.dinh@asnet.com.vn).
+- Visual Studio Code
 
-## Books & References
+## SUPPORT
 
-- [E-book: TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [TypeScript Cheatsheet](https://rmolinamir.github.io/typescript-cheatsheet/)
-- [Advanced TypeScript](https://fettblog.eu/advanced-typescript-guide/)
-- [Coding guidelines](https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines)
-- [Clean code](https://github.com/labs42io/clean-code-typescript)
+- Chrome v102.0.5005.115
+- Firefox v101.0.1
+
+## DESIGN
+
+- **[Figma](https://www.figma.com/file/bAMU7cSvI9cenydNVlZN4a/microsoft-ads-dashboard-gregoirevella?node-id=0%3A318&mode=dev)**
+
+## WORKFLOW
+
+![Flowchart](/Flowcharts.jpeg)
+
+## REQUIREMENT
+
+- Apply knowledge of HTML/CSS/TypesScript.
+- Build a simple management web application with following features:
+  - Login/Logout
+  - Sign up
+  - View list ads
+  - Add, edit, delete
+  - Search (search by Network, link, email, phone)
+
+## GUIDELINE
+
+| Syntax                                                                    | Description                               |
+| ------------------------------------------------------------------------- | ----------------------------------------- |
+| `git clone git@gitlab.asoft-python.com:kien.dinh/typescript-training.git` | Clone repository from GitLab              |
+| `feature/typescript-practice`                                             | Checkout branch                           |
+| `pnpm install`                                                            | Install dependencies                      |
+| `pnpm start`                                                              | Starts local dev server at localhost:1234 |
