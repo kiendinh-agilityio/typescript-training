@@ -6,5 +6,16 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "rules": {
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "always-multiline"],
+    "space-before-function-paren": "off",
+    "no-new": "off",
+    "quotes": "off",
+    "no-undef": "off",
+    "no-extra-boolean-cast": "off",
+    "no-useless-catch": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }
