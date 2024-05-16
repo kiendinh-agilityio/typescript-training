@@ -10,7 +10,7 @@ import { validateUserAuthen, showFormErrors } from '@/validate';
 // Define interface for controller
 interface AuthControllerInterface {
   login(email: string, password: string): Promise<void>;
-  // register(email: string, password: string, confirmPassword: string): Promise<void>;
+  register(email: string, password: string, confirmPassword: string): Promise<void>;
 }
 
 /**
@@ -21,11 +21,11 @@ export class AuthView {
 
   // Define class properties
   formTitle!: HTMLElement;
-  // confirmPasswordGroup!: HTMLElement;
+  confirmPasswordGroup!: HTMLElement;
   actionSigninButton!: HTMLButtonElement;
-  // actionSignupButton!: HTMLButtonElement;
+  actionSignupButton!: HTMLButtonElement;
   btnSignIn!: HTMLButtonElement;
-  // btnSignUp!: HTMLButtonElement;
+  btnSignUp!: HTMLButtonElement;
   togglePasswordButtons!: NodeListOf<HTMLElement>;
 
   formAuth!: HTMLFormElement;
@@ -33,8 +33,8 @@ export class AuthView {
   passwordInput!: HTMLInputElement;
   emailError!: HTMLElement;
   passwordError!: HTMLElement;
-  // confirmPasswordInput!: HTMLInputElement;
-  // confirmPasswordError!: HTMLElement;
+  confirmPasswordInput!: HTMLInputElement;
+  confirmPasswordError!: HTMLElement;
 
   /**
    * Create an AuthView instance.
@@ -49,11 +49,11 @@ export class AuthView {
   /** Initialize DOM elements used in the view. */
   initElements(): void {
     this.formTitle = authSection.querySelector('#heading-auth')!;
-    // this.confirmPasswordGroup = authSection.querySelector('#confirm-password-group')!;
+    this.confirmPasswordGroup = authSection.querySelector('#confirm-password-group')!;
     this.actionSigninButton = authSection.querySelector('#btn-action-signin')!;
-    // this.actionSignupButton = authSection.querySelector('#btn-action-signup')!;
+    this.actionSignupButton = authSection.querySelector('#btn-action-signup')!;
     this.btnSignIn = authSection.querySelector('#btn-signin')!;
-    // this.btnSignUp = authSection.querySelector('#btn-signup')!;
+    this.btnSignUp = authSection.querySelector('#btn-signup')!;
     this.togglePasswordButtons = authSection.querySelectorAll('.toggle-password');
 
     this.formAuth = document.getElementById('form-auth') as HTMLFormElement;
@@ -61,8 +61,8 @@ export class AuthView {
     this.passwordInput = this.formAuth.querySelector('#password')!;
     this.emailError = this.formAuth.querySelector('#email-error')!;
     this.passwordError = this.formAuth.querySelector('#password-error')!;
-    // this.confirmPasswordInput = this.formAuth.querySelector('#confirm-password')!;
-    // this.confirmPasswordError = this.formAuth.querySelector('#confirmPassword-error')!;
+    this.confirmPasswordInput = this.formAuth.querySelector('#confirm-password')!;
+    this.confirmPasswordError = this.formAuth.querySelector('#confirmPassword-error')!;
   }
 
   /** Initialize event listeners for the view. */
@@ -71,7 +71,7 @@ export class AuthView {
     this.actionSigninButton.addEventListener('click', () => this.updateFormTitle(TITLE_AUTH_PAGE.LOGIN));
 
     // Set form title to 'Create New Account' when Create New Account button is clicked
-    // this.actionSignupButton.addEventListener('click', () => this.updateFormTitle(TITLE_AUTH_PAGE.REGISTER));
+    this.actionSignupButton.addEventListener('click', () => this.updateFormTitle(TITLE_AUTH_PAGE.REGISTER));
 
     // Add event listeners to toggle password visibility
     this.togglePasswordButtons.forEach((togglePasswordButton) => {
@@ -82,7 +82,7 @@ export class AuthView {
     this.btnSignIn.addEventListener('click', () => this.handleSignInClick());
 
     // Trigger handleSignUpClick method when Sign Up button is clicked
-    // this.btnSignUp.addEventListener('click', () => this.handleSignUpClick());
+    this.btnSignUp.addEventListener('click', () => this.handleSignUpClick());
 
     // Trigger handleLoginFormSubmit method when the form is submitted
     this.formAuth.addEventListener('submit', this.handleLoginFormSubmit.bind(this));
@@ -92,7 +92,7 @@ export class AuthView {
   clearError(): void {
     this.emailError.textContent = '';
     this.passwordError.textContent = '';
-    // this.confirmPasswordError.textContent = '';
+    this.confirmPasswordError.textContent = '';
   }
 
   /**
@@ -107,10 +107,10 @@ export class AuthView {
 
     // Show appropriate buttons based on form title
     this.btnSignIn.style.display = title === TITLE_AUTH_PAGE.LOGIN ? DISPLAY_CLASS.BLOCK : DISPLAY_CLASS.HIDDEN;
-    // this.btnSignUp.style.display = title === TITLE_AUTH_PAGE.REGISTER ? DISPLAY_CLASS.BLOCK : DISPLAY_CLASS.HIDDEN;
+    this.btnSignUp.style.display = title === TITLE_AUTH_PAGE.REGISTER ? DISPLAY_CLASS.BLOCK : DISPLAY_CLASS.HIDDEN;
     this.actionSigninButton.classList.toggle(DISPLAY_CLASS.ACTIVE, title === TITLE_AUTH_PAGE.LOGIN);
-    // this.actionSignupButton.classList.toggle(DISPLAY_CLASS.ACTIVE, title === TITLE_AUTH_PAGE.REGISTER);
-    // this.confirmPasswordGroup.classList.toggle(DISPLAY_CLASS.FLEX, title === TITLE_AUTH_PAGE.REGISTER);
+    this.actionSignupButton.classList.toggle(DISPLAY_CLASS.ACTIVE, title === TITLE_AUTH_PAGE.REGISTER);
+    this.confirmPasswordGroup.classList.toggle(DISPLAY_CLASS.FLEX, title === TITLE_AUTH_PAGE.REGISTER);
   }
 
   /** Handle Sign In button click. */
@@ -127,13 +127,13 @@ export class AuthView {
   }
 
   /** Handle Sign Up button click. */
-  // handleSignUpClick(): void {
-  //   const email = this.emailInput.value;
-  //   const password = this.passwordInput.value;
-  //   const confirmPassword = this.confirmPasswordInput.value;
+  handleSignUpClick(): void {
+    const email = this.emailInput.value;
+    const password = this.passwordInput.value;
+    const confirmPassword = this.confirmPasswordInput.value;
 
-  //   this.controller.register(email, password, confirmPassword);
-  // }
+    this.controller.register(email, password, confirmPassword);
+  }
 
   /**
    * Handle form submission.
@@ -144,14 +144,14 @@ export class AuthView {
 
     const email = this.emailInput.value;
     const password = this.passwordInput.value;
-    // const confirmPassword = this.confirmPasswordInput.value;
+    const confirmPassword = this.confirmPasswordInput.value;
 
     this.clearError();
 
     const user = {
       email,
       password,
-      // confirmPassword,
+      confirmPassword,
     };
     const errors = validateUserAuthen(user);
 
@@ -160,7 +160,7 @@ export class AuthView {
     } else {
       try {
         if (this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER) {
-          // await this.controller.register(email, password, confirmPassword);
+          await this.controller.register(email, password, confirmPassword);
         } else {
           await this.controller.login(email, password);
         }
