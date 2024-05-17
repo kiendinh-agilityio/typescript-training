@@ -11,3 +11,6 @@ export const LOGIN_MESSAGES = {
   UNSUCCESSFUL: 'Sign in unsuccessful',
   EMPTY: 'Please enter both email and password.',
 };
+
+// Error Fetching
+export const ERROR_FETCHING_DATA: string = "Error fetching user data";
