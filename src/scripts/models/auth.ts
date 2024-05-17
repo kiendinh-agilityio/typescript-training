@@ -6,6 +6,7 @@ import {
   ERROR_FETCHING_DATA,
   SIGNUP_MESSAGES,
   VALIDATE_MESSAGES,
+  ERROR_SAVING_DATA,
 } from '@/constants';
 
 /** Class representing the authentication model. */
@@ -93,11 +94,11 @@ export class AuthModel {
           return Promise.resolve();
         } else {
           // Error when saving user data
-          throw new Error('Error saving user data');
+          throw new Error(ERROR_SAVING_DATA);
         }
       } else {
         // Error when fetching user data
-        throw new Error('Error fetching user data');
+        throw new Error(ERROR_FETCHING_DATA);
       }
     } catch (error) {
       // Handle and display error in the view

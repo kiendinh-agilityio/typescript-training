@@ -14,7 +14,7 @@ export const LOGIN_MESSAGES = {
 };
 
 // Error Fetching
-export const ERROR_FETCHING_DATA: string = "Error fetching user data";
+export const ERROR_FETCHING_DATA: string = 'Error fetching user data';
 
 // Message Signup
 export const SIGNUP_MESSAGES = {
@@ -22,3 +22,6 @@ export const SIGNUP_MESSAGES = {
   EMAIL: 'Email already exists. Please use a different email.',
   EMPTY: 'Email, password, and confirm password are required.',
 };
+
+// Error Saving
+export const ERROR_SAVING_DATA: string = 'Error saving user data';
