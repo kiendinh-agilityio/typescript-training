@@ -1,5 +1,10 @@
+// Constanst
 import { LOGIN_MESSAGES } from '@/constants';
+
+// View: Import the AuthView component from the views directory
 import { AuthView } from '../views/auth';
+
+// Model: Import the AuthModel from the models directory
 import { AuthModel } from '../models/auth';
 
 export class AuthController {
