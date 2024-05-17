@@ -1,7 +1,9 @@
+// Constants
 import {
   BASE_API,
   LOGIN_MESSAGES,
   END_POINTS,
+  ERROR_FETCHING_DATA,
 } from '@/constants';
 
 /** Class representing the authentication model. */
@@ -30,7 +32,7 @@ export class AuthModel {
         }
       } else {
         // Error when fetching user data
-        throw new Error('Error fetching user data');
+        throw new Error(ERROR_FETCHING_DATA);
       }
     } catch (error) {
       // Handle API connection error and show error toast
