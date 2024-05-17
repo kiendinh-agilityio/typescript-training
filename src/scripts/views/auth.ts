@@ -1,18 +1,11 @@
-import {
-  DISPLAY_CLASS,
-  TITLE_AUTH_PAGE,
-  LOGIN_MESSAGES,
-  ICONS,
-} from '@/constants';
-import {
-  handleTogglePassword,
-  showToast,
-  authSection,
-} from '@/utils';
-import {
-  validateUserAuthen,
-  showFormErrors,
-} from '@/validate';
+// Constants
+import { DISPLAY_CLASS, TITLE_AUTH_PAGE, LOGIN_MESSAGES, ICONS } from '@/constants';
+
+// Utility functions
+import { handleTogglePassword, showToast, authSection } from '@/utils';
+
+// Validation functions
+import { validateUserAuthen, showFormErrors } from '@/validate';
 
 // Define interface for controller
 interface AuthControllerInterface {
