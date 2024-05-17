@@ -12,6 +12,4 @@ const updateErrorMessages = (errors: Errors): void => {
   });
 };
 
-export const showFormErrors = (errors: Errors): void => {
-  updateErrorMessages(errors);
-};
+export const showFormErrors = (errors: Errors): void => updateErrorMessages(errors);
