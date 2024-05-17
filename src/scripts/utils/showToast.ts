@@ -1,3 +1,6 @@
+// Constants
+import { DISPLAY_CLASS } from '@/constants';
+
 // Function to create toast container
 const createToastContainer = (message: string, icon: string, isSuccess: boolean): HTMLDivElement => {
   const toastContainer = document.createElement('div');
@@ -18,10 +21,10 @@ export const showToast = (message: string, icon: string, isSuccess: boolean): vo
   const toastContainer = createToastContainer(message, icon, isSuccess);
   document.body.appendChild(toastContainer);
 
-  toastContainer.style.display = 'flex';
+  toastContainer.style.display = DISPLAY_CLASS.FLEX;
 
   setTimeout(() => {
-    toastContainer.style.display = 'none';
+    toastContainer.style.display = DISPLAY_CLASS.FLEX;
     document.body.removeChild(toastContainer);
   }, 2000);
 };
