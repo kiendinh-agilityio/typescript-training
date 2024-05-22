@@ -4,6 +4,8 @@ import { httpServices } from '@/services';
 // Define the structure of advertisement data
 import { AdsData } from '@/interfaces';
 
+import { MESSAGES, ROLE_STATUS } from '@/constants';
+
 export class AdsModel {
   adsData: AdsData[];
   error: Error | null;
@@ -28,6 +30,22 @@ export class AdsModel {
       return response;
     } catch (error) {
       this.error = error;
+      throw error;
+    }
+  }
+
+  // Method to add a new advertisement
+  async addAds(adsItem: AdsData): Promise<void> {
+    try {
+      // Check the condition for statusID and update adsItem
+      const newAds: AdsData = {
+        ...adsItem,
+        statusID: adsItem.status.includes('Active') ? ROLE_STATUS.ACTIVE : ROLE_STATUS.PAUSED,
+      };
+      const response = await httpServices().post(newAds);
+      return response;
+    } catch (error) {
+      console.error(MESSAGES.ADD_ERROR);
       throw error;
     }
   }
