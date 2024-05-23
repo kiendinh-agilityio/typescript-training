@@ -1,6 +1,9 @@
+// Import the AdsData interface
 import { AdsData } from '@/interfaces';
 
+// Function to generate the HTML for a modal form for adding or editing ads
 export const generateModalAds = (item: AdsData, title?: string): string => {
+  // Destructure properties from the item object with default values
   const {
     id = '',
     network = '',
@@ -10,6 +13,7 @@ export const generateModalAds = (item: AdsData, title?: string): string => {
     status = '',
   } = item || {};
 
+  // Return the HTML string for the modal form
   return `
     <div class="modal-content">
       <div class="modal-header flex-row justify-between items-center">
