@@ -1,4 +1,4 @@
-import { BASE_API, END_POINTS, METHOD_API } from '@/constants';
+import { BASE_API, END_POINTS, API_METHODS, MESSAGES } from '@/constants';
 
 /**
  * A reusable function for making HTTP requests.
@@ -19,7 +19,7 @@ const sendRequest = async (url: string, method: string, data?: object): Promise<
 
     // Check if the response status is not okay (e.g., non-2xx status code)
     if (!response.ok) {
-      throw new Error('Request failed');
+      throw new Error(MESSAGES.REQUEST_FAILED);
     }
 
     // Parse and return the JSON response data
@@ -37,7 +37,7 @@ export const httpServices = () => {
      */
     async get(): Promise<any> {
       const url = `${BASE_API}${END_POINTS.ADS}`;
-      return sendRequest(url, METHOD_API.GET);
+      return sendRequest(url, API_METHODS.GET);
     },
 
     /**
@@ -47,7 +47,7 @@ export const httpServices = () => {
      */
     async post(data: object): Promise<any> {
       const url = `${BASE_API}${END_POINTS.ADS}`;
-      return sendRequest(url, METHOD_API.POST, data);
+      return sendRequest(url, API_METHODS.POST, data);
     },
 
     /**
@@ -58,7 +58,7 @@ export const httpServices = () => {
      */
     async put(id: number, data: object): Promise<any> {
       const url = `${BASE_API}${END_POINTS.ADS}${id}`;
-      return sendRequest(url, METHOD_API.PUT, data);
+      return sendRequest(url, API_METHODS.PUT, data);
     },
 
     /**
@@ -68,7 +68,7 @@ export const httpServices = () => {
      */
     async delete(id: number): Promise<any> {
       const url = `${BASE_API}${END_POINTS.ADS}${id}`;
-      return sendRequest(url, METHOD_API.DELETE);
+      return sendRequest(url, API_METHODS.DELETE);
     },
 
     /**
@@ -78,7 +78,7 @@ export const httpServices = () => {
      */
     async getDetail(id: number): Promise<any> {
       const url = `${BASE_API}${END_POINTS.ADS}/${id}`;
-      return sendRequest(url, METHOD_API.GET);
+      return sendRequest(url, API_METHODS.GET);
     },
   };
 };

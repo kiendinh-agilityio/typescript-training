@@ -38,7 +38,7 @@ export const SIDEBAR_TITLE = {
 };
 
 // Variables Method
-export const METHOD_API = {
+export const API_METHODS = {
   GET: 'GET',
   PUT: 'PUT',
   POST: 'POST',
