@@ -31,14 +31,14 @@ export const ERROR_SAVING_DATA: string = 'Error saving user data';
 
 // Message
 export const MESSAGES: { [key: string]: string } = {
-  REQUEST_FAILED: 'Request failed',
-  NO_RESULT: 'No results were found.',
+  REQUEST_FAILED: 'Request failed!',
+  NO_RESULT: 'No results were found!',
   DELETE_SUCCESS: 'You have deleted it successfully!',
-  DELETE_ERROR: 'Failed to delete ads with Id',
-  ADD_ERROR: 'Failed to add new ads',
+  DELETE_ERROR: 'Failed to delete ads with id!',
+  ADD_ERROR: 'Failed to add new ads!',
   ADD_SUCCESS: 'You have added it successfully!',
-  EDIT_ERROR: 'Failed to edit ads',
+  EDIT_ERROR: 'Failed to edit ads!',
   EDIT_SUCCESS: 'You have edited it successfully!',
-  GET_DETAIL_ID_ERROR: 'Failed to get detail id ads',
-  NO_CHANGES: 'No changes were made',
+  GET_DETAIL_ID_ERROR: 'Failed to get detail id ads!',
+  NO_CHANGES: 'No changes were made!',
 };
