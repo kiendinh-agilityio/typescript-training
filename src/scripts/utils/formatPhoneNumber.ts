@@ -1,16 +1,18 @@
-// Format Phone Number
-const formatPhoneNumber = (phoneNumber: string): string => {
-  if (phoneNumber.length >= 10) {
-    return `(${phoneNumber.slice(0, 3)})-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
-  }
+// Import constants regex
+import { REGEX } from '@/constants';
 
-  return phoneNumber;
-};
+// Function to format a phone number string
+const formatPhoneNumber = (phoneNumber: string): string => phoneNumber.length >= 10
+    ? `(${phoneNumber.slice(0, 3)})-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
+    : phoneNumber;
 
+// Function to format and limit phone number input
 export const formatLimitedPhoneNumberInput = (event: Event): void => {
   const inputElement = event.target as HTMLInputElement;
   const phoneNumber = inputElement.value;
-  const cleanPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+
+  // Remove any non-numeric characters from the input
+  const cleanPhoneNumber = phoneNumber.replace(REGEX.NON_NUMERIC, '');
 
   // Limit phone numbers to a maximum of 10 numbers
   if (cleanPhoneNumber.length > 10) {
