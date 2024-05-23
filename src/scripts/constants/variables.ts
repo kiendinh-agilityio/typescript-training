@@ -36,3 +36,11 @@ export const SIDEBAR_TITLE = {
   FAVOURITES: 'FAVOURITES',
   ACTIVE: 'ACTIVE',
 };
+
+// Variables Method
+export const METHOD_API = {
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
+};
