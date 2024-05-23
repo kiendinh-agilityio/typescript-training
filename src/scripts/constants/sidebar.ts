@@ -1,7 +1,7 @@
-interface SidebarItem {
+export interface SidebarItem {
   url?: string;
   alt?: string;
-  text?: string;
+  label?: string;
   active?: boolean;
 }
 
@@ -30,55 +30,55 @@ export const MAIN_SIDEBAR_ITEMS: SidebarItem[] = [
 
 export const SUB_SIDEBAR_ITEMS: SidebarItem[] = [
   {
-    text: 'FAVOURITES',
+    label: 'FAVOURITES',
   },
   {
     url: '/images/svg/favorite.svg',
     alt: 'Favorite icon',
-    text: 'Waterloo',
+    label: 'Waterloo',
   },
   {
     url: '/images/svg/favorite.svg',
     alt: 'Favorite icon',
-    text: 'Austerlitz',
+    label: 'Austerlitz',
     active: true,
   },
   {
-    text: 'ACTIVE',
+    label: 'ACTIVE',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Anais',
+    label: 'Anais',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Minimal apps',
+    label: 'Minimal apps',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Bentley',
+    label: 'Bentley',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Aston Martin',
+    label: 'Aston Martin',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Rolex',
+    label: 'Rolex',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Dugarry',
+    label: 'Dugarry',
   },
   {
     url: '/images/svg/loudspeaker.svg',
     alt: 'Loudspeaker icon',
-    text: 'Obama',
+    label: 'Obama',
   },
 ];
