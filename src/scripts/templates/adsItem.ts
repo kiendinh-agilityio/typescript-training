@@ -1,6 +1,9 @@
+// Import the AdsData interface
 import { AdsData } from '@/interfaces';
 
+// Function to generate the HTML for a single ad item
 export const adsItem = (item: AdsData): string => {
+  // Destructure properties from the item object
   const { id, network, link, email, phone, status, statusID } = item || {};
 
   return `
