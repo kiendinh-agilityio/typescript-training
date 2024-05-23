@@ -30,3 +30,9 @@ export const IMAGE_BASE_PATH = {
   EYE_KEY_PASSWORD: '/images/svg/eye-key-password.svg',
   EYE_PASSWORD: '/images/svg/eye-password.svg',
 };
+
+// Sidebar title
+export const SIDEBAR_TITLE = {
+  FAVOURITES: 'FAVOURITES',
+  ACTIVE: 'ACTIVE',
+};
