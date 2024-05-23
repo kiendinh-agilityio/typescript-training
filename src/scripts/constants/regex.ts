@@ -16,4 +16,7 @@ export const REGEX = {
 
   // Keyword
   KEYWORD: /\s/g,
+
+  // Format Phone
+  NON_NUMERIC: /[^0-9]/g,
 };
