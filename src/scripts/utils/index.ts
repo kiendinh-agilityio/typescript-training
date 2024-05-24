@@ -6,3 +6,4 @@ export * from './toggleDropdown';
 export * from './formatPhoneNumber';
 export * from './strimmingString';
 export * from './loadingSpinner';
+export * from './debounce';

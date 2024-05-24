@@ -1,5 +1,5 @@
-import { delayAction, showToast, stopLoadingSpinner } from '@/utils';
-import { MESSAGES, ICONS } from '@/constants';
+import { delayAction, showToast, stopLoadingSpinner, debounce } from '@/utils';
+import { MESSAGES, ICONS, DEBOUNCE_TIME, SPECIAL_KEYS, REGEX } from '@/constants';
 
 import { AdsModel } from '../models/home';
 import { AdsView } from '../views/home';
@@ -13,6 +13,7 @@ import { AdsData } from '@/interfaces';
 export class AdsController {
   model: AdsModel;
   view: AdsView;
+  private handleSearchDebounced: () => void;
 
   constructor(model: AdsModel, view: AdsView) {
     this.model = model;
@@ -21,6 +22,25 @@ export class AdsController {
 
     // Bind add handler to the view
     this.view.bindAddAds(this.handleAddAds.bind(this));
+
+    // Add event listeners for search and clear search buttons
+    this.view.searchButton.addEventListener('click', this.handleSearch.bind(this));
+    this.view.btnClearSearch.addEventListener('click', this.handleClearSearch.bind(this));
+
+    // Initialize debounced search handling
+    this.handleSearchDebounced = debounce(this.handleSearch.bind(this), DEBOUNCE_TIME);
+
+    // Add event listeners for real-time search
+    this.view.searchInput.addEventListener('input', () => {
+      this.handleSearchDebounced();
+    });
+
+    // Add event listener for pressing Enter key in the search input
+    this.view.searchInput.addEventListener('keypress', (event) => {
+      if (event.key === SPECIAL_KEYS.ENTER) {
+        this.handleSearch();
+      }
+    });
   }
 
   /**
@@ -67,5 +87,49 @@ export class AdsController {
   // Show the ads modal with the given adsData
   handleShowAdsModal(adsData: any): void {
     this.view.showAdsModal(adsData);
+  }
+
+  /**
+   * Handles the search action.
+   */
+  async handleSearch(): Promise<void> {
+    const keyword: string = this.view.searchInput.value.trim().toLowerCase();
+
+    // Check if a keyword is present and if ad data needs to be loaded
+    if (keyword && (!this.model.adsData.length || this.model.error)) {
+      await this.model.fetchAdsData();
+    }
+
+    // Remove spaces in the keyword
+    const formattedKeyword: string = keyword.replace(REGEX.KEYWORD, '');
+
+    // Filter the adsData based on the entered keyword in the search input.
+    const filteredAds = this.model.adsData.filter((adsItem) => {
+      const { network = '', link = '', email = '', phone = '' } = adsItem || {};
+
+      // Remove spaces and convert to lowercase
+      const formattedNetwork: string = network.replace(REGEX.KEYWORD, '').toLowerCase();
+
+      return (
+        formattedNetwork.includes(formattedKeyword) ||
+        email.includes(formattedKeyword) ||
+        phone.includes(formattedKeyword) ||
+        link.includes(formattedKeyword)
+      );
+    });
+
+    // Display matching ads if results are found
+    if (filteredAds.length) {
+      this.view.displayAdsList(filteredAds);
+    } else {
+      this.view.handleSearchNoResult();
+    }
+  }
+
+  /**
+   * Handles clearing the search input and displaying the initial data.
+   */
+  handleClearSearch(): void {
+    this.initialize();
   }
 }
