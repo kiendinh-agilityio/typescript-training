@@ -75,3 +75,8 @@ export const TITLE_MODAL: { [key: string]: string } = {
   ADD: 'Add Ads',
   EDIT: 'Edit Ads',
 };
+
+// Variables Key Event
+export const SPECIAL_KEYS: { [key: string]: string } = {
+  ENTER: 'Enter',
+};
