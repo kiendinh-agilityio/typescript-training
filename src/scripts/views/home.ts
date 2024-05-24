@@ -5,7 +5,7 @@ import { generateListAds } from '@/templates';
 import { AdsData } from '@/interfaces';
 
 // Import constants
-import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID } from '@/constants';
+import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID, MESSAGES } from '@/constants';
 
 // Import utils
 import {
@@ -13,6 +13,7 @@ import {
   toggleDropdown,
   formatLimitedPhoneNumberInput,
   strimmingString,
+  adsSearchElement,
 } from '@/utils';
 
 // Import validate form
@@ -25,6 +26,9 @@ export class AdsView {
   modalAds: HTMLElement;
   btnAdd: HTMLButtonElement;
   tableElement: HTMLElement;
+  searchButton: HTMLElement;
+  searchInput: HTMLInputElement;
+  btnClearSearch: HTMLElement;
   addAdsHandler: ((adsItem: AdsData) => void) | null;
   editAdsHandler: ((adsId: string, adsItem: AdsData) => void) | null;
   getDetailAdsHandler: ((adsId: number) => void) | null;
@@ -36,6 +40,7 @@ export class AdsView {
     this.addAdsHandler = null;
     this.editAdsHandler = null;
     this.getDetailAdsHandler = null;
+    this.initializeSearchInput();
   }
 
   /**
@@ -46,6 +51,9 @@ export class AdsView {
     this.modalAds = document.getElementById('modal')!;
     this.btnAdd = document.getElementById('btn-add') as HTMLButtonElement;
     this.tableElement = document.getElementById('list-ads')!;
+    this.searchButton = adsSearchElement.querySelector('#search-button')!;
+    this.searchInput = adsSearchElement.querySelector('#search-input') as HTMLInputElement;
+    this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search')!;
   }
 
   // Initialize event listeners for AdsView
@@ -61,6 +69,12 @@ export class AdsView {
     this.btnAdd.addEventListener('click', () => {
       this.showAdsModal(null);
     });
+
+    // Event listener for clear search button click
+    this.btnClearSearch.addEventListener(
+'click',
+      this.clearSearchHandler.bind(this),
+    );
   }
 
   /**
@@ -223,5 +237,28 @@ export class AdsView {
       const errorElement = this.modalAds.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
+  }
+
+  // Initialize the search input and its event listeners
+  initializeSearchInput(): void {
+    this.searchInput.addEventListener('input', () => {
+      const inputValue = this.searchInput.value.trim();
+      this.btnClearSearch.style.display = inputValue
+        ? DISPLAY_CLASS.FLEX
+        : DISPLAY_CLASS.HIDDEN;
+    });
+  }
+
+  // Handle the case when no search results are found
+  handleSearchNoResult(): void {
+    this.tableElement.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+  }
+
+  // Clear the search input
+  clearSearchHandler(adsData: AdsData[]): void {
+    this.searchInput.value = '';
+    this.btnClearSearch.style.display = DISPLAY_CLASS.HIDDEN;
+    // Call function to display ads list
+    this.displayAdsList(adsData);
   }
 }
