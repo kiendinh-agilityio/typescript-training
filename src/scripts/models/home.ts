@@ -49,4 +49,9 @@ export class AdsModel {
       throw error;
     }
   }
+
+  // Method to search advertisements by keyword
+  async searchAdsByKeyword(keyword: string): Promise<AdsData[]> {
+    return this.fetchAdsData(`?search=${keyword}`);
+  }
 }
