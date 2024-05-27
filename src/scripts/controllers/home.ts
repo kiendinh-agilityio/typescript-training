@@ -41,6 +41,9 @@ export class AdsController {
         this.handleSearch();
       }
     });
+
+    // Bind delete handler to the view
+    this.view.bindDeleteAds(this.handleDeleteAds.bind(this));
   }
 
   /**
@@ -131,5 +134,35 @@ export class AdsController {
    */
   handleClearSearch(): void {
     this.initialize();
+  }
+
+  /**
+   * Handles the user deletion.
+   * @param {number} adsId - The ID of the ad to be deleted.
+   */
+  async handleDeleteAds(adsId: number): Promise<void> {
+    // Introduce a delay before actually deleting the ad
+    delayAction(async () => {
+      // Delete the ad from the model
+      const response = await this.model.deleteAds(adsId);
+
+      // Filter out the deleted ad from the adsData list
+      const updatedAdsData = this.model.adsData.filter(
+        (ads) => ads.id !== adsId,
+      );
+
+      // Display the updated list of ads
+      this.view.displayAdsList(updatedAdsData);
+
+      // Return to the initial state
+      await this.initialize();
+
+      if (response) {
+        stopLoadingSpinner();
+      }
+
+      // Show a success notification
+      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
+    });
   }
 }
