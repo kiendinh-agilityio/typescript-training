@@ -15,6 +15,7 @@
     "quotes": "off",
     "no-undef": "off",
     "no-extra-boolean-cast": "off",
-    "no-useless-catch": "off"
+    "no-useless-catch": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
