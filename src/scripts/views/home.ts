@@ -5,7 +5,7 @@ import { generateListAds } from '@/templates';
 import { AdsData } from '@/interfaces';
 
 // Import constants
-import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID } from '@/constants';
+import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID, MESSAGES } from '@/constants';
 
 // Import utils
 import {
@@ -13,6 +13,7 @@ import {
   toggleDropdown,
   formatLimitedPhoneNumberInput,
   strimmingString,
+  adsSearchElement,
 } from '@/utils';
 
 // Import validate form
@@ -23,11 +24,21 @@ import { validateAdsForm, showFormErrors } from '@/validate';
 */
 export class AdsView {
   modalAds: HTMLElement;
-  btnAdd: HTMLButtonElement;
+  btnAdd: HTMLElement;
   tableElement: HTMLElement;
+  searchButton: HTMLElement;
+  searchInput: HTMLInputElement;
+  btnClearSearch: HTMLElement;
   addAdsHandler: ((adsItem: AdsData) => void) | null;
   editAdsHandler: ((adsId: string, adsItem: AdsData) => void) | null;
   getDetailAdsHandler: ((adsId: number) => void) | null;
+  deleteModal: HTMLElement;
+  confirmDeleteButton: HTMLElement;
+  cancelDeleteButton: HTMLElement;
+  closeDeleteModalButton: HTMLElement;
+  deleteHandler: ((adsId: number) => void) | null;
+  btnEdit: HTMLElement;
+  btnLogout: HTMLElement;
 
   // Constructor
   constructor() {
@@ -36,6 +47,8 @@ export class AdsView {
     this.addAdsHandler = null;
     this.editAdsHandler = null;
     this.getDetailAdsHandler = null;
+    this.initializeSearchInput();
+    this.deleteHandler = null;
   }
 
   /**
@@ -44,8 +57,17 @@ export class AdsView {
   initElementsAds(): void {
     // Retrieve DOM elements
     this.modalAds = document.getElementById('modal')!;
-    this.btnAdd = document.getElementById('btn-add') as HTMLButtonElement;
+    this.btnAdd = document.getElementById('btn-add')!;
     this.tableElement = document.getElementById('list-ads')!;
+    this.searchButton = adsSearchElement.querySelector('#search-button')!;
+    this.searchInput = adsSearchElement.querySelector('#search-input') as HTMLInputElement;
+    this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search')!;
+    this.deleteModal = document.getElementById('delete-modal')!;
+    this.confirmDeleteButton = this.deleteModal.querySelector('#confirm-delete')!;
+    this.cancelDeleteButton = this.deleteModal.querySelector('#cancel-delete')!;
+    this.closeDeleteModalButton = this.deleteModal.querySelector('#close-modal')!;
+    this.btnEdit = document.getElementById('btn-edit')!;
+    this.btnLogout = document.querySelector('.btn-logout')!;
   }
 
   // Initialize event listeners for AdsView
@@ -60,6 +82,59 @@ export class AdsView {
     // Event listener for button add click
     this.btnAdd.addEventListener('click', () => {
       this.showAdsModal(null);
+    });
+
+    // Event listener for clear search button click
+    this.btnClearSearch.addEventListener(
+'click',
+      this.clearSearchHandler.bind(this),
+    );
+
+    // Event listener for table element click
+    this.tableElement.addEventListener('click', async (event) => {
+      const editButton = (event.target as HTMLElement)?.closest('.dropdown-content button:first-child') as HTMLElement | null;
+      const deleteButton = (event.target as HTMLElement)?.closest('.dropdown-content button:last-child') as HTMLElement | null;
+
+      // Handle action click for edit and delete
+      const handleActionButtonClick = async (button: HTMLElement | null, action: (id: number) => void | Promise<void>) => {
+        if (button) {
+          const dataId = button.getAttribute('data-id');
+          if (dataId) await action(parseInt(dataId));
+        }
+      };
+
+      // Handle edit button click
+      if (editButton) await handleActionButtonClick(editButton, this.getDetailAdsHandler!);
+
+      // Handle delete button click
+      if (deleteButton) await handleActionButtonClick(deleteButton, (adsId: number) => {
+        this.showDeleteModal(adsId);
+        this.bindDeleteAdsHandler(adsId);
+      });
+    });
+
+    // Event listener for confirm delete button
+    this.confirmDeleteButton.addEventListener('click', () => {
+      const adsId = parseInt(this.confirmDeleteButton.getAttribute('data-id')!);
+      this.hideDeleteModal();
+      this.deleteHandler(adsId);
+    });
+
+    // Event listener for cancel delete button
+    this.cancelDeleteButton.addEventListener('click', () => {
+      this.hideDeleteModal();
+    });
+
+    // Event listener for close delete modal button
+    this.closeDeleteModalButton.addEventListener('click', () => {
+      this.hideDeleteModal();
+    });
+
+    // Event listener for click outside delete modal
+    this.deleteModal.addEventListener('click', (event) => {
+    if (event.target === this.deleteModal) {
+        this.hideDeleteModal();
+      }
     });
   }
 
@@ -223,5 +298,54 @@ export class AdsView {
       const errorElement = this.modalAds.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
+  }
+
+  // Initialize the search input and its event listeners
+  initializeSearchInput(): void {
+    this.searchInput.addEventListener('input', () => {
+      const inputValue = this.searchInput.value.trim();
+      this.btnClearSearch.style.display = inputValue
+        ? DISPLAY_CLASS.FLEX
+        : DISPLAY_CLASS.HIDDEN;
+    });
+  }
+
+  // Handle the case when no search results are found
+  handleSearchNoResult(): void {
+    this.tableElement.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+  }
+
+  // Clear the search input
+  clearSearchHandler(adsData: AdsData[]): void {
+    this.searchInput.value = '';
+    this.btnClearSearch.style.display = DISPLAY_CLASS.HIDDEN;
+    // Call function to display ads list
+    this.displayAdsList(adsData);
+  }
+
+  // Bind the delete ad handler to the confirmation modal buttons
+  bindDeleteAdsHandler(adsId: number): void {
+    this.confirmDeleteButton.setAttribute('data-id', adsId.toString());
+    this.showDeleteModal();
+  }
+
+  // Bind the delete ad handler to the table element
+  bindDeleteAds(handler: (adsId: number) => void): void {
+    this.deleteHandler = handler;
+  }
+
+  // Display the delete modal
+  showDeleteModal(): void {
+    this.deleteModal.style.display = DISPLAY_CLASS.FLEX;
+  }
+
+  // Hide the delete modal
+  hideDeleteModal(): void {
+    this.deleteModal.style.display = DISPLAY_CLASS.HIDDEN;
+  }
+
+  // Set a handler for the logout button
+  setLogoutHandler(handler: () => void): void {
+    this.btnLogout.addEventListener('click', handler);
   }
 }

@@ -20,7 +20,7 @@ const createToastContainer = (message: string, icon: string, isSuccess: boolean)
 };
 
 // Function to display toast
-export const showToast = (message: string, icon: string, isSuccess: boolean): void => {
+export const showToast = (message: string, icon: string, isSuccess = false): void => {
   const toastContainer = createToastContainer(message, icon, isSuccess);
   document.body.appendChild(toastContainer);
 
