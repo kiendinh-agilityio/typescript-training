@@ -1,7 +1,9 @@
+// Define an interface for errors
 interface Errors {
   [key: string]: string | undefined;
 }
 
+// Function to update error messages on the form
 const updateErrorMessages = (errors: Errors): void => {
   Object.entries(errors).forEach(([key, value]) => {
     const target = document.getElementById(`${key}-error`);
@@ -12,4 +14,5 @@ const updateErrorMessages = (errors: Errors): void => {
   });
 };
 
+// Function to show form errors by updating error messages
 export const showFormErrors = (errors: Errors): void => updateErrorMessages(errors);
