@@ -24,7 +24,7 @@ import { validateAdsForm, showFormErrors } from '@/validate';
 */
 export class AdsView {
   modalAds: HTMLElement;
-  btnAdd: HTMLButtonElement;
+  btnAdd: HTMLElement;
   tableElement: HTMLElement;
   searchButton: HTMLElement;
   searchInput: HTMLInputElement;
@@ -37,6 +37,8 @@ export class AdsView {
   cancelDeleteButton: HTMLElement;
   closeDeleteModalButton: HTMLElement;
   deleteHandler: ((adsId: number) => void) | null;
+  btnEdit: HTMLElement;
+  btnLogout: HTMLElement;
 
   // Constructor
   constructor() {
@@ -55,7 +57,7 @@ export class AdsView {
   initElementsAds(): void {
     // Retrieve DOM elements
     this.modalAds = document.getElementById('modal')!;
-    this.btnAdd = document.getElementById('btn-add') as HTMLButtonElement;
+    this.btnAdd = document.getElementById('btn-add')!;
     this.tableElement = document.getElementById('list-ads')!;
     this.searchButton = adsSearchElement.querySelector('#search-button')!;
     this.searchInput = adsSearchElement.querySelector('#search-input') as HTMLInputElement;
@@ -64,6 +66,8 @@ export class AdsView {
     this.confirmDeleteButton = this.deleteModal.querySelector('#confirm-delete')!;
     this.cancelDeleteButton = this.deleteModal.querySelector('#cancel-delete')!;
     this.closeDeleteModalButton = this.deleteModal.querySelector('#close-modal')!;
+    this.btnEdit = document.getElementById('btn-edit')!;
+    this.btnLogout = document.querySelector('.btn-logout')!;
   }
 
   // Initialize event listeners for AdsView
@@ -338,5 +342,10 @@ export class AdsView {
   // Hide the delete modal
   hideDeleteModal(): void {
     this.deleteModal.style.display = DISPLAY_CLASS.HIDDEN;
+  }
+
+  // Set a handler for the logout button
+  setLogoutHandler(handler: () => void): void {
+    this.btnLogout.addEventListener('click', handler);
   }
 }
