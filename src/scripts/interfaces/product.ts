@@ -7,3 +7,11 @@ export interface AdsData {
   status: string;
   statusID: string;
 }
+
+export interface ConfigValidateAds {
+  email?: string;
+  phone?: string;
+  status?: string;
+  network?: string;
+  link?: string;
+}

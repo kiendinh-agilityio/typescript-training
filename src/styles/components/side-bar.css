@@ -95,6 +95,7 @@
   .sidebar {
     display: flex;
     position: relative;
+    z-index: var(--z-index-sm);
   }
 
   .main-sidebar {
