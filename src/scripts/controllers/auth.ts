@@ -1,5 +1,5 @@
 // Constanst
-import { LOGIN_MESSAGES } from '@/constants';
+import { LOGIN_MESSAGES, SIGNUP_MESSAGES } from '@/constants';
 
 // View: Import the AuthView component from the views directory
 import { AuthView } from '../views/auth';
@@ -32,6 +32,24 @@ export class AuthController {
       window.location.href = '/';
     } catch (error) {
       // Show error message if login fails
+      this.view.showErrorToast(error.message);
+    }
+  }
+
+  /**
+   * Attempt to register a new user.
+   * @param {string} email - The user's email.
+   * @param {string} password - The user's password.
+   * @param {string} confirmPassword - The user's password confirmation.
+   */
+  async register(email: string, password: string, confirmPassword: string): Promise<void> {
+    try {
+      // Attempt registration using AuthenModel
+      await this.model.register(email, password, confirmPassword);
+      // Show success message if registration is successful
+      this.view.showSuccessToast(SIGNUP_MESSAGES.SUCCESS);
+    } catch (error) {
+      // Show error message if registration fails
       this.view.showErrorToast(error.message);
     }
   }
