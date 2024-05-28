@@ -27,7 +27,7 @@ export const SIGNUP_MESSAGES = {
 };
 
 // Error Saving
-export const ERROR_SAVING_DATA: string = 'Error saving user data';
+export const ERROR_SAVING_DATA = 'Error saving user data';
 
 // Message
 export const MESSAGES: { [key: string]: string } = {

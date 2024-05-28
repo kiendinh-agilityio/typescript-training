@@ -1,4 +1,7 @@
+// Import utils
 import { delayAction, showToast, stopLoadingSpinner, debounce } from '@/utils';
+
+// Import constants
 import { MESSAGES, ICONS, DEBOUNCE_TIME, SPECIAL_KEYS, REGEX } from '@/constants';
 
 import { AdsModel } from '../models/home';
@@ -44,6 +47,15 @@ export class AdsController {
 
     // Bind delete handler to the view
     this.view.bindDeleteAds(this.handleDeleteAds.bind(this));
+
+    // Bind edit handler to the view
+    this.view.bindEditAds(this.handleEditAds.bind(this));
+
+    // Add event edit
+    this.view.bindGetDetailAds(this.handleGetDetailAds.bind(this));
+
+    // Set logout handler for the view
+    this.view.setLogoutHandler(this.handleLogout.bind(this));
   }
 
   /**
@@ -164,5 +176,55 @@ export class AdsController {
       // Show a success notification
       showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
     });
+  }
+
+  /**
+   * Handles the asynchronous editing of existing ads.
+   * @param {number} adsId - The ID of the ad to be edited.
+   * @param {object} updatedAdsItem - The updated data of the ad.
+   */
+  async handleEditAds(adsId: number, updatedAdsItem: AdsData): Promise<void> {
+    // Introduce a delay before actually editing the ad
+    delayAction(async () => {
+      // Edit the ad in the model
+      const response = await this.model.editAds(adsId, updatedAdsItem);
+
+      // Find the edited ad in the adsData array
+      const editedAd = this.model.adsData.find((ads) => ads.id === adsId) || null;
+
+      // Update the edited ad with the response data
+      editedAd && Object.assign(editedAd, response);
+
+      // Display the updated list of ads
+      this.view.displayAdsList(this.model.adsData);
+
+      // Return to the initial state
+      await this.initialize();
+
+      // Directly stop loading spinner after response is received
+      stopLoadingSpinner();
+
+      // Show a success notification
+      showToast(MESSAGES.EDIT_SUCCESS, ICONS.SUCCESS, true);
+    });
+  }
+
+  /**
+   * Asynchronously handles the retrieval of detailed information for a specific advertisement.
+   * @param {string} adsId - The unique identifier of the advertisement.
+   */
+  async handleGetDetailAds(adsId: number): Promise<void> {
+    // Await the retrieval of detailed advertisement information using the provided adsId.
+    await this.model.getAdsDetail(adsId);
+
+    // Display the advertisement modal with the retrieved details from the model.
+    this.view.showAdsModal(this.model.adsDetail);
+  }
+
+  /**
+   * Handles the logout action by redirecting to 'authen.html'.
+   */
+  handleLogout(): void {
+    window.location.href = 'auth';
   }
 }
