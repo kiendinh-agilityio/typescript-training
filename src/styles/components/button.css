@@ -23,7 +23,7 @@
 .btn-action-signin {
   width: 100%;
   padding: 16px;
-  color: var(--color-light);
+  color: var(--color-btn-group-text);
   font-size: var(--font-size-lg);
   background-color: transparent;
   border-radius: var(--rounded-sm);
@@ -68,6 +68,12 @@
 
 .btn:focus-visible {
   outline: auto;
+}
+
+.btn-disabled {
+  background-color: var(--color-bg-disable);
+  color: var(--color-text-disable);
+  border-color: var(--color-border-disable);
 }
 
 @media (min-width: 992px) {
