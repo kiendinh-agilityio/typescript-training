@@ -46,10 +46,10 @@ export const API_METHODS = {
 };
 
 // Debounce time
-export const DEBOUNCE_TIME: number = 500;
+export const DEBOUNCE_TIME = 500;
 
 // Variables profile user
-export const PROFILE_ADS: { [key: string]: string } = {
+export const PROFILE_ADS = {
   NETWORK: '#network',
   LINK: '#link',
   EMAIL: '#email',
@@ -58,7 +58,7 @@ export const PROFILE_ADS: { [key: string]: string } = {
 };
 
 // Variables get ID
-export const ELEMENT_ID: { [key: string]: string } = {
+export const ELEMENT_ID = {
   BTN_SUBMIT: '#add-ads-submit',
   BTN_CANCEL: '#add-ads-cancel',
   FORM_ADS: '#ads-form',
@@ -66,18 +66,18 @@ export const ELEMENT_ID: { [key: string]: string } = {
 };
 
 // Variables for Role Type
-export const ROLE_STATUS: { [key: string]: string } = {
+export const ROLE_STATUS = {
   ACTIVE: 'active',
   PAUSED: 'paused',
 };
 
-export const TITLE_MODAL: { [key: string]: string } = {
+export const TITLE_MODAL = {
   ADD: 'Add Ads',
   EDIT: 'Edit Ads',
 };
 
 // Variables Key Event
-export const SPECIAL_KEYS: { [key: string]: string } = {
+export const SPECIAL_KEYS = {
   ENTER: 'Enter',
 };
 
