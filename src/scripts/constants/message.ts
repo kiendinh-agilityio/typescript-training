@@ -1,5 +1,5 @@
 // Message
-export const VALIDATE_MESSAGES: { [key: string]: string } = {
+export const VALIDATE_MESSAGES = {
   REQUIRED_ERROR: '{field} is required',
   INVALID_EMAIL: 'Invalid email. Please enter a valid email address',
   INVALID_PASSWORD: 'Invalid password. Password must have at least 8 characters',
@@ -17,7 +17,7 @@ export const LOGIN_MESSAGES = {
 };
 
 // Error Fetching
-export const ERROR_FETCHING_DATA: string = 'Error fetching user data';
+export const ERROR_FETCHING_DATA = 'Error fetching user data';
 
 // Message Signup
 export const SIGNUP_MESSAGES = {
@@ -30,7 +30,7 @@ export const SIGNUP_MESSAGES = {
 export const ERROR_SAVING_DATA = 'Error saving user data';
 
 // Message
-export const MESSAGES: { [key: string]: string } = {
+export const MESSAGES = {
   REQUEST_FAILED: 'Request failed!',
   NO_RESULT: 'No results were found!',
   DELETE_SUCCESS: 'You have deleted it successfully!',
