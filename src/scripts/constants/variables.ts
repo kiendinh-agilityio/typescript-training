@@ -80,3 +80,8 @@ export const TITLE_MODAL: { [key: string]: string } = {
 export const SPECIAL_KEYS: { [key: string]: string } = {
   ENTER: 'Enter',
 };
+
+// Variables class
+export const CLASS = {
+  BUTTON_DISABLE: 'btn-disabled',
+};
