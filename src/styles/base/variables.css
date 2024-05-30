@@ -26,6 +26,11 @@
   --color-btn-confirm-cancel: #e2e8f0;
   --color-btn-add: #aeaeb3;
   --color-box-sadow: rgba(0, 0, 0, 0.04);
+  --color-btn-group: #f7f7fa;
+  --color-btn-group-text: #696a72;
+  --color-bg-disable: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+  --color-text-disable: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+  --color-border-disable: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
 
   /* font family */
   --font-primary: Abel, san-serif;

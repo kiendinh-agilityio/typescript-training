@@ -5,7 +5,7 @@ import { generateListAds } from '@/templates';
 import { AdsData } from '@/interfaces';
 
 // Import constants
-import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID, MESSAGES } from '@/constants';
+import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID, MESSAGES, CLASS } from '@/constants';
 
 // Import utils
 import {
@@ -176,7 +176,10 @@ export class AdsView {
         changesMade = true;
 
         // Enable the submit button when changes are made and the modal is "Edit Ads"
-        title === TITLE_MODAL.EDIT && submitBtn.removeAttribute(DISPLAY_CLASS.DISABLED);
+        if (title === TITLE_MODAL.EDIT) {
+          submitBtn.removeAttribute(DISPLAY_CLASS.DISABLED);
+          submitBtn.classList.remove(CLASS.BUTTON_DISABLE);
+        }
       });
     });
 
@@ -211,7 +214,10 @@ export class AdsView {
       }
     });
 
-    title === TITLE_MODAL.EDIT && submitBtn.setAttribute(DISPLAY_CLASS.DISABLED, DISPLAY_CLASS.DISABLED);
+    if (title === TITLE_MODAL.EDIT) {
+      submitBtn.setAttribute(DISPLAY_CLASS.DISABLED, DISPLAY_CLASS.DISABLED);
+      submitBtn.classList.add(CLASS.BUTTON_DISABLE);
+    }
   }
 
   /**
