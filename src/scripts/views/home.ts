@@ -59,7 +59,7 @@ export class AdsView {
     this.btnAdd = document.getElementById('btn-add')!;
     this.tableElement = document.getElementById('list-ads')!;
     this.searchButton = adsSearchElement.querySelector('#search-button')!;
-    this.searchInput = adsSearchElement.querySelector('#search-input') as HTMLInputElement;
+    this.searchInput = adsSearchElement.querySelector('#search-input')!;
     this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search')!;
     this.deleteModal = document.getElementById('delete-modal')!;
     this.confirmDeleteButton = this.deleteModal.querySelector('#confirm-delete')!;

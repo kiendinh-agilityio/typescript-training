@@ -25,7 +25,7 @@ export class AuthView {
   btnSignUp!: HTMLButtonElement;
   togglePasswordButtons!: NodeListOf<HTMLElement>;
 
-  formAuth!: HTMLFormElement;
+  formAuth!: HTMLElement;
   emailInput!: HTMLInputElement;
   passwordInput!: HTMLInputElement;
   emailError!: HTMLElement;
@@ -51,9 +51,9 @@ export class AuthView {
     this.actionSignupButton = authSection.querySelector('#btn-action-signup')!;
     this.btnSignIn = authSection.querySelector('#btn-signin')!;
     this.btnSignUp = authSection.querySelector('#btn-signup')!;
-    this.togglePasswordButtons = authSection.querySelectorAll('.toggle-password');
+    this.togglePasswordButtons = authSection.querySelectorAll('.toggle-password')!;
 
-    this.formAuth = document.getElementById('form-auth') as HTMLFormElement;
+    this.formAuth = document.getElementById('form-auth')!;
     this.emailInput = this.formAuth.querySelector('#email')!;
     this.passwordInput = this.formAuth.querySelector('#password')!;
     this.emailError = this.formAuth.querySelector('#email-error')!;
