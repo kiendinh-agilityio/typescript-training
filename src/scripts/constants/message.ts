@@ -1,11 +1,12 @@
 // Message
 export const VALIDATE_MESSAGES = {
   REQUIRED_ERROR: '{field} is required',
-  INVALID_EMAIL: 'Invalid email. Please enter a valid email address',
-  INVALID_PASSWORD: 'Invalid password. Password must have at least 8 characters',
+  INVALID_EMAIL: 'Please enter a valid email address',
+  INVALID_PASSWORD: 'Please enter a valid password. Example: Xyz@1234',
   INVALID_CONFIRM_PASSWORD: 'Password and Confirm Password do not match.',
-  INVALID_NETWORK: 'Please enter a minimum of 4 and a maximum of 20 characters for the network',
-  INVALID_PHONE: 'Invalid phone number. Please enter a valid phone number. Example: (205)-205-5555',
+  INVALID_NETWORK:
+    'Please enter a minimum of 4 and a maximum of 20 characters for the network',
+  INVALID_PHONE: 'Please enter a valid phone number. Example: (205)-205-5555',
   INVALID_LINK: 'Please enter a valid link.',
 };
 
