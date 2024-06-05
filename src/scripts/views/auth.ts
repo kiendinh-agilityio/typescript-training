@@ -17,21 +17,21 @@ export class AuthView {
   controller: AuthControllerInterface;
 
   // Define class properties
-  formTitle!: HTMLElement;
-  confirmPasswordGroup!: HTMLElement;
-  actionSigninButton!: HTMLButtonElement;
-  actionSignupButton!: HTMLButtonElement;
-  btnSignIn!: HTMLButtonElement;
-  btnSignUp!: HTMLButtonElement;
-  togglePasswordButtons!: NodeListOf<HTMLElement>;
+  formTitle: HTMLElement;
+  confirmPasswordGroup: HTMLElement;
+  actionSigninButton: HTMLButtonElement;
+  actionSignupButton: HTMLButtonElement;
+  btnSignIn: HTMLButtonElement;
+  btnSignUp: HTMLButtonElement;
+  togglePasswordButtons: NodeListOf<HTMLElement>;
 
-  formAuth!: HTMLElement;
-  emailInput!: HTMLInputElement;
-  passwordInput!: HTMLInputElement;
-  emailError!: HTMLElement;
-  passwordError!: HTMLElement;
-  confirmPasswordInput!: HTMLInputElement;
-  confirmPasswordError!: HTMLElement;
+  formAuth: HTMLElement;
+  emailInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+  emailError: HTMLElement;
+  passwordError: HTMLElement;
+  confirmPasswordInput: HTMLInputElement;
+  confirmPasswordError: HTMLElement;
 
   /**
    * Create an AuthView instance.
@@ -45,21 +45,21 @@ export class AuthView {
 
   /** Initialize DOM elements used in the view. */
   initElements(): void {
-    this.formTitle = authSection.querySelector('#heading-auth')!;
-    this.confirmPasswordGroup = authSection.querySelector('#confirm-password-group')!;
-    this.actionSigninButton = authSection.querySelector('#btn-action-signin')!;
-    this.actionSignupButton = authSection.querySelector('#btn-action-signup')!;
-    this.btnSignIn = authSection.querySelector('#btn-signin')!;
-    this.btnSignUp = authSection.querySelector('#btn-signup')!;
-    this.togglePasswordButtons = authSection.querySelectorAll('.toggle-password')!;
+    this.formTitle = authSection.querySelector('#heading-auth');
+    this.confirmPasswordGroup = authSection.querySelector('#confirm-password-group');
+    this.actionSigninButton = authSection.querySelector('#btn-action-signin');
+    this.actionSignupButton = authSection.querySelector('#btn-action-signup');
+    this.btnSignIn = authSection.querySelector('#btn-signin');
+    this.btnSignUp = authSection.querySelector('#btn-signup');
+    this.togglePasswordButtons = authSection.querySelectorAll('.toggle-password');
 
-    this.formAuth = document.getElementById('form-auth')!;
-    this.emailInput = this.formAuth.querySelector('#email')!;
-    this.passwordInput = this.formAuth.querySelector('#password')!;
-    this.emailError = this.formAuth.querySelector('#email-error')!;
-    this.passwordError = this.formAuth.querySelector('#password-error')!;
-    this.confirmPasswordInput = this.formAuth.querySelector('#confirm-password')!;
-    this.confirmPasswordError = this.formAuth.querySelector('#confirmPassword-error')!;
+    this.formAuth = document.getElementById('form-auth');
+    this.emailInput = this.formAuth.querySelector('#email');
+    this.passwordInput = this.formAuth.querySelector('#password');
+    this.emailError = this.formAuth.querySelector('#email-error');
+    this.passwordError = this.formAuth.querySelector('#password-error');
+    this.confirmPasswordInput = this.formAuth.querySelector('#confirm-password');
+    this.confirmPasswordError = this.formAuth.querySelector('#confirmPassword-error');
   }
 
   /** Initialize event listeners for the view. */

@@ -55,18 +55,18 @@ export class AdsView {
   */
   initElementsAds(): void {
     // Retrieve DOM elements
-    this.modalAds = document.getElementById('modal')!;
-    this.btnAdd = document.getElementById('btn-add')!;
-    this.tableElement = document.getElementById('list-ads')!;
-    this.searchButton = adsSearchElement.querySelector('#search-button')!;
-    this.searchInput = adsSearchElement.querySelector('#search-input')!;
-    this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search')!;
-    this.deleteModal = document.getElementById('delete-modal')!;
-    this.confirmDeleteButton = this.deleteModal.querySelector('#confirm-delete')!;
-    this.cancelDeleteButton = this.deleteModal.querySelector('#cancel-delete')!;
-    this.closeDeleteModalButton = this.deleteModal.querySelector('#close-modal')!;
-    this.btnEdit = document.getElementById('btn-edit')!;
-    this.btnLogout = document.querySelector('.btn-logout')!;
+    this.modalAds = document.getElementById('modal');
+    this.btnAdd = document.getElementById('btn-add');
+    this.tableElement = document.getElementById('list-ads');
+    this.searchButton = adsSearchElement.querySelector('#search-button');
+    this.searchInput = adsSearchElement.querySelector('#search-input');
+    this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search');
+    this.deleteModal = document.getElementById('delete-modal');
+    this.confirmDeleteButton = this.deleteModal.querySelector('#confirm-delete');
+    this.cancelDeleteButton = this.deleteModal.querySelector('#cancel-delete');
+    this.closeDeleteModalButton = this.deleteModal.querySelector('#close-modal');
+    this.btnEdit = document.getElementById('btn-edit');
+    this.btnLogout = document.querySelector('.btn-logout');
   }
 
   // Initialize event listeners for AdsView
