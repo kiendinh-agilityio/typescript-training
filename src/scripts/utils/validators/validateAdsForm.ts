@@ -5,7 +5,7 @@ import {
   validateNetworkField,
   validatePhoneField,
   validateStatusField,
-} from '@/validate';
+} from '@/utils';
 
 // Import interfaces
 import { AdsData, ConfigValidateAds } from '@/interfaces';

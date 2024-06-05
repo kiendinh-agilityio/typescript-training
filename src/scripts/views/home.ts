@@ -14,10 +14,9 @@ import {
   formatLimitedPhoneNumberInput,
   strimmingString,
   adsSearchElement,
+  validateAdsForm,
+  showFormErrors,
 } from '@/utils';
-
-// Import validate form
-import { validateAdsForm, showFormErrors } from '@/validate';
 
 /*
  * AdsView class definition

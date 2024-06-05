@@ -2,10 +2,7 @@
 import { DISPLAY_CLASS, TITLE_AUTH_PAGE, LOGIN_MESSAGES, ICONS } from '@/constants';
 
 // Utility functions
-import { handleTogglePassword, showToast, authSection } from '@/utils';
-
-// Validation functions
-import { validateUserAuthen, showFormErrors } from '@/validate';
+import { handleTogglePassword, showToast, authSection, validateUserAuthen, showFormErrors } from '@/utils';
 
 // Define interface for controller
 interface AuthControllerInterface {

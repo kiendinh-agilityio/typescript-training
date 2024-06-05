@@ -1,5 +1,5 @@
 // Import validation functions for email, password, and confirm password fields
-import { validateEmailField, validatePasswordField, validateConfirmPasswordField } from '@/validate';
+import { validateEmailField, validatePasswordField, validateConfirmPasswordField } from '@/utils';
 
 // Define interface for user
 interface User {
