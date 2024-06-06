@@ -16,14 +16,14 @@ import {
   adsSearchElement,
   validateAdsForm,
   showFormErrors,
-  adsSection,
+  deleteModal,
+  modalAds,
 } from '@/utils';
 
 /*
  * AdsView class definition
 */
 export class AdsView {
-  modalAds: HTMLElement;
   btnAdd: HTMLElement;
   tableElement: HTMLElement;
   searchButton: HTMLElement;
@@ -32,7 +32,6 @@ export class AdsView {
   addAdsHandler: ((adsItem: AdsData) => void) | null;
   editAdsHandler: ((adsId: string, adsItem: AdsData) => void) | null;
   getDetailAdsHandler: ((adsId: number) => void) | null;
-  deleteModal: HTMLElement;
   confirmDeleteButton: HTMLElement;
   cancelDeleteButton: HTMLElement;
   closeDeleteModalButton: HTMLElement;
@@ -55,24 +54,23 @@ export class AdsView {
   */
   initElementsAds(): void {
     // Retrieve DOM elements
-    this.modalAds = adsSection.querySelector('#modal');
     this.btnAdd = document.getElementById('btn-add');
     this.tableElement = document.getElementById('list-ads');
     this.searchButton = adsSearchElement.querySelector('#search-button');
     this.searchInput = adsSearchElement.querySelector('#search-input');
     this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search');
-    this.deleteModal = adsSection.querySelector('#delete-modal');
-    this.confirmDeleteButton = this.deleteModal.querySelector('#confirm-delete');
-    this.cancelDeleteButton = this.deleteModal.querySelector('#cancel-delete');
-    this.closeDeleteModalButton = this.deleteModal.querySelector('#close-modal');
+    this.confirmDeleteButton = deleteModal.querySelector('#confirm-delete');
     this.btnLogout = document.querySelector('.btn-logout');
   }
 
   // Initialize event listeners for AdsView
   initEventListenersAds(): void {
+    this.cancelDeleteButton = deleteModal.querySelector('#cancel-delete');
+    this.closeDeleteModalButton = deleteModal.querySelector('#close-modal');
+
     // Event listener for modal click
-    this.modalAds.addEventListener('click', (event) => {
-      if (event.target === this.modalAds) {
+    modalAds.addEventListener('click', (event) => {
+      if (event.target === modalAds) {
         this.closeModalHandler();
       }
     });
@@ -129,8 +127,8 @@ export class AdsView {
     });
 
     // Event listener for click outside delete modal
-    this.deleteModal.addEventListener('click', (event) => {
-    if (event.target === this.deleteModal) {
+    deleteModal.addEventListener('click', (event) => {
+    if (event.target === deleteModal) {
         this.hideDeleteModal();
       }
     });
@@ -147,14 +145,14 @@ export class AdsView {
     const modalContent = generateModalAds(adsData, title);
 
      // Set the modal's HTML content and display it
-    this.modalAds.innerHTML = modalContent;
-    this.modalAds.style.display = DISPLAY_CLASS.FLEX;
+    modalAds.innerHTML = modalContent;
+    modalAds.style.display = DISPLAY_CLASS.FLEX;
 
     // Get references to the close button, cancel button, submit button, and the ads form
-    const closeBtn = this.modalAds.querySelector(ELEMENT_ID.CLOSE_MODAL_ADS)! as HTMLElement;
-    const cancelBtn = this.modalAds.querySelector(ELEMENT_ID.BTN_CANCEL)! as HTMLElement;
-    const submitBtn = this.modalAds.querySelector(ELEMENT_ID.BTN_SUBMIT)! as HTMLElement;
-    const formAds = this.modalAds.querySelector(ELEMENT_ID.FORM_ADS)! as HTMLElement;
+    const closeBtn = modalAds.querySelector(ELEMENT_ID.CLOSE_MODAL_ADS)! as HTMLElement;
+    const cancelBtn = modalAds.querySelector(ELEMENT_ID.BTN_CANCEL)! as HTMLElement;
+    const submitBtn = modalAds.querySelector(ELEMENT_ID.BTN_SUBMIT)! as HTMLElement;
+    const formAds = modalAds.querySelector(ELEMENT_ID.FORM_ADS)! as HTMLElement;
 
     // Add event listeners for close button and cancel button clicks
     closeBtn.addEventListener('click', this.closeModalHandler.bind(this));
@@ -168,7 +166,7 @@ export class AdsView {
     let changesMade = false;
 
     // Add event listeners for input changes to set the changesMade flag
-    const formInputs = this.modalAds.querySelectorAll('input, select');
+    const formInputs = modalAds.querySelectorAll('input, select');
     formInputs.forEach(input => {
       input.addEventListener('input', () => {
         changesMade = true;
@@ -241,7 +239,7 @@ export class AdsView {
 
   // Close the modal
   closeModalHandler(): void {
-    this.modalAds.style.display = DISPLAY_CLASS.HIDDEN;
+    modalAds.style.display = DISPLAY_CLASS.HIDDEN;
   }
 
   /**
@@ -299,7 +297,7 @@ export class AdsView {
     const errorFields = ['network', 'link', 'email', 'phone', 'status'];
 
     errorFields.forEach((field) => {
-      const errorElement = this.modalAds.querySelector(`#${field}-error`)!;
+      const errorElement = modalAds.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
   }
@@ -340,12 +338,12 @@ export class AdsView {
 
   // Display the delete modal
   showDeleteModal(): void {
-    this.deleteModal.style.display = DISPLAY_CLASS.FLEX;
+    deleteModal.style.display = DISPLAY_CLASS.FLEX;
   }
 
   // Hide the delete modal
   hideDeleteModal(): void {
-    this.deleteModal.style.display = DISPLAY_CLASS.HIDDEN;
+    deleteModal.style.display = DISPLAY_CLASS.HIDDEN;
   }
 
   // Set a handler for the logout button
