@@ -149,10 +149,10 @@ export class AdsView {
     modalAds.style.display = DISPLAY_CLASS.FLEX;
 
     // Get references to the close button, cancel button, submit button, and the ads form
-    const closeBtn = modalAds.querySelector(ELEMENT_ID.CLOSE_MODAL_ADS)! as HTMLElement;
-    const cancelBtn = modalAds.querySelector(ELEMENT_ID.BTN_CANCEL)! as HTMLElement;
-    const submitBtn = modalAds.querySelector(ELEMENT_ID.BTN_SUBMIT)! as HTMLElement;
-    const formAds = modalAds.querySelector(ELEMENT_ID.FORM_ADS)! as HTMLElement;
+    const closeBtn = modalAds.querySelector(ELEMENT_ID.CLOSE_MODAL_ADS) as HTMLElement;
+    const cancelBtn = modalAds.querySelector(ELEMENT_ID.BTN_CANCEL) as HTMLElement;
+    const submitBtn = modalAds.querySelector(ELEMENT_ID.BTN_SUBMIT) as HTMLElement;
+    const formAds = modalAds.querySelector(ELEMENT_ID.FORM_ADS) as HTMLElement;
 
     // Add event listeners for close button and cancel button clicks
     closeBtn.addEventListener('click', this.closeModalHandler.bind(this));
