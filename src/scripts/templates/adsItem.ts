@@ -18,10 +18,10 @@ export const adsItem = (item: AdsData): string => {
         </p>
       </div>
       <div class="table-cell ads-dasboard-item">
-        <p class="ads-email">${email}</p>
+        <a href="mailto:kien1997dn@gmail.com" class="ads-email">${email}</a>
       </div>
       <div class="table-cell ads-dasboard-item">
-        <p class="ads-phone-number">${phone}</p>
+        <a href="tel:(445)-068-4056" class="ads-phone-number">${phone}</a>
       </div>
       <div class="table-cell dropdown-group">
         <div class="dropdown">

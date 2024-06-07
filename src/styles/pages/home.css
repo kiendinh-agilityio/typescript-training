@@ -172,6 +172,7 @@
 .ads-email,
 .ads-phone-number {
   max-width: 65px;
+  color: var(--color-dark);
 }
 
 .ads-link {
