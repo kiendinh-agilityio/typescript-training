@@ -247,7 +247,13 @@ export class AdsView {
    * @param {Array} adsData - The list of ads to be displayed.
    */
   displayAdsList(adsData: AdsData[]): void {
-    const adsListHTML = generateListAds(adsData);
+    // Newly added ads will appear at the top
+    const reversedAdsData = adsData.slice().reverse();
+
+    // Generate the HTML for the reversed list of ads
+    const adsListHTML = generateListAds(reversedAdsData);
+
+    // Update the table element's inner HTML with the new ads list
     this.tableElement.innerHTML = adsListHTML;
 
     // Dropdown buttons
