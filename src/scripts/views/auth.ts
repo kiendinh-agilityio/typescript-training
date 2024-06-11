@@ -1,5 +1,5 @@
 // Constants
-import { DISPLAY_CLASS, TITLE_AUTH_PAGE, LOGIN_MESSAGES, ICONS } from '@/constants';
+import { DISPLAY_CLASS, TITLE_AUTH_PAGE, ICONS } from '@/constants';
 
 // Utility functions
 import { handleTogglePassword, showToast, authSection, validateUserAuthen, showFormErrors } from '@/utils';
@@ -116,11 +116,8 @@ export class AuthView {
     const password = this.passwordInput.value;
     const isBothFieldsEmpty = email.trim() === '' && password.trim() === '';
 
-    if (isBothFieldsEmpty) {
-      this.showErrorToast(LOGIN_MESSAGES.EMPTY);
-    } else {
-      this.controller.login(email, password);
-    }
+    // If both fields are not empty, proceed with the login
+    !isBothFieldsEmpty && this.controller.login(email, password);
   }
 
   /** Handle Sign Up button click. */
