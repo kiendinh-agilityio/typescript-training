@@ -1,13 +1,15 @@
-// Constants
+// Import Constants
 import {
   BASE_API,
   LOGIN_MESSAGES,
   END_POINTS,
   ERROR_FETCHING_DATA,
   SIGNUP_MESSAGES,
-  VALIDATE_MESSAGES,
   ERROR_SAVING_DATA,
 } from '@/constants';
+
+// Import Interfaces
+import { AdsData } from '@/Interfaces';
 
 /** Class representing the authentication model. */
 export class AuthModel {
@@ -24,7 +26,7 @@ export class AuthModel {
       const response = await fetch(`${BASE_API}${END_POINTS.USERS}`);
       if (response.ok) {
         const users = await response.json();
-        const user = users.find((user: any) => user.email === email);
+        const user = users.find((user: AdsData) => user.email === email);
 
         if (user && user.password === password) {
           // Successful login
@@ -55,7 +57,7 @@ export class AuthModel {
     try {
       // Check if email, password, and confirmPassword are empty
       if (!email || !password || !confirmPassword) {
-        throw new Error(SIGNUP_MESSAGES.EMPTY);
+        throw new Error(SIGNUP_MESSAGES.FAILURE);
       }
 
       // Fetch the user data from the API
@@ -64,14 +66,14 @@ export class AuthModel {
         const users = await response.json();
 
         // Check if email already exists
-        const userExists = users.some((user: any) => user.email === email);
+        const userExists = users.some((user: AdsData) => user.email === email);
         if (userExists) {
           throw new Error(SIGNUP_MESSAGES.EMAIL);
         }
 
         // Check if password and confirmPassword match
         if (password !== confirmPassword) {
-          throw new Error(VALIDATE_MESSAGES.INVALID_CONFIRM_PASSWORD);
+          throw new Error(SIGNUP_MESSAGES.FAILURE);
         }
 
         // Create a new user object
