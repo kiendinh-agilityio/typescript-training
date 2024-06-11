@@ -25,6 +25,7 @@ export const SIGNUP_MESSAGES = {
   SUCCESS: 'Registration successful. You can now sign in.',
   EMAIL: 'Email already exists. Please use a different email.',
   EMPTY: 'Email, password, and confirm password are required.',
+  FAILURE: "Registration failed. Please try again.",
 };
 
 // Error Saving
