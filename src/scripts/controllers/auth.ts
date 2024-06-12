@@ -44,6 +44,12 @@ export class AuthController {
    */
   async register(email: string, password: string, confirmPassword: string): Promise<void> {
     try {
+      // Check if email, password, and confirmPassword
+      if (!(email && password && confirmPassword) || password !== confirmPassword) {
+        console.error(SIGNUP_MESSAGES.FAILURE);
+        return;
+      }
+
       // Attempt registration using AuthenModel
       await this.model.register(email, password, confirmPassword);
       // Show success message if registration is successful
