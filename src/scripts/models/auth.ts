@@ -1,4 +1,4 @@
-// Import Constants
+// Import constants
 import {
   BASE_API,
   LOGIN_MESSAGES,
@@ -8,8 +8,8 @@ import {
   ERROR_SAVING_DATA,
 } from '@/constants';
 
-// Import Interfaces
-import { AdsData } from '@/Interfaces';
+// Import interfaces
+import { AdsData } from '@/interfaces';
 
 /** Class representing the authentication model. */
 export class AuthModel {
@@ -24,6 +24,7 @@ export class AuthModel {
     try {
       // Fetch the user data from the API
       const response = await fetch(`${BASE_API}${END_POINTS.USERS}`);
+
       if (response.ok) {
         const users = await response.json();
         const user = users.find((user: AdsData) => user.email === email);
@@ -55,13 +56,9 @@ export class AuthModel {
    */
   async register(email: string, password: string, confirmPassword: string): Promise<void> {
     try {
-      // Check if email, password, and confirmPassword are empty
-      if (!email || !password || !confirmPassword) {
-        throw new Error(SIGNUP_MESSAGES.FAILURE);
-      }
-
       // Fetch the user data from the API
       const response = await fetch(`${BASE_API}${END_POINTS.USERS}`);
+
       if (response.ok) {
         const users = await response.json();
 
