@@ -1,5 +1,5 @@
 // Constants
-import { DISPLAY_CLASS, TITLE_AUTH_PAGE, ICONS } from '@/constants';
+import { DISPLAY_CLASS, TITLE_AUTH_PAGE, ICONS, SIGNUP_MESSAGES } from '@/constants';
 
 // Utility functions
 import { handleTogglePassword, showToast, authSection, validateUserAuthen, showFormErrors } from '@/utils';
@@ -153,13 +153,14 @@ export class AuthView {
       showFormErrors(errors, this);
     } else {
       try {
-        if (this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER) {
-          await this.controller.register(email, password, confirmPassword);
-        } else {
-          await this.controller.login(email, password);
-        }
+        const action = this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER
+          ? this.controller.register(email, password, confirmPassword)
+          : this.controller.login(email, password);
+
+        await action;
       } catch (error) {
-        this.showErrorToast(error.message);
+        const toastError = error.response?.data?.message || SIGNUP_MESSAGES.FAILURE;
+        this.showErrorToast(toastError);
       }
     }
   }
