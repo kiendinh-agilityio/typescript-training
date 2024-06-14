@@ -22,7 +22,7 @@ export const ICONS = {
 // Auth Form Title
 export const TITLE_AUTH_PAGE = {
   LOGIN: 'Sign In',
-  REGISTER: 'Create New Account',
+  REGISTER: 'Sign Up',
 };
 
 // Image Path for Show Password
