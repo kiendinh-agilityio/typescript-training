@@ -17,7 +17,7 @@ export const validatePasswordField = (password: string): string | null => valida
 // Function to validate a confirm password field
 export const validateConfirmPasswordField = (password: string, confirmPassword: string): string | null => {
   if (!confirmPassword) {
-    return REQUIRED_ERROR.replace('{field}', 'Confirm Password');
+    return REQUIRED_ERROR.replace('{field}', 'Confirm password');
   } else if (password !== confirmPassword) {
     return INVALID_CONFIRM_PASSWORD;
   }
