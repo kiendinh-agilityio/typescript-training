@@ -1,7 +1,5 @@
-// Define an interface for errors
-interface Errors {
-  [key: string]: string | undefined;
-}
+// Import interfaces for errors
+import { Errors } from '@/interfaces';
 
 // Function to update error messages on the form
 const updateErrorMessages = (errors: Errors): void => {
