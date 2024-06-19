@@ -150,7 +150,7 @@ export class AuthView {
     const errors = validateUserAuthen(user);
 
     if (Object.keys(errors).length) {
-      showFormErrors(errors, this);
+      showFormErrors(errors);
     } else {
       try {
         const action = this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER
