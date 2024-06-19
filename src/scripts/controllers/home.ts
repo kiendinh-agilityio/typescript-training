@@ -2,7 +2,13 @@
 import { delayAction, showToast, stopLoadingSpinner, debounce } from '@/utils';
 
 // Import constants
-import { MESSAGES, ICONS, DEBOUNCE_TIME, SPECIAL_KEYS, REGEX } from '@/constants';
+import {
+  MESSAGES,
+  ICONS,
+  DEBOUNCE_TIME,
+  SPECIAL_KEYS,
+  REGEX,
+} from '@/constants';
 
 import { AdsModel } from '../models/home';
 import { AdsView } from '../views/home';
@@ -27,11 +33,20 @@ export class AdsController {
     this.view.bindAddAds(this.handleAddAds.bind(this));
 
     // Add event listeners for search and clear search buttons
-    this.view.searchButton.addEventListener('click', this.handleSearch.bind(this));
-    this.view.btnClearSearch.addEventListener('click', this.handleClearSearch.bind(this));
+    this.view.searchButton.addEventListener(
+      'click',
+      this.handleSearch.bind(this),
+    );
+    this.view.btnClearSearch.addEventListener(
+      'click',
+      this.handleClearSearch.bind(this),
+    );
 
     // Initialize debounced search handling
-    this.handleSearchDebounced = debounce(this.handleSearch.bind(this), DEBOUNCE_TIME);
+    this.handleSearchDebounced = debounce(
+      this.handleSearch.bind(this),
+      DEBOUNCE_TIME,
+    );
 
     // Add event listeners for real-time search
     this.view.searchInput.addEventListener('input', () => {
@@ -79,7 +94,7 @@ export class AdsController {
       // Send a request to add the new ad and await the response
       const response = await this.model.addAds(newAds);
 
-      // Update this.model.adsData with the new data from the response
+      // Check if the response is an array, then push the items into adsData
       this.model.adsData.push(response);
 
       // Refresh adsData after adding
@@ -100,7 +115,7 @@ export class AdsController {
   }
 
   // Show the ads modal with the given adsData
-  handleShowAdsModal(adsData: any): void {
+  handleShowAdsModal(adsData: AdsData): void {
     this.view.showAdsModal(adsData);
   }
 
@@ -123,7 +138,9 @@ export class AdsController {
       const { network = '', link = '', email = '', phone = '' } = adsItem || {};
 
       // Remove spaces and convert to lowercase
-      const formattedNetwork: string = network.replace(REGEX.KEYWORD, '').toLowerCase();
+      const formattedNetwork: string = network
+        .replace(REGEX.KEYWORD, '')
+        .toLowerCase();
 
       return (
         formattedNetwork.includes(formattedKeyword) ||
@@ -152,7 +169,7 @@ export class AdsController {
    * Handles the user deletion.
    * @param {number} adsId - The ID of the ad to be deleted.
    */
-  async handleDeleteAds(adsId: number): Promise<void> {
+  async handleDeleteAds(adsId: string): Promise<void> {
     // Introduce a delay before actually deleting the ad
     delayAction(async () => {
       // Delete the ad from the model
@@ -183,14 +200,15 @@ export class AdsController {
    * @param {number} adsId - The ID of the ad to be edited.
    * @param {object} updatedAdsItem - The updated data of the ad.
    */
-  async handleEditAds(adsId: number, updatedAdsItem: AdsData): Promise<void> {
+  async handleEditAds(adsId: string, updatedAdsItem: AdsData): Promise<void> {
     // Introduce a delay before actually editing the ad
     delayAction(async () => {
       // Edit the ad in the model
       const response = await this.model.editAds(adsId, updatedAdsItem);
 
       // Find the edited ad in the adsData array
-      const editedAd = this.model.adsData.find((ads) => ads.id === adsId) || null;
+      const editedAd =
+        this.model.adsData.find((ads) => ads.id === adsId) || null;
 
       // Update the edited ad with the response data
       editedAd && Object.assign(editedAd, response);
@@ -213,12 +231,12 @@ export class AdsController {
    * Asynchronously handles the retrieval of detailed information for a specific advertisement.
    * @param {string} adsId - The unique identifier of the advertisement.
    */
-  async handleGetDetailAds(adsId: number): Promise<void> {
+  async handleGetDetailAds(adsId: string): Promise<void> {
     // Await the retrieval of detailed advertisement information using the provided adsId.
-    await this.model.getAdsDetail(adsId);
+    const response = await this.model.getAdsDetail(adsId);
 
     // Display the advertisement modal with the retrieved details from the model.
-    this.view.showAdsModal(this.model.adsDetail);
+    this.view.showAdsModal(response);
   }
 
   /**
