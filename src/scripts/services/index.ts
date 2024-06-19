@@ -1,4 +1,8 @@
+// Import constants
 import { BASE_API, END_POINTS, API_METHODS, MESSAGES } from '@/constants';
+
+// Import type and interfaces
+import { AdsData } from '@/interfaces';
 
 /**
  * A reusable function for making HTTP requests.
@@ -7,7 +11,11 @@ import { BASE_API, END_POINTS, API_METHODS, MESSAGES } from '@/constants';
  * @param {object} data - The data to be sent in the request body (optional).
  * @returns {Promise} A promise that resolves to the JSON response data or an error.
  */
-const sendRequest = async (url: string, method: string, data?: object): Promise<any> => {
+const sendRequest = async <T>(
+  url: string,
+  method: string,
+  data?: object,
+): Promise<T> => {
   try {
     const response = await fetch(url, {
       method,
@@ -23,9 +31,9 @@ const sendRequest = async (url: string, method: string, data?: object): Promise<
     }
 
     // Parse and return the JSON response data
-    return await response.json();
+    return (await response.json()) as T;
   } catch (error) {
-    return error; // Return the error in case of any issues
+    throw error; // Rethrow the error so it can be handled by the caller
   }
 };
 
@@ -35,9 +43,10 @@ export const httpServices = () => {
      * Fetch a list of advertisements from the API.
      * @returns {Promise} A promise that resolves to the list of advertisements.
      */
-    async get(): Promise<any> {
-      const url = `${BASE_API}${END_POINTS.ADS}`;
-      return sendRequest(url, API_METHODS.GET);
+    async get(queryString: string = ''): Promise<AdsData[]> {
+      const url = `${BASE_API}${END_POINTS.ADS}${queryString}`;
+
+      return sendRequest<AdsData[]>(url, API_METHODS.GET);
     },
 
     /**
@@ -45,9 +54,10 @@ export const httpServices = () => {
      * @param {object} data - The data of the advertisement to be added.
      * @returns {Promise} A promise that resolves to the newly added advertisement.
      */
-    async post(data: object): Promise<any> {
+    async post(data: object): Promise<AdsData> {
       const url = `${BASE_API}${END_POINTS.ADS}`;
-      return sendRequest(url, API_METHODS.POST, data);
+
+      return sendRequest<AdsData>(url, API_METHODS.POST, data);
     },
 
     /**
@@ -56,9 +66,10 @@ export const httpServices = () => {
      * @param {object} data - The updated data for the advertisement.
      * @returns {Promise} A promise that resolves to the updated advertising data.
      */
-    async put(id: number, data: object): Promise<any> {
+    async put(id: string, data: object): Promise<AdsData[]> {
       const url = `${BASE_API}${END_POINTS.ADS}${id}`;
-      return sendRequest(url, API_METHODS.PUT, data);
+
+      return sendRequest<AdsData[]>(url, API_METHODS.PUT, data);
     },
 
     /**
@@ -66,9 +77,10 @@ export const httpServices = () => {
      * @param {number} id - The ID of the advertisement to be deleted.
      * @returns {Promise} A promise that resolves to the deleted advertisement.
      */
-    async delete(id: number): Promise<any> {
+    async delete(id: string): Promise<AdsData[]> {
       const url = `${BASE_API}${END_POINTS.ADS}${id}`;
-      return sendRequest(url, API_METHODS.DELETE);
+
+      return sendRequest<AdsData[]>(url, API_METHODS.DELETE);
     },
 
     /**
@@ -76,9 +88,10 @@ export const httpServices = () => {
      * @param {number} id - The ID of the advertisement to be updated.
      * @returns {Promise} A promise that resolves to the updated advertising data.
      */
-    async getDetail(id: number): Promise<any> {
+    async getDetail(id: string): Promise<AdsData> {
       const url = `${BASE_API}${END_POINTS.ADS}/${id}`;
-      return sendRequest(url, API_METHODS.GET);
+
+      return sendRequest<AdsData>(url, API_METHODS.GET);
     },
   };
 };
