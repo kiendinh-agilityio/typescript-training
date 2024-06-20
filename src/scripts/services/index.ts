@@ -43,7 +43,7 @@ export const httpServices = () => {
      * Fetch a list of advertisements from the API.
      * @returns {Promise} A promise that resolves to the list of advertisements.
      */
-    async get(queryString: string = ''): Promise<AdsData[]> {
+    async get(queryString = ''): Promise<AdsData[]> {
       const url = `${BASE_API}${END_POINTS.ADS}${queryString}`;
 
       return sendRequest<AdsData[]>(url, API_METHODS.GET);
