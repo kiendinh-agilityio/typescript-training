@@ -85,3 +85,8 @@ export const SPECIAL_KEYS = {
 export const CLASS = {
   BUTTON_DISABLE: 'btn-disabled',
 };
+
+// Variables status
+export const STATUS = {
+  ACTIVE: 'Active',
+};
