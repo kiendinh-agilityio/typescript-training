@@ -19,13 +19,6 @@ export interface ConfigValidateAds {
   [key: string]: string | undefined;
 }
 
-// Create interface for user
-export interface User {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
 // Create interface for errors
 export interface Errors {
   [key: string]: string | undefined;
