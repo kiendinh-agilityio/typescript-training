@@ -4,7 +4,7 @@ import { httpServices } from '@/services';
 // Define the structure of advertisement data
 import { AdsData } from '@/interfaces';
 
-import { MESSAGES, ROLE_STATUS } from '@/constants';
+import { MESSAGES, ROLE_STATUS, STATUS } from '@/constants';
 
 export class AdsModel {
   adsData: AdsData[];
@@ -21,7 +21,7 @@ export class AdsModel {
    * @param {string} query - The query parameter to be added to the request.
    * @returns {Promise} - A promise that resolves with the response data or rejects with an error.
    */
-  async fetchAdsData(queryString: string = ''): Promise<AdsData[]> {
+  async fetchAdsData(queryString = ''): Promise<AdsData[]> {
     try {
       const response = await httpServices().get(queryString);
 
@@ -41,7 +41,7 @@ export class AdsModel {
       // Check the condition for statusID and update adsItem
       const newAds: AdsData = {
         ...adsItem,
-        statusID: adsItem.status.includes('Active')
+        statusID: adsItem.status.includes(STATUS.ACTIVE)
           ? ROLE_STATUS.ACTIVE
           : ROLE_STATUS.PAUSED,
       };
@@ -102,9 +102,10 @@ export class AdsModel {
   async editAds(adsId: string, updatedAdsItem: AdsData): Promise<AdsData[]> {
     try {
       // Check the condition for statusID and update updatedAdsItem
-      updatedAdsItem.statusID = updatedAdsItem.status.includes('Active')
+      updatedAdsItem.statusID = updatedAdsItem.status.includes(STATUS.ACTIVE)
         ? ROLE_STATUS.ACTIVE
         : ROLE_STATUS.PAUSED;
+
       const response = await httpServices().put(`/${adsId}`, updatedAdsItem);
 
       return response;
