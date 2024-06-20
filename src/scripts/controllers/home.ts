@@ -1,6 +1,3 @@
-// Import utils
-import { delayAction, showToast, stopLoadingSpinner, debounce } from '@/utils';
-
 // Import constants
 import {
   MESSAGES,
@@ -10,11 +7,15 @@ import {
   REGEX,
 } from '@/constants';
 
-import { AdsModel } from '../models/home';
-import { AdsView } from '../views/home';
-
 // Define the structure of advertisement data
 import { AdsData } from '@/interfaces';
+
+// Import utils
+import { delayAction, showToast, stopLoadingSpinner, debounce } from '@/utils';
+
+// Import AdsModel and AdsView
+import { AdsModel } from '@/models';
+import { AdsView } from '@/views';
 
 /**
  * Represents the AdsController class for handling the business logic and user interactions.
