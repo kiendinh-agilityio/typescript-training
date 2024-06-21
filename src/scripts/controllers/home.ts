@@ -209,7 +209,7 @@ export class AdsController {
 
       // Find the edited ad in the adsData array
       const editedAd =
-        this.model.adsData.find((ads) => ads.id === adsId) || null;
+        this.model.adsData.find((ads) => ads.id === adsId);
 
       // Update the edited ad with the response data
       editedAd && Object.assign(editedAd, response);
