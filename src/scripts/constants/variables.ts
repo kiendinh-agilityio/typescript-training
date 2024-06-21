@@ -65,8 +65,8 @@ export const ELEMENT_ID = {
   CLOSE_MODAL_ADS: '#close-modal-ads',
 };
 
-// Variables for Status Type
-export const STATUS_TYPE = {
+// Variables for Ads Status
+export const ADS_STATUS = {
   ACTIVE: 'active',
   PAUSED: 'paused',
 };
