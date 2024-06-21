@@ -1,11 +1,11 @@
-// Constanst
+// Import constanst
 import { LOGIN_MESSAGES, SIGNUP_MESSAGES } from '@/constants';
 
-// View: Import the AuthView component from the views directory
-import { AuthView } from '../views/auth';
+// Import the AuthView component from the views directory
+import { AuthView } from '@/views';
 
-// Model: Import the AuthModel from the models directory
-import { AuthModel } from '../models/auth';
+// Import the AuthModel from the models directory
+import { AuthModel } from '@/models';
 
 export class AuthController {
   view: AuthView;
@@ -24,15 +24,20 @@ export class AuthController {
    */
   async login(email: string, password: string): Promise<void> {
     try {
+      // Check if email and password are provided
+      if (!email || !password) return;
+
       // Attempt login using AuthenModel
       await this.model.login(email, password);
+
       // Show success message if login is successful
       this.view.showSuccessToast(LOGIN_MESSAGES.SUCCESS);
+
       // Redirect to the index page
       window.location.href = '/';
     } catch (error) {
       // Show error message if login fails
-      this.view.showErrorToast(error.message);
+      this.view.showErrorToast(LOGIN_MESSAGES.INCORRECT);
     }
   }
 
@@ -42,7 +47,11 @@ export class AuthController {
    * @param {string} password - The user's password.
    * @param {string} confirmPassword - The user's password confirmation.
    */
-  async register(email: string, password: string, confirmPassword: string): Promise<void> {
+  async register(
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Promise<void> {
     // Attempt registration using AuthenModel
     await this.model.register(email, password, confirmPassword);
 

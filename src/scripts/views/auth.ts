@@ -78,9 +78,6 @@ export class AuthView {
     // Trigger handleSignInClick method when Sign In button is clicked
     this.btnSignIn.addEventListener('click', () => this.handleSignInClick());
 
-    // Trigger handleSignUpClick method when Sign Up button is clicked
-    this.btnSignUp.addEventListener('click', () => this.handleSignUpClick());
-
     // Trigger handleLoginFormSubmit method when the form is submitted
     this.formAuth.addEventListener('submit', this.handleLoginFormSubmit.bind(this));
   }
@@ -120,15 +117,6 @@ export class AuthView {
     !isBothFieldsEmpty && this.controller.login(email, password);
   }
 
-  /** Handle Sign Up button click. */
-  handleSignUpClick(): void {
-    const email = this.emailInput.value;
-    const password = this.passwordInput.value;
-    const confirmPassword = this.confirmPasswordInput.value;
-
-    this.controller.register(email, password, confirmPassword);
-  }
-
   /**
    * Handle form submission.
    * @param {Event} event - The form submission event.
@@ -150,7 +138,7 @@ export class AuthView {
     const errors = validateUserAuthen(user);
 
     if (Object.keys(errors).length) {
-      showFormErrors(errors, this);
+      showFormErrors(errors);
     } else {
       try {
         const action = this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER

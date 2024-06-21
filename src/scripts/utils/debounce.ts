@@ -1,5 +1,11 @@
+// Create type for debounce
+type DebounceArgs = [string, number];
+
 // Create debounced function
-export const debounce = <T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void => {
+export const debounce = <T extends (...args: DebounceArgs) => void>(
+  func: T,
+  delay: number,
+): ((...args: Parameters<T>) => void) => {
   let timeoutId: ReturnType<typeof setTimeout>;
 
   // Return a debounced function

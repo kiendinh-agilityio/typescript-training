@@ -15,6 +15,7 @@ export const LOGIN_MESSAGES = {
   SUCCESS: 'Sign in successfully',
   UNSUCCESSFUL: 'Sign in unsuccessful',
   EMPTY: 'Please enter both email and password.',
+  INCORRECT: 'Incorrect email or password. Please try again.',
 };
 
 // Error Fetching

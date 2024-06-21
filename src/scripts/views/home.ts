@@ -104,7 +104,7 @@ export class AdsView {
 
       // Handle delete button click
       if (deleteButton) await handleActionButtonClick(deleteButton, (adsId: number) => {
-        this.showDeleteModal(adsId);
+        this.showDeleteModal();
         this.bindDeleteAdsHandler(adsId);
       });
     });

@@ -1,24 +1,17 @@
 // Import validation functions for email, password, and confirm password fields
-import { validateEmailField, validatePasswordField, validateConfirmPasswordField } from '@/utils';
+import {
+  validateEmailField,
+  validatePasswordField,
+  validateConfirmPasswordField,
+} from '@/utils';
 
-// Define interface for user
-interface User {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
-// Define interface for errors
-interface Errors {
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-}
+// Import interfaces for user and errors
+import { User, Errors } from '@/interfaces';
 
 // Function to validate user authentication data
 export const validateUserAuthen = (user: User): Errors => {
   // Destructure user object to extract email, password, and confirmPassword
-  const { email, password, confirmPassword } = user;
+  const { email = '', password = '', confirmPassword = '' } = user || {};
 
   // Initialize an empty object to store validation errors
   const errors: Errors = {};
@@ -36,7 +29,10 @@ export const validateUserAuthen = (user: User): Errors => {
   }
 
   // Validate the confirm password field and store any error message
-  const confirmPasswordError = validateConfirmPasswordField(password, confirmPassword);
+  const confirmPasswordError = validateConfirmPasswordField(
+    password,
+    confirmPassword,
+  );
   if (confirmPasswordError) {
     errors.confirmPassword = confirmPasswordError;
   }
