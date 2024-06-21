@@ -65,8 +65,8 @@ export const ELEMENT_ID = {
   CLOSE_MODAL_ADS: '#close-modal-ads',
 };
 
-// Variables for Role Type
-export const ROLE_STATUS = {
+// Variables for Status Type
+export const STATUS_TYPE = {
   ACTIVE: 'active',
   PAUSED: 'paused',
 };
@@ -84,9 +84,4 @@ export const SPECIAL_KEYS = {
 // Variables class
 export const CLASS = {
   BUTTON_DISABLE: 'btn-disabled',
-};
-
-// Variables status
-export const STATUS = {
-  ACTIVE: 'Active',
 };
