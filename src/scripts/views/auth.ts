@@ -1,5 +1,5 @@
 // Constants
-import { DISPLAY_CLASS, TITLE_AUTH_PAGE, LOGIN_MESSAGES, ICONS } from '@/constants';
+import { DISPLAY_CLASS, TITLE_AUTH_PAGE, ICONS, SIGNUP_MESSAGES } from '@/constants';
 
 // Utility functions
 import { handleTogglePassword, showToast, authSection, validateUserAuthen, showFormErrors } from '@/utils';
@@ -78,9 +78,6 @@ export class AuthView {
     // Trigger handleSignInClick method when Sign In button is clicked
     this.btnSignIn.addEventListener('click', () => this.handleSignInClick());
 
-    // Trigger handleSignUpClick method when Sign Up button is clicked
-    this.btnSignUp.addEventListener('click', () => this.handleSignUpClick());
-
     // Trigger handleLoginFormSubmit method when the form is submitted
     this.formAuth.addEventListener('submit', this.handleLoginFormSubmit.bind(this));
   }
@@ -116,20 +113,8 @@ export class AuthView {
     const password = this.passwordInput.value;
     const isBothFieldsEmpty = email.trim() === '' && password.trim() === '';
 
-    if (isBothFieldsEmpty) {
-      this.showErrorToast(LOGIN_MESSAGES.EMPTY);
-    } else {
-      this.controller.login(email, password);
-    }
-  }
-
-  /** Handle Sign Up button click. */
-  handleSignUpClick(): void {
-    const email = this.emailInput.value;
-    const password = this.passwordInput.value;
-    const confirmPassword = this.confirmPasswordInput.value;
-
-    this.controller.register(email, password, confirmPassword);
+    // If both fields are not empty, proceed with the login
+    !isBothFieldsEmpty && this.controller.login(email, password);
   }
 
   /**
@@ -153,16 +138,17 @@ export class AuthView {
     const errors = validateUserAuthen(user);
 
     if (Object.keys(errors).length) {
-      showFormErrors(errors, this);
+      showFormErrors(errors);
     } else {
       try {
-        if (this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER) {
-          await this.controller.register(email, password, confirmPassword);
-        } else {
-          await this.controller.login(email, password);
-        }
+        const action = this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER
+          ? this.controller.register(email, password, confirmPassword)
+          : this.controller.login(email, password);
+
+        await action;
       } catch (error) {
-        this.showErrorToast(error.message);
+        const toastError = error.response?.data?.message || SIGNUP_MESSAGES.FAILURE;
+        this.showErrorToast(toastError);
       }
     }
   }

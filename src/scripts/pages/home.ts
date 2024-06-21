@@ -2,13 +2,13 @@
 import { initializeSidebar } from '@/sidebar';
 
 // Import the Ads controller
-import { AdsController } from '../controllers/home';
+import { AdsController } from '@/controllers';
 
 // Import the Ads view
-import { AdsView } from '../views/home';
+import { AdsView } from '@/views';
 
  // Import the Ads model
-import { AdsModel } from '../models/home';
+import { AdsModel } from '@/models';
 
 // Function to set up the home page
 const homePage = () => {
