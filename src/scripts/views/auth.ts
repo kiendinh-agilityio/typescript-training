@@ -1,5 +1,5 @@
 // Constants
-import { DISPLAY_CLASS, TITLE_AUTH_PAGE, LOGIN_MESSAGES, ICONS } from '@/constants';
+import { DISPLAY_CLASS, TITLE_AUTH_PAGE, ICONS, SIGNUP_MESSAGES } from '@/constants';
 
 // Utility functions
 import { handleTogglePassword, showToast, authSection, validateUserAuthen, showFormErrors } from '@/utils';
@@ -17,21 +17,21 @@ export class AuthView {
   controller: AuthControllerInterface;
 
   // Define class properties
-  formTitle!: HTMLElement;
-  confirmPasswordGroup!: HTMLElement;
-  actionSigninButton!: HTMLButtonElement;
-  actionSignupButton!: HTMLButtonElement;
-  btnSignIn!: HTMLButtonElement;
-  btnSignUp!: HTMLButtonElement;
-  togglePasswordButtons!: NodeListOf<HTMLElement>;
+  formTitle: HTMLElement;
+  confirmPasswordGroup: HTMLElement;
+  actionSigninButton: HTMLButtonElement;
+  actionSignupButton: HTMLButtonElement;
+  btnSignIn: HTMLButtonElement;
+  btnSignUp: HTMLButtonElement;
+  togglePasswordButtons: NodeListOf<HTMLElement>;
 
-  formAuth!: HTMLFormElement;
-  emailInput!: HTMLInputElement;
-  passwordInput!: HTMLInputElement;
-  emailError!: HTMLElement;
-  passwordError!: HTMLElement;
-  confirmPasswordInput!: HTMLInputElement;
-  confirmPasswordError!: HTMLElement;
+  formAuth: HTMLElement;
+  emailInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+  emailError: HTMLElement;
+  passwordError: HTMLElement;
+  confirmPasswordInput: HTMLInputElement;
+  confirmPasswordError: HTMLElement;
 
   /**
    * Create an AuthView instance.
@@ -45,21 +45,21 @@ export class AuthView {
 
   /** Initialize DOM elements used in the view. */
   initElements(): void {
-    this.formTitle = authSection.querySelector('#heading-auth')!;
-    this.confirmPasswordGroup = authSection.querySelector('#confirm-password-group')!;
-    this.actionSigninButton = authSection.querySelector('#btn-action-signin')!;
-    this.actionSignupButton = authSection.querySelector('#btn-action-signup')!;
-    this.btnSignIn = authSection.querySelector('#btn-signin')!;
-    this.btnSignUp = authSection.querySelector('#btn-signup')!;
+    this.formTitle = authSection.querySelector('#heading-auth');
+    this.confirmPasswordGroup = authSection.querySelector('#confirm-password-group');
+    this.actionSigninButton = authSection.querySelector('#btn-action-signin');
+    this.actionSignupButton = authSection.querySelector('#btn-action-signup');
+    this.btnSignIn = authSection.querySelector('#btn-signin');
+    this.btnSignUp = authSection.querySelector('#btn-signup');
     this.togglePasswordButtons = authSection.querySelectorAll('.toggle-password');
 
-    this.formAuth = document.getElementById('form-auth') as HTMLFormElement;
-    this.emailInput = this.formAuth.querySelector('#email')!;
-    this.passwordInput = this.formAuth.querySelector('#password')!;
-    this.emailError = this.formAuth.querySelector('#email-error')!;
-    this.passwordError = this.formAuth.querySelector('#password-error')!;
-    this.confirmPasswordInput = this.formAuth.querySelector('#confirm-password')!;
-    this.confirmPasswordError = this.formAuth.querySelector('#confirmPassword-error')!;
+    this.formAuth = document.getElementById('form-auth');
+    this.emailInput = this.formAuth.querySelector('#email');
+    this.passwordInput = this.formAuth.querySelector('#password');
+    this.emailError = this.formAuth.querySelector('#email-error');
+    this.passwordError = this.formAuth.querySelector('#password-error');
+    this.confirmPasswordInput = this.formAuth.querySelector('#confirm-password');
+    this.confirmPasswordError = this.formAuth.querySelector('#confirmPassword-error');
   }
 
   /** Initialize event listeners for the view. */
@@ -77,9 +77,6 @@ export class AuthView {
 
     // Trigger handleSignInClick method when Sign In button is clicked
     this.btnSignIn.addEventListener('click', () => this.handleSignInClick());
-
-    // Trigger handleSignUpClick method when Sign Up button is clicked
-    this.btnSignUp.addEventListener('click', () => this.handleSignUpClick());
 
     // Trigger handleLoginFormSubmit method when the form is submitted
     this.formAuth.addEventListener('submit', this.handleLoginFormSubmit.bind(this));
@@ -116,20 +113,8 @@ export class AuthView {
     const password = this.passwordInput.value;
     const isBothFieldsEmpty = email.trim() === '' && password.trim() === '';
 
-    if (isBothFieldsEmpty) {
-      this.showErrorToast(LOGIN_MESSAGES.EMPTY);
-    } else {
-      this.controller.login(email, password);
-    }
-  }
-
-  /** Handle Sign Up button click. */
-  handleSignUpClick(): void {
-    const email = this.emailInput.value;
-    const password = this.passwordInput.value;
-    const confirmPassword = this.confirmPasswordInput.value;
-
-    this.controller.register(email, password, confirmPassword);
+    // If both fields are not empty, proceed with the login
+    !isBothFieldsEmpty && this.controller.login(email, password);
   }
 
   /**
@@ -153,16 +138,17 @@ export class AuthView {
     const errors = validateUserAuthen(user);
 
     if (Object.keys(errors).length) {
-      showFormErrors(errors, this);
+      showFormErrors(errors);
     } else {
       try {
-        if (this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER) {
-          await this.controller.register(email, password, confirmPassword);
-        } else {
-          await this.controller.login(email, password);
-        }
+        const action = this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER
+          ? this.controller.register(email, password, confirmPassword)
+          : this.controller.login(email, password);
+
+        await action;
       } catch (error) {
-        this.showErrorToast(error.message);
+        const toastError = error.response?.data?.message || SIGNUP_MESSAGES.FAILURE;
+        this.showErrorToast(toastError);
       }
     }
   }
