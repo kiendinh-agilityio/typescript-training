@@ -16,10 +16,10 @@ export interface ConfigValidateAds {
   status?: string;
   network?: string;
   link?: string;
-  [key: string]: string | undefined;
+  [key: string]: string;
 }
 
 // Create interface for errors
 export interface Errors {
-  [key: string]: string | undefined;
+  [key: string]: string;
 }
