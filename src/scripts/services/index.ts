@@ -14,7 +14,7 @@ import { AdsData } from '@/interfaces';
 const sendRequest = async <T>(
   url: string,
   method: string,
-  data?: object,
+  data?: AdsData,
 ): Promise<T> => {
   try {
     const response = await fetch(url, {
@@ -54,7 +54,7 @@ export const httpServices = () => {
      * @param {object} data - The data of the advertisement to be added.
      * @returns {Promise} A promise that resolves to the newly added advertisement.
      */
-    async post(data: object): Promise<AdsData> {
+    async post(data: AdsData): Promise<AdsData> {
       const url = `${BASE_API}${END_POINTS.ADS}`;
 
       return sendRequest<AdsData>(url, API_METHODS.POST, data);
@@ -66,7 +66,7 @@ export const httpServices = () => {
      * @param {object} data - The updated data for the advertisement.
      * @returns {Promise} A promise that resolves to the updated advertising data.
      */
-    async put(id: string, data: object): Promise<AdsData[]> {
+    async put(id: string, data: AdsData): Promise<AdsData[]> {
       const url = `${BASE_API}${END_POINTS.ADS}${id}`;
 
       return sendRequest<AdsData[]>(url, API_METHODS.PUT, data);
