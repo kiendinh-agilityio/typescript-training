@@ -4,7 +4,7 @@ import { httpServices } from '@/services';
 // Define the structure of advertisement data
 import { AdsData } from '@/interfaces';
 
-import { MESSAGES, ROLE_STATUS, STATUS } from '@/constants';
+import { MESSAGES, STATUS_TYPE } from '@/constants';
 
 export class AdsModel {
   adsData: AdsData[];
@@ -41,9 +41,9 @@ export class AdsModel {
       // Check the condition for statusID and update adsItem
       const newAds: AdsData = {
         ...adsItem,
-        statusID: adsItem.status.includes(STATUS.ACTIVE)
-          ? ROLE_STATUS.ACTIVE
-          : ROLE_STATUS.PAUSED,
+        statusID: adsItem.status.toLowerCase().includes(STATUS_TYPE.ACTIVE)
+          ? STATUS_TYPE.ACTIVE
+          : STATUS_TYPE.PAUSED,
       };
 
       const response = await httpServices().post(newAds);
@@ -102,9 +102,9 @@ export class AdsModel {
   async editAds(adsId: string, updatedAdsItem: AdsData): Promise<AdsData[]> {
     try {
       // Check the condition for statusID and update updatedAdsItem
-      updatedAdsItem.statusID = updatedAdsItem.status.includes(STATUS.ACTIVE)
-        ? ROLE_STATUS.ACTIVE
-        : ROLE_STATUS.PAUSED;
+      updatedAdsItem.statusID = updatedAdsItem.status.toLowerCase().includes(STATUS_TYPE.ACTIVE)
+        ? STATUS_TYPE.ACTIVE
+        : STATUS_TYPE.PAUSED;
 
       const response = await httpServices().put(`/${adsId}`, updatedAdsItem);
 
