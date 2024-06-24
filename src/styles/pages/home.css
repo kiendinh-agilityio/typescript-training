@@ -84,50 +84,6 @@
   margin-right: 32px;
 }
 
-.thead li:nth-child(1),
-.thead li:nth-child(2) {
-  cursor: pointer;
-}
-
-.thead li:before,
-.thead li:after {
-  border: 4px solid transparent;
-  content: '';
-  display: block;
-  height: 0;
-  left: 50px;
-  top: 10px;
-  position: absolute;
-  width: 0;
-}
-
-.thead li:before {
-  border-bottom-color: var(--color-dark);
-  margin-top: -9px;
-}
-
-.thead li:after {
-  border-top-color: var(--color-dark);
-  margin-top: 1px;
-}
-
-.thead li:nth-child(3)::before,
-.thead li:nth-child(4)::before,
-.thead li:nth-child(5)::before {
-  content: none;
-}
-
-.thead li:nth-child(3)::after,
-.thead li:nth-child(4)::after,
-.thead li:nth-child(5)::after {
-  content: none;
-}
-
-.thead li:nth-child(2)::before,
-.thead li:nth-child(2)::after {
-  left: 40px;
-}
-
 .ads-dasboard-item {
   font-size: var(--font-size-xs);
   padding-top: 20px;
@@ -171,6 +127,7 @@
 
 .ads-email,
 .ads-phone-number {
+  display: inline-block;
   max-width: 65px;
   color: var(--color-dark);
 }
@@ -304,11 +261,6 @@
   .search-result-message {
     font-size: var(--font-size-4xl);
     padding: 50px 0;
-  }
-
-  .thead li:before,
-  .thead li:after {
-    top: 50%;
   }
 
   .btn-add {
