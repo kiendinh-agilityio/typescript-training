@@ -13,7 +13,13 @@ import { AdsData, ConfigValidateAds } from '@/interfaces';
 // Function to validate an ads form
 export const validateAdsForm = (adsItem: AdsData): ConfigValidateAds => {
   // Destructure the adsItem properties with default empty strings
-  const { email = '', phone = '', status = '', network = '', link = '' } = adsItem || {};
+  const {
+    email = '',
+    phone = '',
+    status = '',
+    network = '',
+    link = '',
+  } = adsItem || {};
 
   // Initialize an object to hold validation errors
   const errors: ConfigValidateAds = {};

@@ -54,7 +54,11 @@ export class AuthModel {
    * @returns {Promise<void>} - A Promise that resolves if the registration is successful.
    * @throws {Error} - Throws an error if registration is unsuccessful or if there's an API error.
    */
-  async register(email: string, password: string, confirmPassword: string): Promise<void> {
+  async register(
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Promise<void> {
     try {
       // Fetch the user data from the API
       const response = await fetch(`${BASE_API}${END_POINTS.USERS}`);

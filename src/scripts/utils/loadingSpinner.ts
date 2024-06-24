@@ -1,8 +1,10 @@
 // Import constants
-import { DISPLAY_CLASS } from "@/constants";
+import { DISPLAY_CLASS } from '@/constants';
 
 // Get the loading container element from the DOM
-const loadingContainer = document.getElementById('loading-container') as HTMLElement;
+const loadingContainer = document.getElementById(
+  'loading-container',
+) as HTMLElement;
 
 // Define the loading spinner object with start and stop methods
 const loadingSpinner = {
@@ -30,7 +32,10 @@ export const stopLoadingSpinner = (): void => {
 };
 
 // Function to delay an action with a loading spinner
-export const delayAction = (callback: () => void, delayTime: number = 50): void => {
+export const delayAction = (
+  callback: () => void,
+  delayTime: number = 50,
+): void => {
   // Start the loading spinner
   startLoadingSpinner();
 

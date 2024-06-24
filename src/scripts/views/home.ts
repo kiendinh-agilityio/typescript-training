@@ -5,7 +5,14 @@ import { generateListAds } from '@/templates';
 import { AdsData } from '@/interfaces';
 
 // Import constants
-import { DISPLAY_CLASS, TITLE_MODAL, PROFILE_ADS, ELEMENT_ID, MESSAGES, CLASS } from '@/constants';
+import {
+  DISPLAY_CLASS,
+  TITLE_MODAL,
+  PROFILE_ADS,
+  ELEMENT_ID,
+  MESSAGES,
+  CLASS,
+} from '@/constants';
 
 // Import utils
 import {
@@ -22,49 +29,45 @@ import {
 
 /*
  * AdsView class definition
-*/
+ */
 export class AdsView {
   btnAdd: HTMLElement;
   tableElement: HTMLElement;
   searchButton: HTMLElement;
   searchInput: HTMLInputElement;
   btnClearSearch: HTMLElement;
-  addAdsHandler: ((adsItem: AdsData) => void) | null;
-  editAdsHandler: ((adsId: string, adsItem: AdsData) => void) | null;
-  getDetailAdsHandler: ((adsId: number) => void) | null;
+  addAdsHandler: (adsItem: AdsData) => void;
+  editAdsHandler: (adsId: string, adsItem: AdsData) => void;
+  getDetailAdsHandler: (adsId: number) => void;
   confirmDeleteButton: HTMLElement;
   cancelDeleteButton: HTMLElement;
   closeDeleteModalButton: HTMLElement;
-  deleteHandler: ((adsId: number) => void) | null;
+  deleteHandler: (adsId: number) => void;
   btnLogout: HTMLElement;
 
   // Constructor
   constructor() {
     this.initElementsAds();
     this.initEventListenersAds();
-    this.addAdsHandler = null;
-    this.editAdsHandler = null;
-    this.getDetailAdsHandler = null;
     this.initializeSearchInput();
-    this.deleteHandler = null;
   }
 
   /**
-    * Initializes the DOM elements used by AdsView.
-  */
+   * Initializes the DOM elements used by AdsView.
+   */
   initElementsAds(): void {
     // Retrieve DOM elements
     this.btnAdd = document.getElementById('btn-add');
     this.tableElement = document.getElementById('list-ads');
     this.searchButton = adsSearchElement.querySelector('#search-button');
     this.searchInput = adsSearchElement.querySelector('#search-input');
-    this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search');
     this.confirmDeleteButton = deleteModal.querySelector('#confirm-delete');
     this.btnLogout = document.querySelector('.btn-logout');
   }
 
   // Initialize event listeners for AdsView
   initEventListenersAds(): void {
+    this.btnClearSearch = adsSearchElement.querySelector('#btn-clear-search');
     this.cancelDeleteButton = deleteModal.querySelector('#cancel-delete');
     this.closeDeleteModalButton = deleteModal.querySelector('#close-modal');
 
@@ -82,17 +85,24 @@ export class AdsView {
 
     // Event listener for clear search button click
     this.btnClearSearch.addEventListener(
-'click',
+      'click',
       this.clearSearchHandler.bind(this),
     );
 
     // Event listener for table element click
     this.tableElement.addEventListener('click', async (event) => {
-      const editButton = (event.target as HTMLElement)?.closest('.dropdown-content button:first-child') as HTMLElement | null;
-      const deleteButton = (event.target as HTMLElement)?.closest('.dropdown-content button:last-child') as HTMLElement | null;
+      const editButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:first-child',
+      ) as HTMLElement | null;
+      const deleteButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:last-child',
+      ) as HTMLElement | null;
 
       // Handle action click for edit and delete
-      const handleActionButtonClick = async (button: HTMLElement | null, action: (id: number) => void | Promise<void>) => {
+      const handleActionButtonClick = async (
+        button: HTMLElement | null,
+        action: (id: number) => void | Promise<void>,
+      ) => {
         if (button) {
           const dataId = button.getAttribute('data-id');
           if (dataId) await action(parseInt(dataId));
@@ -100,13 +110,15 @@ export class AdsView {
       };
 
       // Handle edit button click
-      if (editButton) await handleActionButtonClick(editButton, this.getDetailAdsHandler!);
+      if (editButton)
+        await handleActionButtonClick(editButton, this.getDetailAdsHandler!);
 
       // Handle delete button click
-      if (deleteButton) await handleActionButtonClick(deleteButton, (adsId: number) => {
-        this.showDeleteModal();
-        this.bindDeleteAdsHandler(adsId);
-      });
+      if (deleteButton)
+        await handleActionButtonClick(deleteButton, (adsId: number) => {
+          this.showDeleteModal();
+          this.bindDeleteAdsHandler(adsId);
+        });
     });
 
     // Event listener for confirm delete button
@@ -128,7 +140,7 @@ export class AdsView {
 
     // Event listener for click outside delete modal
     deleteModal.addEventListener('click', (event) => {
-    if (event.target === deleteModal) {
+      if (event.target === deleteModal) {
         this.hideDeleteModal();
       }
     });
@@ -144,14 +156,20 @@ export class AdsView {
     const title = adsData ? TITLE_MODAL.EDIT : TITLE_MODAL.ADD;
     const modalContent = generateModalAds(adsData, title);
 
-     // Set the modal's HTML content and display it
+    // Set the modal's HTML content and display it
     modalAds.innerHTML = modalContent;
     modalAds.style.display = DISPLAY_CLASS.FLEX;
 
     // Get references to the close button, cancel button, submit button, and the ads form
-    const closeBtn = modalAds.querySelector(ELEMENT_ID.CLOSE_MODAL_ADS) as HTMLElement;
-    const cancelBtn = modalAds.querySelector(ELEMENT_ID.BTN_CANCEL) as HTMLElement;
-    const submitBtn = modalAds.querySelector(ELEMENT_ID.BTN_SUBMIT) as HTMLElement;
+    const closeBtn = modalAds.querySelector(
+      ELEMENT_ID.CLOSE_MODAL_ADS,
+    ) as HTMLElement;
+    const cancelBtn = modalAds.querySelector(
+      ELEMENT_ID.BTN_CANCEL,
+    ) as HTMLElement;
+    const submitBtn = modalAds.querySelector(
+      ELEMENT_ID.BTN_SUBMIT,
+    ) as HTMLElement;
     const formAds = modalAds.querySelector(ELEMENT_ID.FORM_ADS) as HTMLElement;
 
     // Add event listeners for close button and cancel button clicks
@@ -159,7 +177,9 @@ export class AdsView {
     cancelBtn.addEventListener('click', this.closeModalHandler.bind(this));
 
     // Handle the event of formatting phone number input
-    const phoneInput = formAds.querySelector(PROFILE_ADS.PHONE) as HTMLInputElement;
+    const phoneInput = formAds.querySelector(
+      PROFILE_ADS.PHONE,
+    ) as HTMLInputElement;
     phoneInput.addEventListener('input', formatLimitedPhoneNumberInput);
 
     // Initialize a flag to track whether changes have been made
@@ -167,7 +187,7 @@ export class AdsView {
 
     // Add event listeners for input changes to set the changesMade flag
     const formInputs = modalAds.querySelectorAll('input, select');
-    formInputs.forEach(input => {
+    formInputs.forEach((input) => {
       input.addEventListener('input', () => {
         changesMade = true;
 
@@ -181,11 +201,19 @@ export class AdsView {
 
     // Handle the event of submitting the form
     submitBtn.addEventListener('click', async () => {
-      const network = strimmingString((formAds.querySelector(PROFILE_ADS.NETWORK) as HTMLInputElement).value);
-      const link = strimmingString((formAds.querySelector(PROFILE_ADS.LINK) as HTMLInputElement).value);
-      const email = strimmingString((formAds.querySelector(PROFILE_ADS.EMAIL) as HTMLInputElement).value);
+      const network = strimmingString(
+        (formAds.querySelector(PROFILE_ADS.NETWORK) as HTMLInputElement).value,
+      );
+      const link = strimmingString(
+        (formAds.querySelector(PROFILE_ADS.LINK) as HTMLInputElement).value,
+      );
+      const email = strimmingString(
+        (formAds.querySelector(PROFILE_ADS.EMAIL) as HTMLInputElement).value,
+      );
       const phone = strimmingString(phoneInput.value);
-      const status = (formAds.querySelector(PROFILE_ADS.STATUS_TYPE) as HTMLSelectElement).value;
+      const status = (
+        formAds.querySelector(PROFILE_ADS.STATUS_TYPE) as HTMLSelectElement
+      ).value;
 
       const adsItem: AdsData = {
         id: '',
@@ -205,7 +233,9 @@ export class AdsView {
       if (Object.entries(errors).length > 0) {
         showFormErrors(errors);
       } else if (changesMade) {
-        adsData ? await this.editAdsHandler!(adsData.id, adsItem) : await this.addAdsHandler!(adsItem);
+        adsData
+          ? await this.editAdsHandler!(adsData.id, adsItem)
+          : await this.addAdsHandler!(adsItem);
         this.closeModalHandler();
       }
     });
@@ -258,7 +288,8 @@ export class AdsView {
 
     // Dropdown buttons
     const dropdownButtons = this.tableElement.querySelectorAll('.btn-dropdown');
-    const dropdownContents = this.tableElement.querySelectorAll('.dropdown-content');
+    const dropdownContents =
+      this.tableElement.querySelectorAll('.dropdown-content');
 
     const closeDropdowns = (event: MouseEvent) => {
       const isInsideDropdown = Array.from(dropdownContents).some((content) =>
@@ -266,7 +297,9 @@ export class AdsView {
       );
 
       if (!isInsideDropdown) {
-        const htmlDropdownContents = Array.from(dropdownContents).filter((content): content is HTMLElement => content instanceof HTMLElement);
+        const htmlDropdownContents = Array.from(dropdownContents).filter(
+          (content): content is HTMLElement => content instanceof HTMLElement,
+        );
 
         htmlDropdownContents.forEach((content) => {
           content.style.display = DISPLAY_CLASS.HIDDEN;
@@ -327,6 +360,7 @@ export class AdsView {
   clearSearchHandler(adsData: AdsData[]): void {
     this.searchInput.value = '';
     this.btnClearSearch.style.display = DISPLAY_CLASS.HIDDEN;
+
     // Call function to display ads list
     this.displayAdsList(adsData);
   }

@@ -102,7 +102,9 @@ export class AdsModel {
   async editAds(adsId: string, updatedAdsItem: AdsData): Promise<AdsData[]> {
     try {
       // Check the condition for statusID and update updatedAdsItem
-      updatedAdsItem.statusID = updatedAdsItem.status.toLowerCase().includes(ADS_STATUS.ACTIVE)
+      updatedAdsItem.statusID = updatedAdsItem.status
+        .toLowerCase()
+        .includes(ADS_STATUS.ACTIVE)
         ? ADS_STATUS.ACTIVE
         : ADS_STATUS.PAUSED;
 

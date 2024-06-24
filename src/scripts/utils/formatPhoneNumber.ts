@@ -2,7 +2,8 @@
 import { REGEX } from '@/constants';
 
 // Function to format a phone number string
-const formatPhoneNumber = (phoneNumber: string): string => phoneNumber.length >= 10
+const formatPhoneNumber = (phoneNumber: string): string =>
+  phoneNumber.length >= 10
     ? `(${phoneNumber.slice(0, 3)})-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
     : phoneNumber;
 

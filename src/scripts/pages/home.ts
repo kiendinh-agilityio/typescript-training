@@ -7,7 +7,7 @@ import { AdsController } from '@/controllers';
 // Import the Ads view
 import { AdsView } from '@/views';
 
- // Import the Ads model
+// Import the Ads model
 import { AdsModel } from '@/models';
 
 // Function to set up the home page

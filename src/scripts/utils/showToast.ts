@@ -2,7 +2,11 @@
 import { DISPLAY_CLASS } from '@/constants';
 
 // Function to create toast container
-const createToastContainer = (message: string, icon: string, isSuccess: boolean): HTMLDivElement => {
+const createToastContainer = (
+  message: string,
+  icon: string,
+  isSuccess: boolean,
+): HTMLDivElement => {
   const toastContainer = document.createElement('div');
 
   // Determine the class for the toast text based on whether it's a success message or an error message
@@ -20,7 +24,11 @@ const createToastContainer = (message: string, icon: string, isSuccess: boolean)
 };
 
 // Function to display toast
-export const showToast = (message: string, icon: string, isSuccess = false): void => {
+export const showToast = (
+  message: string,
+  icon: string,
+  isSuccess = false,
+): void => {
   const toastContainer = createToastContainer(message, icon, isSuccess);
   document.body.appendChild(toastContainer);
 

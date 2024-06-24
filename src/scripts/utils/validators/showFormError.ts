@@ -13,4 +13,5 @@ const updateErrorMessages = (errors: Errors): void => {
 };
 
 // Function to show form errors by updating error messages
-export const showFormErrors = (errors: Errors): void => updateErrorMessages(errors);
+export const showFormErrors = (errors: Errors): void =>
+  updateErrorMessages(errors);

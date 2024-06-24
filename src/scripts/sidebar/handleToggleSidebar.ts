@@ -10,7 +10,7 @@ export const handleToggleSidebar = (): void => {
   const openBtn: HTMLElement | null = document.getElementById('open-btn');
   const closeBtn: HTMLElement | null = document.getElementById('close-btn');
 
-   // Function to toggle the visibility of the sidebar and buttons
+  // Function to toggle the visibility of the sidebar and buttons
   const toggleSidebar = (): void => {
     sidebar.classList.toggle(DISPLAY_CLASS.FLEX);
     openBtn.classList.toggle(DISPLAY_CLASS.HIDDEN);
