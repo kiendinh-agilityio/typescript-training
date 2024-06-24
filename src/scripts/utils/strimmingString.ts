@@ -1,3 +1,1 @@
-export const strimmingString = (value: string): string => {
-  return value.trim();
-};
+export const strimmingString = (value: string): string => value.trim();
