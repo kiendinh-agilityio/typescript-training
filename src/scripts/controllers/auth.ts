@@ -34,7 +34,7 @@ export class AuthController {
       this.view.showSuccessToast(LOGIN_MESSAGES.SUCCESS);
 
       // Redirect to the index page
-      window.location.href = '/';
+      window.location.href = 'dashboard';
     } catch (error) {
       // Show error message if login fails
       this.view.showErrorToast(LOGIN_MESSAGES.INCORRECT);

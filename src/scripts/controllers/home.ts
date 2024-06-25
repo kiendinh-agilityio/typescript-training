@@ -243,6 +243,6 @@ export class AdsController {
    * Handles the logout action by redirecting to 'authen.html'.
    */
   handleLogout(): void {
-    window.location.href = 'login';
+    window.location.href = '/';
   }
 }
