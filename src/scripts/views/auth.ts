@@ -63,7 +63,7 @@ export class AuthView {
   initElements(): void {
     this.formTitle = authSection.querySelector('#heading-auth');
     this.confirmPasswordGroup = authSection.querySelector(
-      '#confirmPassword-group',
+      '#confirm-password-group',
     );
     this.actionSigninButton = authSection.querySelector('#btn-action-signin');
     this.actionSignupButton = authSection.querySelector('#btn-action-signup');
@@ -197,12 +197,19 @@ export class AuthView {
       showFormErrors(errors);
     } else {
       try {
+        // Determine the action based on the form title (Register or Login)
         const action =
           this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER
             ? this.controller.register(email, password, confirmPassword)
             : this.controller.login(email, password);
 
+        // Wait for the action to complete
         await action;
+
+        // Update the form title to "Login" after successful registration
+        this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER &&
+          (this.showSuccessToast(SIGNUP_MESSAGES.SUCCESS),
+          this.updateFormTitle(TITLE_AUTH_PAGE.LOGIN));
       } catch (error) {
         const toastError =
           error.response?.data?.message || SIGNUP_MESSAGES.FAILURE;
