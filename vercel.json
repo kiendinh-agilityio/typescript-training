@@ -10,5 +10,5 @@
       ]
     }
   ],
-  "rewrites": [{ "source": "/login", "destination": "/login.html" }]
+  "rewrites": [{ "source": "/dashboard", "destination": "/dashboard.html" }]
 }
