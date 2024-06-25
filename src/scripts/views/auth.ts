@@ -39,7 +39,6 @@ export class AuthView {
   btnSignIn: HTMLButtonElement;
   btnSignUp: HTMLButtonElement;
   togglePasswordButtons: NodeListOf<HTMLElement>;
-
   formAuth: HTMLElement;
   emailInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
@@ -47,6 +46,8 @@ export class AuthView {
   passwordError: HTMLElement;
   confirmPasswordInput: HTMLInputElement;
   confirmPasswordError: HTMLElement;
+  emailGroup: HTMLInputElement;
+  passwordGroup: HTMLInputElement;
 
   /**
    * Create an AuthView instance.
@@ -62,7 +63,7 @@ export class AuthView {
   initElements(): void {
     this.formTitle = authSection.querySelector('#heading-auth');
     this.confirmPasswordGroup = authSection.querySelector(
-      '#confirm-password-group',
+      '#confirmPassword-group',
     );
     this.actionSigninButton = authSection.querySelector('#btn-action-signin');
     this.actionSignupButton = authSection.querySelector('#btn-action-signup');
@@ -114,9 +115,19 @@ export class AuthView {
 
   /** Clear error messages for email, password, and confirmPassword fields. */
   clearError(): void {
+    // Find form input groups within the authentication section
+    this.emailGroup = authSection.querySelector('#email-group');
+    this.passwordGroup = authSection.querySelector('#password-group');
+
+    // Clear error messages
     this.emailError.textContent = '';
     this.passwordError.textContent = '';
     this.confirmPasswordError.textContent = '';
+
+    // Remove 'form-input-error' class from input groups
+    this.emailGroup.classList.remove('form-input-error');
+    this.passwordGroup.classList.remove('form-input-error');
+    this.confirmPasswordGroup.classList.remove('form-input-error');
   }
 
   /**
