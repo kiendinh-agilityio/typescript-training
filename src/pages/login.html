@@ -34,7 +34,7 @@
             </div>
           </div>
           <form id="form-auth" class="form form-auth" action="/login">
-            <div class="input-group form-input">
+            <div id="email-group" class="input-group form-input">
               <input
                 id="email"
                 name="email"
@@ -44,7 +44,10 @@
               />
               <span id="email-error" class="error-message"></span>
             </div>
-            <div class="flex items-center input-group form-input">
+            <div
+              id="password-group"
+              class="flex items-center input-group form-input"
+            >
               <input
                 id="password"
                 name="password"
@@ -63,7 +66,7 @@
               </i>
             </div>
             <div
-              id="confirm-password-group"
+              id="confirmPassword-group"
               class="items-center input-group form-input hidden"
             >
               <input
