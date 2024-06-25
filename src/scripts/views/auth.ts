@@ -39,7 +39,6 @@ export class AuthView {
   btnSignIn: HTMLButtonElement;
   btnSignUp: HTMLButtonElement;
   togglePasswordButtons: NodeListOf<HTMLElement>;
-
   formAuth: HTMLElement;
   emailInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
@@ -47,6 +46,8 @@ export class AuthView {
   passwordError: HTMLElement;
   confirmPasswordInput: HTMLInputElement;
   confirmPasswordError: HTMLElement;
+  emailGroup: HTMLInputElement;
+  passwordGroup: HTMLInputElement;
 
   /**
    * Create an AuthView instance.
@@ -114,9 +115,19 @@ export class AuthView {
 
   /** Clear error messages for email, password, and confirmPassword fields. */
   clearError(): void {
+    // Find form input groups within the authentication section
+    this.emailGroup = authSection.querySelector('#email-group');
+    this.passwordGroup = authSection.querySelector('#password-group');
+
+    // Clear error messages
     this.emailError.textContent = '';
     this.passwordError.textContent = '';
     this.confirmPasswordError.textContent = '';
+
+    // Remove 'form-input-error' class from input groups
+    this.emailGroup.classList.remove('form-input-error');
+    this.passwordGroup.classList.remove('form-input-error');
+    this.confirmPasswordGroup.classList.remove('form-input-error');
   }
 
   /**
@@ -186,12 +197,19 @@ export class AuthView {
       showFormErrors(errors);
     } else {
       try {
+        // Determine the action based on the form title (Register or Login)
         const action =
           this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER
             ? this.controller.register(email, password, confirmPassword)
             : this.controller.login(email, password);
 
+        // Wait for the action to complete
         await action;
+
+        // Update the form title to "Login" after successful registration
+        this.formTitle.textContent === TITLE_AUTH_PAGE.REGISTER &&
+          (this.showSuccessToast(SIGNUP_MESSAGES.SUCCESS),
+          this.updateFormTitle(TITLE_AUTH_PAGE.LOGIN));
       } catch (error) {
         const toastError =
           error.response?.data?.message || SIGNUP_MESSAGES.FAILURE;
