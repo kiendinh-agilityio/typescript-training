@@ -96,25 +96,19 @@ export const generateModalAds = (item: AdsData, title?: string): string => {
 
 /**
  * @param func - The function to debounce.
- * @param delay - The delay in milliseconds before the function is invoked.
- * @returns A debounced version of the original function.
+ * @param delay The debounce delay in milliseconds.
+ * @returns A debounced function
  */
-type DebounceArgs = [string, number];
-
-export const debounce = <T extends (...args: DebounceArgs) => void>(
-  func: T,
-  delay: number,
-): ((...args: Parameters<T>) => void) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
+export const debounce = (func: () => void, delay: number) => {
+  // Initialize timeoutId to hold the ID of the timeout
+  let timeoutId: NodeJS.Timeout;
 
   // Return a debounced function
-  return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
+  return () => {
     clearTimeout(timeoutId);
 
-    // Set a new timeout to call the function after the specified delay
-    timeoutId = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
+    // Set a new timeout to execute the function after delay milliseconds.
+    timeoutId = setTimeout(func, delay);
   };
 };
 

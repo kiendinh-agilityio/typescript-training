@@ -32,4 +32,4 @@ export const formatLimitedPhoneNumberInput = (event: Event): void => {
  * @param value - The string to trim.
  * @returns The trimmed string.
  */
-export const strimmingString = (value: string): string => value.trim();
+export const trailingString = (value: string): string => value.trim();
