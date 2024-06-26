@@ -19,7 +19,7 @@ import {
   generateModalAds,
   toggleDropdown,
   formatLimitedPhoneNumberInput,
-  strimmingString,
+  trailingString,
   adsSearchElement,
   validateAdsForm,
   showFormErrors,
@@ -201,16 +201,16 @@ export class AdsView {
 
     // Handle the event of submitting the form
     submitBtn.addEventListener('click', async () => {
-      const network = strimmingString(
+      const network = trailingString(
         (formAds.querySelector(PROFILE_ADS.NETWORK) as HTMLInputElement).value,
       );
-      const link = strimmingString(
+      const link = trailingString(
         (formAds.querySelector(PROFILE_ADS.LINK) as HTMLInputElement).value,
       );
-      const email = strimmingString(
+      const email = trailingString(
         (formAds.querySelector(PROFILE_ADS.EMAIL) as HTMLInputElement).value,
       );
-      const phone = strimmingString(phoneInput.value);
+      const phone = trailingString(phoneInput.value);
       const status = (
         formAds.querySelector(PROFILE_ADS.STATUS_TYPE) as HTMLSelectElement
       ).value;
