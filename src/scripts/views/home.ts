@@ -152,7 +152,7 @@ export class AdsView {
    * Sets up event listeners for the modal buttons and form inputs.
    * @param {Object} adsData - The data of the ad to be displayed in the modal.
    */
-  showAdsModal(adsData: AdsData | null): void {
+  showAdsModal(adsData: AdsData): void {
     const title = adsData ? TITLE_MODAL.EDIT : TITLE_MODAL.ADD;
     const modalContent = generateModalAds(adsData, title);
 
@@ -182,6 +182,9 @@ export class AdsView {
     ) as HTMLInputElement;
     phoneInput.addEventListener('input', formatLimitedPhoneNumberInput);
 
+    // Save old data if editing
+    const oldData = adsData ? { ...adsData } : null;
+
     // Initialize a flag to track whether changes have been made
     let changesMade = false;
 
@@ -189,12 +192,42 @@ export class AdsView {
     const formInputs = modalAds.querySelectorAll('input, select');
     formInputs.forEach((input) => {
       input.addEventListener('input', () => {
-        changesMade = true;
+        // Compare new values with old values
+        const network = trailingString(
+          (formAds.querySelector(PROFILE_ADS.NETWORK) as HTMLInputElement)
+            .value,
+        );
+        const link = trailingString(
+          (formAds.querySelector(PROFILE_ADS.LINK) as HTMLInputElement).value,
+        );
+        const email = trailingString(
+          (formAds.querySelector(PROFILE_ADS.EMAIL) as HTMLInputElement).value,
+        );
+        const phone = trailingString(phoneInput.value);
+        const status = (
+          formAds.querySelector(PROFILE_ADS.STATUS_TYPE) as HTMLSelectElement
+        ).value;
+
+        // Check if the new data is different from the old data
+        changesMade = oldData
+          ? network !== oldData.network ||
+            link !== oldData.link ||
+            email !== oldData.email ||
+            phone !== oldData.phone ||
+            status !== oldData.status
+          : true;
 
         // Enable the submit button when changes are made and the modal is "Edit Ads"
-        if (title === TITLE_MODAL.EDIT) {
+        if (title === TITLE_MODAL.EDIT && changesMade) {
           submitBtn.removeAttribute(DISPLAY_CLASS.DISABLED);
           submitBtn.classList.remove(CLASS.BUTTON_DISABLE);
+        } else if (!changesMade) {
+          submitBtn.setAttribute(
+            DISPLAY_CLASS.DISABLED,
+            DISPLAY_CLASS.DISABLED,
+          );
+
+          submitBtn.classList.add(CLASS.BUTTON_DISABLE);
         }
       });
     });
