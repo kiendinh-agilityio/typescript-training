@@ -63,7 +63,7 @@ export class AuthView {
   initElements(): void {
     this.formTitle = authSection.querySelector('#heading-auth');
     this.confirmPasswordGroup = authSection.querySelector(
-      '#confirm-password-group',
+      '#confirmPassword-group',
     );
     this.actionSigninButton = authSection.querySelector('#btn-action-signin');
     this.actionSignupButton = authSection.querySelector('#btn-action-signup');
