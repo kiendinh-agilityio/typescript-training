@@ -186,9 +186,9 @@ export class AdsView {
     const oldData = adsData ? { ...adsData } : null;
 
     // Initialize a flag to track whether changes have been made
-    let changesMade = false;
+    let hasChange = false;
 
-    // Add event listeners for input changes to set the changesMade flag
+    // Add event listeners for input changes to set the hasChange flag
     const formInputs = modalAds.querySelectorAll('input, select');
     formInputs.forEach((input) => {
       input.addEventListener('input', () => {
@@ -209,7 +209,7 @@ export class AdsView {
         ).value;
 
         // Check if the new data is different from the old data
-        changesMade = oldData
+        hasChange = oldData
           ? network !== oldData.network ||
             link !== oldData.link ||
             email !== oldData.email ||
@@ -218,10 +218,10 @@ export class AdsView {
           : true;
 
         // Enable the submit button when changes are made and the modal is "Edit Ads"
-        if (title === TITLE_MODAL.EDIT && changesMade) {
+        if (title === TITLE_MODAL.EDIT && hasChange) {
           submitBtn.removeAttribute(DISPLAY_CLASS.DISABLED);
           submitBtn.classList.remove(CLASS.BUTTON_DISABLE);
-        } else if (!changesMade) {
+        } else if (!hasChange) {
           submitBtn.setAttribute(
             DISPLAY_CLASS.DISABLED,
             DISPLAY_CLASS.DISABLED,
@@ -265,7 +265,7 @@ export class AdsView {
       const errors = validateAdsForm(adsItem);
       if (Object.entries(errors).length > 0) {
         showFormErrors(errors);
-      } else if (changesMade) {
+      } else if (hasChange) {
         adsData
           ? await this.editAdsHandler!(adsData.id, adsItem)
           : await this.addAdsHandler!(adsItem);
