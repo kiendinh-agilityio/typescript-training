@@ -1,13 +1,12 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "extends": "standard",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
     "semi": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
@@ -15,6 +14,7 @@
     "no-new": "off",
     "quotes": "off",
     "no-undef": "off",
-    "no-extra-boolean-cast": "off"
+    "no-extra-boolean-cast": "off",
+    "no-useless-catch": "off"
   }
 }
