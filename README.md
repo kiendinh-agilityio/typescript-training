@@ -10,7 +10,7 @@
 
 ## TIMELINE
 
-- 16 days (July 4, 2024 - July 25, 2024)
+- 12 days (July 5, 2024 - July 23, 2024)
 
 ## TECH STACKS
 
@@ -37,7 +37,10 @@
 
 ## REQUIREMENT
 
-- Apply knowledge of HTML/CSS/TypesScript.
+- Improve UI/UX, HTML/CSS
+- Inherit typescript
+- Use utility of TS
+- Enhance DOM manipulation
 - Build a simple management web application with following features:
   - View list teachers and students
   - Add, edit, and delete teachers and students
