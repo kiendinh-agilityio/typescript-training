@@ -9,6 +9,7 @@
   ],
   "rules": {
     "semi": ["error", "always"],
-    "comma-dangle": ["error", "always-multiline"]
+    "comma-dangle": ["error", "always-multiline"],
+    "@typescript-eslint/consistent-type-definitions": "error"
   }
 }
