@@ -23,7 +23,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     href: '#',
     url: '/images/svg/bank.svg',
-    alt: 'Billing icon',
+    alt: 'Bank icon',
     label: 'Billing',
   },
   {
@@ -35,7 +35,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     href: '#',
     url: '/images/svg/chart.svg',
-    alt: 'Exams icon',
+    alt: 'Chart icon',
     label: 'Exams',
   },
 ];
