@@ -1,0 +1,107 @@
+body {
+  font-family: var(--font-medium);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-xs);
+  background: var(--color-light);
+  color: var(--color-dark);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 100%;
+  padding: 50px 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: var(--container-width-md);
+    padding-left: 35px;
+    padding-right: 35px;
+    margin: auto;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: var(--containerWidthLg);
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: var(--containerWidthXl);
+  }
+}
+
+/* XX-Large devices (larger desktops, 1440px and up) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: var(--containerWidth2Xl);
+    padding: 70px;
+  }
+}
