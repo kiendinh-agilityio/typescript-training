@@ -1,0 +1,12 @@
+.input {
+  width: 100%;
+  color: var(--color-tertiary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+}
+
+.input::placeholder {
+  color: var(--color-placeholder);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+}

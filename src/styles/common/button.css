@@ -1,0 +1,66 @@
+.btn {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border-radius: var(--rounded-sm);
+  padding: 12px 14px;
+  cursor: pointer;
+}
+
+.btn-close-modal {
+  background: var(--color-light);
+  color: var(--color-dark);
+}
+
+.btn-confirm {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  color: var(--color-light);
+  border-radius: var(--rounded-sm);
+  cursor: pointer;
+  padding: 10px 40px;
+  width: 160px;
+}
+
+.btn-confirm:not(:last-child) {
+  margin-right: 10px;
+}
+
+.btn-confirm:first-child {
+  background-color: var(--color-btn-confirm-cancel);
+  color: var(--color-dark);
+  border: 1px solid var(--color-btn-confirm-cancel);
+}
+
+.btn-confirm:last-child {
+  background-color: var(--color-danger);
+}
+
+.btn-close {
+  position: absolute;
+  cursor: pointer;
+  background: var(--color-light);
+  color: var(--color-dark);
+  top: 0;
+  right: 0;
+}
+
+.btn:focus-visible {
+  outline: auto;
+}
+
+.btn-disabled {
+  background-color: var(--color-bg-disable);
+  color: var(--color-text-disable);
+  border-color: var(--color-border-disable);
+}
+
+@media (min-width: 992px) {
+  .btn-confirm,
+  .btn {
+    font-size: var(--font-size-2xl);
+  }
+}

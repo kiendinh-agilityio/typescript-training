@@ -1,0 +1,20 @@
+@font-face {
+  font-family: KumbhSans Medium;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../../assets/fonts/KumbhSans-Medium.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: KumbhSans SemiBold;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../../assets/fonts/KumbhSans-SemiBold.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: KumbhSans Bold;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../../assets/fonts/KumbhSans-Bold.woff2) format('woff2');
+}

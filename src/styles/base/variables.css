@@ -1,0 +1,83 @@
+:root {
+  /* color */
+  --color-primary: #509cdb;
+  --color-secondary: #152259;
+  --color-tertiary: #424242;
+  --color-dark: #4f4f4f;
+  --color-light: #fff;
+  --color-danger: #dc3545;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-border: #eff4fa;
+  --color-box-shadow-toast: rgba(10, 3, 3, 0.15);
+  --color-border-toast: rgba(11, 6, 6, 0.1);
+  --color-bg-toast: rgba(255, 255, 255, 0.9);
+  --color-search: #fcfafa;
+  --color-input: #a7a7a7;
+  --color-placeholder: #8a8a8a;
+  --color-box-shadow-dropdown: rgba(0, 0, 0, 0.2);
+  --color-clear-search: #bfbbbb;
+  --color-btn-confirm-cancel: #e2e8f0;
+  --color-bg-disable: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+  --color-text-disable: light-dark(
+    rgba(16, 16, 16, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+  --color-border-disable: light-dark(
+    rgba(118, 118, 118, 0.3),
+    rgba(195, 195, 195, 0.3)
+  );
+  --color-input-select: #c4c4c4;
+
+  /* font family */
+  --font-medium: KumbhSans Medium, san-serif;
+  --font-semibold: KumbhSans SemiBold, san-serif;
+  --font-semibold: KumbhSans Bold, san-serif;
+
+  /* font weight */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* font size */
+  --font-size-tiny: 10px;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 24px;
+  --font-size-xl: 32px;
+
+  /* line height */
+  --line-height-tiny: 12px;
+  --line-height-xs: 14px;
+  --line-height-sm: 18px;
+  --line-height-md: 20px;
+  --line-height-lg: 30px;
+  --line-height-xl: 40px;
+
+  /* border radius */
+  --rounded-xs: 4px;
+  --rounded-sm: 8px;
+  --rounded-md: 30px;
+  --rounded-circle: 50%;
+
+  /* Z Index */
+  --z-index-sm: 1;
+  --z-index-md: 10;
+  --z-index-lg: 20;
+  --z-index-xl: 60;
+
+  /* Container */
+  --container-width-md: 768px;
+  --container-width-lg: 960px;
+  --container-width-xl: 1140px;
+  --container-width-2xl: 1320px;
+  --container-width-3xl: 1660px;
+
+  /* width */
+  --width-modal-content: calc(
+    533 * 100% / 1440
+  ); /* 533px is the width of the modal according to the design */
+  --width-modal-content-md: calc(
+    533 * 100% / 768
+  ); /* 533px is the width of the modal according to the design on screen tablet */
+}
