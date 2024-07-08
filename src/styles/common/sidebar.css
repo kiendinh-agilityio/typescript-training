@@ -1,0 +1,132 @@
+.sidebar-section {
+  background-color: var(--color-secondary);
+}
+
+.main-content {
+  flex-direction: column;
+}
+
+.sidebar {
+  background-color: var(--color-secondary);
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  z-index: var(--z-index-xl);
+  flex-direction: column;
+}
+
+.logo-sidebar {
+  margin-bottom: 16px;
+}
+
+.main-sidebar {
+  padding: 19px 46px 19px 25px;
+}
+
+.main-sidebar-list {
+  gap: 40px;
+}
+
+.sub-sidebar-content {
+  padding-top: 37px;
+}
+
+.text-side-item {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  color: var(--color-light);
+}
+
+.sub-sidebar-item {
+  margin-bottom: 19px;
+  padding: 5px 14px;
+}
+
+.wrapper-item {
+  gap: 16px;
+}
+
+.sidebar-active {
+  background: var(--color-primary);
+  border-radius: var(--rounded-xs);
+  padding-top: 11px;
+  padding-bottom: 11px;
+  max-width: 186px;
+}
+
+.sidebar-text-active {
+  color: var(--color-light);
+}
+
+.btn-menu {
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-toggle-group {
+  padding: 15px;
+}
+
+.school-name {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-light);
+}
+
+.features-item {
+  margin-top: 80px;
+}
+
+.feature-label {
+  color: var(--color-label);
+  padding: 1px 8px 1px 8px;
+  border: 1px solid var(--color-bg-label);
+  background-color: var(--color-bg-label);
+  border-radius: var(--rounded-sm);
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .sidebar-section {
+    display: flex;
+    width: var(--width-sidebar-content);
+  }
+
+  .main-content {
+    flex-direction: row;
+  }
+
+  .btn-toggle-group {
+    display: none;
+    position: absolute;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: var(--z-index-sm);
+  }
+
+  .main-sidebar {
+    padding: 26px 20px 40px 25px;
+    border-bottom: 1px solid var(--color-horizontal);
+  }
+
+  .logo {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+/* Large devices (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .main-sidebar {
+    padding-right: 46px;
+  }
+
+  .sidebar-section {
+    max-width: 241px;
+  }
+}
