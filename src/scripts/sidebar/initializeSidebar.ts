@@ -13,23 +13,23 @@ import { handleToggleSidebar } from '@/sidebar';
 const generateSubSidebar = (): string =>
   SIDEBAR_ITEMS.map((item: SidebarItem) => {
     // Destructure label, url, alt, and active properties from the item, defaulting to empty strings
-    const { href = '', label = '', url = '', alt = '' } = item;
+    const { href = '', label = '', url = '', alt = '', active = false } = item;
 
     // Return the HTML string for the sub-sidebar item
     return `
-      <li class="sub-sidebar-item">
-        <a class="flex wrapper-item items-center" href="${href}">
-          <img
-            class="item-icon"
-            src="${url}"
-            alt="${alt}"
-            width="16px"
-            height="16px"
-          >
-          <span class="text-side-item">${label}</span>
-        </a>
-      </li>
-    `;
+    <li class="sub-sidebar-item ${active ? 'sidebar-active' : ''}">
+      <a class="flex wrapper-item" href="${href}">
+        <img
+          class="item-icon"
+          src="${url}"
+          alt="${alt}"
+          width="16px"
+          height="16px"
+        >
+        <span class="text-side-item">${label}</span>
+      </a>
+    </li>
+  `;
   }).join('');
 
 /**
@@ -113,16 +113,10 @@ export const initializeSidebar = (): void => {
 
   // Function to set the active sidebar item
   const setActiveItem = (item: Element) => {
-    sidebarItems.forEach((el) =>
-      el.classList.remove('sidebar-active', 'sidebar-text-active'),
-    );
+    sidebarItems.forEach((el) => el.classList.remove('sidebar-active'));
 
     // Add active classes to the selected item
     item.classList.add('sidebar-active');
-    const textSideItem = item.querySelector('.text-side-item');
-
-    // Add the 'sidebar-text-active' class if the text side item exists
-    if (textSideItem) textSideItem.classList.add('sidebar-text-active');
   };
 
   // Add click event listeners to all sidebar items
@@ -145,11 +139,10 @@ export const initializeSidebar = (): void => {
     .querySelector(`a[href="${currentUrl}"]`)
     ?.closest('.sub-sidebar-item');
 
+  const teacherSidebarItem = document
+    .querySelector('a[href="/teacher-dashboard"]')
+    ?.closest('.sub-sidebar-item');
+
   // Set the active item based on the current URL or default to "Teachers" if no match is found
-  setActiveItem(
-    activeItem ||
-      document
-        .querySelector('a[href="/teacher-dashboard"]')
-        .closest('.sub-sidebar-item'),
-  );
+  setActiveItem(activeItem || teacherSidebarItem);
 };
