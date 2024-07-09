@@ -69,7 +69,7 @@ const generateSidebar = (): string => `
             alt="Udemy Inter School Logo"
           />
         </a>
-        <p class="school-name">Udemy Inter. school</p>
+        <h1 class="school-name">Udemy Inter. school</h1>
       </div>
     </div>
     <div class="flex justify-center sub-sidebar-content">
@@ -134,15 +134,10 @@ export const initializeSidebar = (): void => {
   // Get the current URL path
   const currentUrl = window.location.pathname;
 
-  // Find the sidebar item matching the current URL
-  const activeItem = document
-    .querySelector(`a[href="${currentUrl}"]`)
-    ?.closest('.sub-sidebar-item');
-
-  const teacherSidebarItem = document
-    .querySelector('a[href="/teacher-dashboard"]')
-    ?.closest('.sub-sidebar-item');
+  // Function to find the sidebar item based on a specific URL
+  const activeItem = (url: string) =>
+    document.querySelector(`a[href="${url}"]`)?.closest('.sub-sidebar-item');
 
   // Set the active item based on the current URL or default to "Teachers" if no match is found
-  setActiveItem(activeItem || teacherSidebarItem);
+  setActiveItem(activeItem(currentUrl) || activeItem('/teacher-dashboard'));
 };
