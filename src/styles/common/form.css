@@ -20,6 +20,7 @@
   border-radius: var(--rounded-xs);
   width: 100%;
   padding: 16px;
+  cursor: pointer;
 }
 
 .form-input-select:focus-visible {
@@ -32,4 +33,9 @@
 
 .form-group {
   gap: 20px;
+}
+
+.form-select-filter {
+  border: none;
+  padding: 0;
 }
