@@ -109,19 +109,22 @@ export const initializeSidebar = (): void => {
   handleToggleSidebar();
 
   // Add event listeners to sidebar items
-  const sidebarItems = document.querySelectorAll('.sub-sidebar-item');
+  const sidebarItems: NodeListOf<Element> =
+    document.querySelectorAll('.sub-sidebar-item');
 
   // Function to set the active sidebar item
   const setActiveItem = (item: Element) => {
-    sidebarItems.forEach((el) => el.classList.remove('sidebar-active'));
+    sidebarItems.forEach((el: HTMLElement) =>
+      el.classList.remove('sidebar-active'),
+    );
 
     // Add active classes to the selected item
     item.classList.add('sidebar-active');
   };
 
   // Add click event listeners to all sidebar items
-  sidebarItems.forEach((item) => {
-    item.addEventListener('click', (event) => {
+  sidebarItems.forEach((item: Element) => {
+    item.addEventListener('click', (event: Event) => {
       event.preventDefault();
       setActiveItem(item);
       const href = item.querySelector('a').getAttribute('href');
@@ -132,10 +135,10 @@ export const initializeSidebar = (): void => {
   });
 
   // Get the current URL path
-  const currentUrl = window.location.pathname;
+  const currentUrl: string = window.location.pathname;
 
   // Function to find the sidebar item based on a specific URL
-  const activeItem = (url: string) =>
+  const activeItem = (url: string): Element =>
     document.querySelector(`a[href="${url}"]`)?.closest('.sub-sidebar-item');
 
   // Set the active item based on the current URL or default to "Teachers" if no match is found
