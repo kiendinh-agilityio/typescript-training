@@ -20,7 +20,7 @@
 }
 
 .main-sidebar {
-  padding: 19px 46px 19px 25px;
+  padding: 19px 20px 19px 20px;
 }
 
 .main-sidebar-list {
@@ -28,7 +28,7 @@
 }
 
 .sub-sidebar-content {
-  padding-top: 37px;
+  padding-top: 16px;
 }
 
 .text-side-item {
@@ -38,8 +38,8 @@
 }
 
 .sub-sidebar-item {
-  margin-bottom: 19px;
-  padding: 5px 14px;
+  margin-bottom: 20px;
+  padding: 11px 15px;
 }
 
 .wrapper-item {
@@ -75,7 +75,7 @@
 }
 
 .features-item {
-  margin-top: 80px;
+  margin-top: 116px;
 }
 
 .feature-label {
@@ -84,6 +84,14 @@
   border: 1px solid var(--color-bg-label);
   background-color: var(--color-bg-label);
   border-radius: var(--rounded-sm);
+}
+
+/* Large devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .logo {
+    width: 55px;
+    height: 55px;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -110,7 +118,7 @@
   }
 
   .main-sidebar {
-    padding: 26px 20px 40px 25px;
+    padding: 26px 25px 40px 25px;
     border-bottom: 1px solid var(--color-horizontal);
   }
 
@@ -122,10 +130,6 @@
 
 /* Large devices (desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .main-sidebar {
-    padding-right: 46px;
-  }
-
   .sidebar-section {
     max-width: 241px;
   }
