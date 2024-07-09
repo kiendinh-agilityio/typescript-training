@@ -11,6 +11,10 @@
     }
   ],
   "rewrites": [
-    { "source": "/teacher-dashboard", "destination": "/teacher-dashboard.html" }
+    {
+      "source": "/teacher-dashboard",
+      "destination": "/index.html"
+    },
+    { "source": "/student-dashboard", "destination": "/student-dashboard.html" }
   ]
 }
