@@ -86,4 +86,8 @@
   --width-sidebar-content: calc(
     300 * 100% / 1440
   ); /* 300px is the width of the sidebar according to the design */
+  --width-dashboard-section-lg: calc(1040 * 100% / 1440);
+  --width-dashboard-section-xl: calc(
+    1140 * 100% / 1440
+  ); /* 1140px is the width of the dashboard section according to the design on screen desktop */
 }
