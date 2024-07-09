@@ -1,20 +1,20 @@
 // Import constants
-import { DISPLAY_CLASS } from '@/constants';
+import { DISPLAY_CLASSES } from '@/constants';
 
 /**
  * Function to handle toggling the sidebar open and closed
  */
 export const handleToggleSidebar = (): void => {
   // Get the sidebar, open button, and close button elements from the DOM
-  const sidebar: HTMLElement | null = document.getElementById('sidebar');
-  const openBtn: HTMLElement | null = document.getElementById('open-btn');
-  const closeBtn: HTMLElement | null = document.getElementById('close-btn');
+  const sidebar: HTMLElement = document.getElementById('sidebar');
+  const openBtn: HTMLElement = document.getElementById('open-btn');
+  const closeBtn: HTMLElement = document.getElementById('close-btn');
 
   // Function to toggle the visibility of the sidebar and buttons
   const toggleSidebar = (): void => {
-    sidebar.classList.toggle(DISPLAY_CLASS.FLEX);
-    openBtn.classList.toggle(DISPLAY_CLASS.HIDDEN);
-    closeBtn.classList.toggle(DISPLAY_CLASS.HIDDEN);
+    sidebar.classList.toggle(DISPLAY_CLASSES.FLEX);
+    openBtn.classList.toggle(DISPLAY_CLASSES.HIDDEN);
+    closeBtn.classList.toggle(DISPLAY_CLASSES.HIDDEN);
   };
 
   // Add event listeners to the open and close buttons to toggle the sidebar
