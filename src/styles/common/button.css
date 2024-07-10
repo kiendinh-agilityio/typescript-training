@@ -1,5 +1,5 @@
 .btn {
-  font-family: var(--font-primary);
+  font-family: var(--font-semibold);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-sm);
   background-color: var(--color-primary);
@@ -58,9 +58,23 @@
   border-color: var(--color-border-disable);
 }
 
-@media (min-width: 992px) {
-  .btn-confirm,
-  .btn {
-    font-size: var(--font-size-2xl);
-  }
+.btn-search {
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 16px;
+  width: 16px;
+}
+
+.btn-clear-search {
+  display: none;
+  text-align: center;
+  width: 15px;
+  height: 15px;
+  padding: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-sm);
+  color: var(--color-tertiary);
 }

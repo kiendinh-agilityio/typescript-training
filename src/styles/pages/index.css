@@ -1,0 +1,75 @@
+.dashboard-heading {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+}
+
+.dashboard-section {
+  z-index: var(--z-index-md);
+  padding: 36px 15px;
+}
+
+.select-filter {
+  max-width: 132px;
+  position: relative;
+}
+
+.select-filter select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 41%;
+  right: 38px;
+  cursor: pointer;
+}
+
+.dashboard-search {
+  background: var(--color-search);
+  border: 1px solid var(--color-search);
+  width: 100%;
+  padding: 12px;
+}
+
+.input-search {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  background: var(--color-search);
+  color: var(--color-placeholder);
+}
+
+.input-search::placeholder {
+  color: var(--color-placeholder);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  background: var(--color-search);
+}
+
+.dashboard-header {
+  margin-bottom: 28px;
+}
+
+/* Large devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .dashboard-search {
+    padding: 16px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .dashboard-section {
+    width: var(--width-dashboard-section-lg);
+    padding: 60px 30px 30px 30px;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .dashboard-section {
+    width: var(--width-dashboard-section-xl);
+    padding: 85px 54px 42px 54px;
+  }
+}
