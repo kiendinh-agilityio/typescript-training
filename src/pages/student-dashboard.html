@@ -17,9 +17,51 @@
   <body>
     <main class="flex flex-row main-content">
       <aside class="sidebar-section"></aside>
-      <section>
-        <div>
-          <h2>Students</h2>
+      <section class="dashboard-section">
+        <div class="flex justify-between items-center dashboard-header">
+          <h2 class="dashboard-heading">Students</h2>
+          <button class="btn">Add Students</button>
+        </div>
+        <div class="flex items-center">
+          <div class="form-select flex-column select-filter">
+            <select
+              id="select-filter"
+              name="select-filter"
+              class="form-input-select form-select-filter"
+            >
+              <option value="">Add filter</option>
+              <option value="Class">Class</option>
+            </select>
+            <img
+              loading="lazy"
+              width="12px"
+              height="8px"
+              class="arrow-icon"
+              src="../assets/images/svg/arrow.svg"
+              alt="Arrow icon"
+            />
+          </div>
+          <div class="flex items-center dashboard-search">
+            <button class="flex items-center justify-center btn-search">
+              <img
+                loading="lazy"
+                width="16px"
+                height="16px"
+                class="search-icon"
+                src="../assets/images/svg/search.svg"
+                alt="search icon"
+              />
+            </button>
+            <input
+              class="input input-search"
+              placeholder="Search for a student by name or email"
+              type="text"
+              name="search"
+            />
+            <button class="justify-center items-center btn-clear-search">
+              x
+            </button>
+          </div>
         </div>
       </section>
     </main>
