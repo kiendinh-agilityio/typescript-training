@@ -5,13 +5,9 @@ export interface Person {
   email: string;
   className: string;
   gender: string;
-  avatar: string;
+  avatarUrl: string;
 }
 
 export interface Teacher extends Person {
   subject: string;
-}
-
-export interface Student extends Person {
-  studentId: string;
 }

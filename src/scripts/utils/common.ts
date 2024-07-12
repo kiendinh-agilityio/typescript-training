@@ -7,14 +7,14 @@ import { Teacher } from '@/interfaces';
  * @param title - Optional title for the modal (default: 'Add' if no ID is provided, otherwise 'Edit').
  * @returns HTML string for the modal form.
  */
-export const generateModalAds = (item: Teacher, title?: string): string => {
+export const generateTeacherModal = (item: Teacher, title?: string): string => {
   // Destructure properties from the item object with default values
   const {
     id = '',
     name = '',
     subject = '',
     email = '',
-    avatar = '',
+    avatarUrl = '',
     className = '',
     gender = '',
   } = item || {};
@@ -67,7 +67,7 @@ export const generateModalAds = (item: Teacher, title?: string): string => {
             id="avatar"
             class="form-input"
             type="text"
-            value="${avatar}"
+            value="${avatarUrl}"
           />
           <div id="avatar-error" class="error-message-form"></div>
         </div>
