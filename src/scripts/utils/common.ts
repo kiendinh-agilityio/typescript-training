@@ -1,3 +1,6 @@
+// Import the constant
+import { CLASS_LIST } from '@/constants';
+
 // Import the Teacher interface
 import { Teacher } from '@/interfaces';
 
@@ -19,12 +22,21 @@ export const generateTeacherModal = (item: Teacher, title?: string): string => {
     gender = '',
   } = item || {};
 
+  // Generate class options
+  const classOptions = CLASS_LIST.map(
+    (cls) => `
+    <option value="${cls}" ${
+      className === cls ? 'selected' : ''
+    }>${cls}</option>
+  `,
+  ).join('');
+
   // Return the HTML string for the modal form
   return `
     <div class="modal-content">
       <div class="modal-header flex-row justify-between items-center">
         <h2 class="modal-heading">
-          ${title || (id ? 'Edit Teacher ' : 'Add Teacher')}
+          ${title || (id ? 'Edit' : 'Add')} Teacher
         </h2>
         <button class="btn btn-close-modal" id="close-modal-ads">
           <span>X</span>
@@ -75,21 +87,7 @@ export const generateTeacherModal = (item: Teacher, title?: string): string => {
           <div class="form-select flex-column">
             <select id="class" name="class" class="form-input-select">
               <option value="">Class</option>
-              <option value="SS1" ${
-                className === 'SS1' ? 'selected' : ''
-              }>SS1</option>
-              <option value="SS2" ${
-                className === 'SS2' ? 'selected' : ''
-              }>SS2</option>
-              <option value="SS3" ${
-                className === 'SS3' ? 'selected' : ''
-              }>SS3</option>
-              <option value="SS4" ${
-                className === 'SS4' ? 'selected' : ''
-              }>SS4</option>
-              <option value="SS5" ${
-                className === 'SS5' ? 'selected' : ''
-              }>SS5</option>
+              ${classOptions}
             </select>
             <div id="class-error" class="error-message-form"></div>
           </div>
@@ -108,7 +106,7 @@ export const generateTeacherModal = (item: Teacher, title?: string): string => {
         </div>
         <div class="flex justify-end btn-modal-group">
           <button class="btn btn-submit" id="btn-submit">
-            ${id ? 'Save Teacher ' : 'Add Teacher'}
+            ${id ? 'Save' : 'Add'} Teacher
           </button>
           <button id="btn-cancel-modal" class="btn btn-cancel-modal">
             Cancel
