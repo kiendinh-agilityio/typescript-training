@@ -147,6 +147,11 @@
   margin-right: 8px;
 }
 
+.phone-number-input {
+  width: 50%;
+  margin-right: 19px;
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {
