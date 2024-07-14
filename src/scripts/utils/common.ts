@@ -44,52 +44,52 @@ export const generateTeacherModal = (item: Teacher, title?: string): string => {
       </div>
       <div id="ads-form" class="flex-column form-modal">
         <div class="flex-column">
-          <p class="form-text">Name</p>
+          <label class="form-text">Name</label>
           <input
             id="name"
             class="form-input"
             type="text"
             value="${name}"
           />
-          <div id="name-error" class="error-message-form"></div>
+          <p id="name-error" class="error-message-form"></p>
         </div>
         <div class="flex-column">
-          <p class="form-text">Subject</p>
+          <label class="form-text">Subject</label>
           <input
             id="subject"
             class="form-input"
             type="text"
             value="${subject}"
           />
-          <div id="subject-error" class="error-message-form"></div>
+          <p id="subject-error" class="error-message-form"></p>
         </div>
         <div class="flex-column">
-          <p class="form-text">Email address</p>
+          <label class="form-text">Email address</label>
           <input
             id="email"
             class="form-input"
             type="email"
             value="${email}"
           />
-          <div id="email-error" class="error-message-form"></div>
+          <p id="email-error" class="error-message-form"></p>
         </div>
         <div class="flex-column">
-          <p class="form-text">Avatar url</p>
+          <label class="form-text">Avatar url</label>
           <input
             id="avatar"
             class="form-input"
             type="text"
             value="${avatarUrl}"
           />
-          <div id="avatar-error" class="error-message-form"></div>
+          <p id="avatar-error" class="error-message-form"></p>
         </div>
-        <div class="flex justify-between form-group">
+        <div class="form-group">
           <div class="form-select flex-column">
             <select id="class" name="class" class="form-input-select">
               <option value="">Class</option>
               ${classOptions}
             </select>
-            <div id="class-error" class="error-message-form"></div>
+            <p id="class-error" class="error-message-form"></p>
           </div>
           <div class="form-select flex-column">
             <select id="gender" name="gender" class="form-input-select">
@@ -101,7 +101,7 @@ export const generateTeacherModal = (item: Teacher, title?: string): string => {
                 gender === 'Male' ? 'selected' : ''
               }>Male</option>
             </select>
-            <div id="gender-error" class="error-message-form"></div>
+            <p id="gender-error" class="error-message-form"></p>
           </div>
         </div>
         <div class="flex justify-end btn-modal-group">
