@@ -121,17 +121,15 @@ export const generateTeacherModal = (item: Teacher, title?: string): string => {
  * Function to generate a modal confirmation dialog as a string
  * @returns {string} The HTML string for the modal confirmation dialog
  */
-export const generateModalConfirm = (): string => {
-  return `
-    <div class="modal-confirm-content">
-      <button class="btn btn-close" id="close-modal">x</button>
-      <p class="heading-confirm">
-        Are you sure you want to delete this item from the list?
-      </p>
-      <div class="flex justify-end">
-        <button id="cancel-delete" class="btn-confirm">Cancel</button>
-        <button id="confirm-delete" class="btn-confirm">Delete</button>
-      </div>
+export const generateModalConfirm = (): string => `
+  <div class="modal-confirm-content">
+    <button class="btn btn-close" id="close-modal">x</button>
+    <p class="heading-confirm">
+      Are you sure you want to delete this item from the list?
+    </p>
+    <div class="flex justify-end">
+      <button id="cancel-delete" class="btn-confirm">Cancel</button>
+      <button id="confirm-delete" class="btn-confirm">Delete</button>
     </div>
-  `;
-};
+  </div>
+`;
