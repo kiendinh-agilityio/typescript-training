@@ -2,7 +2,13 @@
 import { CLASS_LIST } from '@/constants';
 
 // Import the Teacher interface
-import { Teacher } from '@/interfaces';
+import { Teacher, Person } from '@/interfaces';
+
+// Import the httpServices for services
+import { httpServices } from '@/services';
+
+// Import generateListTeacher for teamplates
+import { generateListTeacher } from '@/teamplates';
 
 /**
  * Generates HTML markup for a modal form to manage advertisements.
@@ -133,3 +139,26 @@ export const generateModalConfirm = (): string => `
     </div>
   </div>
 `;
+
+/**
+ * Fetches the list of teachers from the API.
+ * Generates the HTML for the list of teachers.
+ * Inserts the generated HTML into the DOM element with the ID 'list-teacher'.
+ * @returns {Promise<void>} A promise that resolves when the operation is complete.
+ */
+export const fetchAndRenderTeachers = async (): Promise<void> => {
+  // Fetch the list of teachers from the API
+  const teachers: Person[] = await httpServices().get();
+
+  // Generate the HTML for the list of teachers
+  const teachersHtml: string = generateListTeacher(teachers);
+
+  // Insert the HTML into the DOM
+  const listTeacherElement: HTMLElement =
+    document.getElementById('list-teacher');
+
+  // Set the innerHTML of listTeacherElement to teachersHtml if listTeacherElement exists
+  if (listTeacherElement) {
+    listTeacherElement.innerHTML = teachersHtml;
+  }
+};
