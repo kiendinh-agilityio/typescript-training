@@ -145,6 +145,7 @@
 
 .avatar-item {
   margin-right: 8px;
+  border-radius: var(--rounded-circle);
 }
 
 .phone-number-input {
