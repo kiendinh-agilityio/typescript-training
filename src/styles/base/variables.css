@@ -30,6 +30,8 @@
   --color-horizontal: #bdbdbd;
   --color-label: #000;
   --color-bg-label: #b9d7f1;
+  --color-text-form: #8a8a8a;
+  --color-btn-cancel: #f1f1f1;
 
   /* font family */
   --font-medium: KumbhSans Medium, san-serif;
@@ -78,10 +80,10 @@
 
   /* width */
   --width-modal-content: calc(
-    533 * 100% / 1440
-  ); /* 533px is the width of the modal according to the design */
+    969 * 100% / 1440
+  ); /* 969 is the width of the modal according to the design */
   --width-modal-content-md: calc(
-    533 * 100% / 768
+    600 * 100% / 768
   ); /* 533px is the width of the modal according to the design on screen tablet */
   --width-sidebar-content: calc(
     300 * 100% / 1440
