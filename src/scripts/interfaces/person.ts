@@ -6,6 +6,7 @@ export interface Person {
   className: string;
   gender: string;
   avatarUrl: string;
+  subject: string;
 }
 
 export interface Teacher extends Person {
