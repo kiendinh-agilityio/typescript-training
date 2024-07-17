@@ -98,7 +98,7 @@ export const httpServices = () => {
       const url = `${BASE_API}${END_POINTS.TEACHER}/${id}`;
 
       return sendRequest<Person>(url, API_METHODS.GET).catch((error) => {
-        throw error; // Handle or rethrow the error here
+        throw error;
       });
     },
   };
