@@ -25,8 +25,16 @@ export class TeacherPage {
     this.teacherList = teacherList;
     this.initialize();
 
-    // Bind add handler to the view
+    // Bind add handler
     this.teacherList.bindAddTeacher(this.handleAddTeacher.bind(this));
+
+    // Bind edit handler
+    this.teacherList.bindEditTeacher(this.handleEditTeacher.bind(this));
+
+    // Add event edit
+    this.teacherList.bindGetDetailTeacher(
+      this.handleGetDetailTeacher.bind(this),
+    );
   }
 
   /**
@@ -42,7 +50,7 @@ export class TeacherPage {
 
   /**
    * Handles the asynchronous addition of new teacher.
-   * @param {object} newTeacher - The data of the new teacher to be added.
+   * @param {object} newPerson - The data of the new teacher to be added.
    */
   async handleAddTeacher(newPerson: Person): Promise<void> {
     // Introduce a delay before adding the new teacher
@@ -71,7 +79,53 @@ export class TeacherPage {
   }
 
   // Show the teacher modal with the given teacherData
-  handleShowTeacherModal(teacherData: Person): void {
-    this.teacherList.showTeacherModal(teacherData);
+  handleShowTeacherModal(personData: Person): void {
+    this.teacherList.showTeacherModal(personData);
+  }
+
+  /**
+   * Handles the asynchronous editing of existing teacher.
+   * @param {number} personId - The ID of the ad to be edited.
+   * @param {object} updatedPersonItem - The updated data of the teacher.
+   */
+  async handleEditTeacher(
+    personId: string,
+    updatedPersonItem: Person,
+  ): Promise<void> {
+    delayAction(async () => {
+      // Edit the ad in the model
+      const response = await this.personServices.editPerson(
+        personId,
+        updatedPersonItem,
+      );
+
+      // Find the edited ad in the personData array
+      const editedTeacher = this.personServices.personData.find(
+        (person) => person.id === personId,
+      );
+
+      // Update the edited teacher with the response data
+      editedTeacher && Object.assign(editedTeacher, response);
+
+      // Return to the initial state
+      await this.initialize();
+
+      // Directly stop loading spinner after response is received
+      stopLoadingSpinner();
+
+      // Show a success notification
+      showToast(MESSAGES.EDIT_SUCCESS, ICONS.SUCCESS, true);
+    });
+  }
+
+  /**
+   * Asynchronously handles the retrieval of detailed information for a specific teacher.
+   * @param {string} personId - The unique identifier of the teacher.
+   */
+  async handleGetDetailTeacher(personId: string): Promise<void> {
+    const response = await this.personServices.getPersonDetail(personId);
+
+    // Display the teacher modal with the retrieved details from the model.
+    this.teacherList.showTeacherModal(response);
   }
 }

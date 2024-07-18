@@ -232,6 +232,7 @@
   }
 
   .dropdown-content {
-    left: -15px;
+    left: -38px;
+    top: 0;
   }
 }
