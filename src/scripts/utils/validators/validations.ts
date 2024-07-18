@@ -12,13 +12,13 @@ const {
 
 // Function to validate a field based on a regex pattern
 const validateField = (
-  value: string | undefined,
-  fieldName: string,
-  regex: RegExp,
-  errorMessage: string,
+  value?: string | undefined,
+  fieldName?: string,
+  regex?: RegExp,
+  errorMessage?: string,
 ): string | null =>
   !value
-    ? REQUIRED_ERROR.replace('{field}', fieldName)
+    ? REQUIRED_ERROR(fieldName)
     : !regex.test(value)
     ? errorMessage.replace('{field}', fieldName)
     : null;
@@ -38,8 +38,7 @@ export const validateSubjectField = (subject: string): string | null =>
 // Function to validate a class field
 export const validateClassField = (
   className: string | undefined,
-): string | null =>
-  !className ? REQUIRED_ERROR.replace('{field}', 'Class') : null;
+): string | null => (!className ? REQUIRED_ERROR('Class') : null);
 
 // Function to validate a avatarUrl field
 export const validateAvatarField = (avatarUrl: string): string | null =>
@@ -48,5 +47,4 @@ export const validateAvatarField = (avatarUrl: string): string | null =>
 // Function to validate a gender field
 export const validateGenderField = (
   gender: string | undefined,
-): string | null =>
-  !gender ? REQUIRED_ERROR.replace('{field}', 'Gender') : null;
+): string | null => (!gender ? REQUIRED_ERROR('Gender') : null);
