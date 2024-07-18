@@ -58,3 +58,8 @@ export const ICONS = {
   SUCCESS: 'icon-success.svg',
   ERROR: 'icon-error.svg',
 };
+
+// Constants for time
+export const TIME = {
+  SHOW_TOAST: 2000,
+};
