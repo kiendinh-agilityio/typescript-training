@@ -14,7 +14,7 @@ export const MESSAGES = {
 
 // Validate Message
 export const VALIDATE_MESSAGES = {
-  REQUIRED_ERROR: '{field} is required',
+  REQUIRED_ERROR: (field: string) => `${field} is required`,
   INVALID_EMAIL: 'Please enter a valid email address',
   INVALID_NAME:
     'Please enter a minimum of 4 and a maximum of 20 characters for the network',
