@@ -9,7 +9,7 @@ import { MESSAGES } from '@/constants';
 
 export class PersonServices {
   personData: Person[];
-  error: Error | null;
+  error?: Error | null;
   personDetail: Person;
 
   constructor() {
@@ -39,9 +39,7 @@ export class PersonServices {
   // Method to add a new person
   async addPerson(personItem: Person): Promise<Person> {
     try {
-      const newPerson: Person = {
-        ...personItem,
-      };
+      const newPerson = personItem;
 
       const response = await httpServices().post(newPerson);
 
