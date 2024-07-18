@@ -107,7 +107,7 @@ export class TeacherList {
     cancelBtn.addEventListener('click', this.closeModalHandler.bind(this));
 
     // Save old data if editing
-    const oldData = teacherData ? { ...teacherData } : null;
+    const oldData = teacherData && teacherData;
 
     // Initialize a flag to track whether changes have been made
     let hasChange = false;
@@ -222,8 +222,8 @@ export class TeacherList {
         showFormErrors(errors);
       } else if (hasChange) {
         teacherData
-          ? await this.editTeacherHandler!(teacherData.id, personItem)
-          : await this.addTeacherHandler!(personItem);
+          ? await this.editTeacherHandler(teacherData.id, personItem)
+          : await this.addTeacherHandler(personItem);
         this.closeModalHandler();
       }
     });
