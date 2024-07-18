@@ -6,7 +6,6 @@ export interface ConfigValidate {
   subject?: string;
   gender?: string;
   avatarUrl?: string;
-  [key: string]: string;
 }
 
 // Create interface for errors
