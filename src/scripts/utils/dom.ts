@@ -12,13 +12,5 @@ export const toggleDropdown = (element: HTMLElement): void => {
       : DISPLAY_CLASSES.FLEX;
 };
 
-/**
- * @template T - Expected HTML element type.
- * @param {string} id/selector - ID or CSS selector of the element.
- * @returns {T} - The HTML element casted to type T.
- */
-const getElementById = <T extends HTMLElement>(id: string): T =>
-  document.getElementById(id) as T;
-
 // Get the element with ID 'modal'
-export const modalTeacher = getElementById('modal-add-teacher');
+export const modalTeacher = document.getElementById('modal-add-teacher');
