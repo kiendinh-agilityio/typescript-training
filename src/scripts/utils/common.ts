@@ -1,5 +1,5 @@
 // Import the constant
-import { CLASS_LIST, DISPLAY_CLASSES } from '@/constants';
+import { CLASS_LIST, DISPLAY_CLASSES, TIME } from '@/constants';
 
 // Import the Teacher interface
 import { Person } from '@/interfaces';
@@ -177,7 +177,7 @@ export const showToast = (
   setTimeout(() => {
     toastContainer.style.display = DISPLAY_CLASSES.FLEX;
     document.body.removeChild(toastContainer);
-  }, 2000);
+  }, TIME.SHOW_TOAST);
 };
 
 /**
@@ -213,10 +213,7 @@ export const stopLoadingSpinner = (): void => {
 };
 
 // Function to delay an action with a loading spinner
-export const delayAction = (
-  callback: () => void,
-  delayTime: number = 50,
-): void => {
+export const delayAction = (callback: () => void, delayTime: number): void => {
   // Start the loading spinner
   startLoadingSpinner();
 
