@@ -20,7 +20,7 @@
       <section class="dashboard-section">
         <div class="flex justify-between items-center dashboard-header">
           <h2 class="dashboard-heading">Teachers</h2>
-          <button class="btn">Add Teachers</button>
+          <button id="btn-add-teacher" class="btn">Add Teachers</button>
         </div>
         <div class="flex items-center">
           <div class="form-select flex-column select-filter">
@@ -66,6 +66,9 @@
         <div id="list-teacher" class="dashboard-content"></div>
         <div class="modal" id="modal-add-teacher"></div>
         <div class="modal-confirm-delete" id="modal-confirm-teacher"></div>
+        <div class="loading-container" id="loading-container">
+          <span class="loading-indicator" id="loading-indicator"></span>
+        </div>
       </section>
     </main>
     <script type="module" src="../scripts/main.ts"></script>
