@@ -37,9 +37,9 @@ export class PersonServices {
   }
 
   // Method to add a new person
-  async addPerson(personItem: Person): Promise<Person> {
+  async addPerson(person: Person): Promise<Person> {
     try {
-      const newPerson = personItem;
+      const newPerson = person;
 
       const response = await httpServices().post(newPerson);
 
@@ -91,19 +91,13 @@ export class PersonServices {
   /**
    * A method to edit an existing advertisement by ID.
    * @param {number} personId - The ID of the ad to be edited.
-   * @param {object} updatedPersonItem - The updated data of the person.
+   * @param {object} updatedPerson - The updated data of the person.
    * @returns {Promise} - A promise that resolves when the editing is successful or rejects with an error.
    */
-  async editPerson(
-    personId: string,
-    updatedPersonItem: Person,
-  ): Promise<Person[]> {
+  async editPerson(personId: string, updatedPerson: Person): Promise<Person[]> {
     try {
-      // Update updatedPersonItem
-      const response = await httpServices().put(
-        `/${personId}`,
-        updatedPersonItem,
-      );
+      // Update updatedPerson
+      const response = await httpServices().put(`/${personId}`, updatedPerson);
 
       return response;
     } catch (error) {
