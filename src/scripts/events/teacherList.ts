@@ -26,8 +26,8 @@ import {
 export class TeacherList {
   tableTeacher: HTMLElement;
   btnAdd: HTMLElement;
-  addTeacherHandler: (personItem: Person) => void;
-  editTeacherHandler: (teachId: string, personItem: Person) => void;
+  addTeacherHandler: (person: Person) => void;
+  editTeacherHandler: (teachId: string, person: Person) => void;
 
   constructor() {
     this.initElementsTeacher();
@@ -203,7 +203,7 @@ export class TeacherList {
         formTeacher.querySelector(PROFILE_PERSON.GENDER) as HTMLSelectElement
       ).value;
 
-      const personItem: Person = {
+      const person: Person = {
         id: '',
         name,
         avatarUrl,
@@ -217,13 +217,13 @@ export class TeacherList {
       this.clearErrorMessageForm();
 
       // Validate the teacher and show errors if any
-      const errors = validateForm(personItem);
+      const errors = validateForm(person);
       if (Object.entries(errors).length > 0) {
         showFormErrors(errors);
       } else if (hasChange) {
         teacherData
-          ? await this.editTeacherHandler(teacherData.id, personItem)
-          : await this.addTeacherHandler(personItem);
+          ? await this.editTeacherHandler(teacherData.id, person)
+          : await this.addTeacherHandler(person);
         this.closeModalHandler();
       }
     });
@@ -241,7 +241,7 @@ export class TeacherList {
    * Binds the handler for adding new teacher.
    * @param {Function} handler - The handler function for adding teacher.
    */
-  bindAddTeacher(handler: (personItem: Person) => void): void {
+  bindAddTeacher(handler: (person: Person) => void): void {
     this.addTeacherHandler = handler;
   }
 
@@ -249,9 +249,7 @@ export class TeacherList {
    * Binds the handler for editing existing teacher.
    * @param {Function} handler - The handler function for editing teacher.
    */
-  bindEditTeacher(
-    handler: (teacherId: string, personItem: Person) => void,
-  ): void {
+  bindEditTeacher(handler: (teacherId: string, person: Person) => void): void {
     this.editTeacherHandler = handler;
   }
 
