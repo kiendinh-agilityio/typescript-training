@@ -20,6 +20,7 @@ import {
   validateForm,
   showFormErrors,
   modalTeacher,
+  toggleDropdown,
 } from '@/utils';
 
 // Definition teacherList class
@@ -28,6 +29,7 @@ export class TeacherList {
   btnAdd: HTMLElement;
   addTeacherHandler: (person: Person) => void;
   editTeacherHandler: (teachId: string, person: Person) => void;
+  getDetailTeacherHandler: (personId: number) => void;
 
   constructor() {
     this.initElementsTeacher();
@@ -55,6 +57,28 @@ export class TeacherList {
     this.btnAdd.addEventListener('click', () => {
       this.showTeacherModal(null);
     });
+
+    // Event listener for table element click
+    this.tableTeacher.addEventListener('click', async (event) => {
+      const editButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:first-child',
+      ) as HTMLElement;
+
+      // Handle action click for edit and delete
+      const handleActionButtonClick = async (
+        button: HTMLElement | null,
+        action: (id: number) => void | Promise<void>,
+      ) => {
+        if (button) {
+          const dataId = button.getAttribute('data-id');
+          if (dataId) await action(parseInt(dataId));
+        }
+      };
+
+      // Handle edit button click
+      if (editButton)
+        await handleActionButtonClick(editButton, this.getDetailTeacherHandler);
+    });
   }
 
   /**
@@ -70,19 +94,61 @@ export class TeacherList {
 
     // Update the table element's inner HTML with the new teacher list
     this.tableTeacher.innerHTML = teacherListHTML;
+
+    // Dropdown buttons
+    const dropdownButtons = this.tableTeacher.querySelectorAll('.btn-dropdown');
+    const dropdownContents =
+      this.tableTeacher.querySelectorAll('.dropdown-content');
+
+    const closeDropdowns = (event: MouseEvent) => {
+      const isInsideDropdown = Array.from(dropdownContents).some((content) =>
+        content.contains(event.target as Node),
+      );
+
+      if (!isInsideDropdown) {
+        const htmlDropdownContents = Array.from(dropdownContents).filter(
+          (content): content is HTMLElement => content instanceof HTMLElement,
+        );
+
+        htmlDropdownContents.forEach((content) => {
+          content.style.display = DISPLAY_CLASSES.HIDDEN;
+        });
+      }
+    };
+
+    dropdownButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const mouseEvent = event as MouseEvent;
+        mouseEvent.stopPropagation();
+        const id = (mouseEvent.target as HTMLElement).getAttribute('data-id');
+
+        // Find the corresponding dropdown content
+        const dropdownContent = this.tableTeacher.querySelector(
+          `.dropdown-content[data-id="${id}"]`,
+        );
+
+        // Hide other dropdown contents
+        closeDropdowns(mouseEvent);
+
+        // Toggle the selected dropdown content
+        toggleDropdown(dropdownContent as HTMLElement);
+      });
+    });
+
+    document.addEventListener('click', closeDropdowns);
   }
 
   /**
    * Displays the teacher modal with the provided teacherData.
    * If teacherData is provided, it sets the modal title to 'Edit', otherwise 'Add'.
    * Sets up event listeners for the modal buttons and form inputs.
-   * @param {Object} teacherData - The data of the teacher to be displayed in the modal.
+   * @param {Object} personData - The data of the teacher to be displayed in the modal.
    */
-  showTeacherModal(teacherData: Person): void {
-    const title = teacherData
+  showTeacherModal(personData: Person): void {
+    const title = personData
       ? TITLE_MODAL.EDIT_TEACHER
       : TITLE_MODAL.ADD_TEACHER;
-    const modalTeacherContent = generateTeacherModal(teacherData, title);
+    const modalTeacherContent = generateTeacherModal(personData, title);
 
     // Set the modal's HTML content and display it
     modalTeacher.innerHTML = modalTeacherContent;
@@ -107,7 +173,7 @@ export class TeacherList {
     cancelBtn.addEventListener('click', this.closeModalHandler.bind(this));
 
     // Save old data if editing
-    const oldData = teacherData && teacherData;
+    const oldData = personData && personData;
 
     // Initialize a flag to track whether changes have been made
     let hasChange = false;
@@ -221,9 +287,10 @@ export class TeacherList {
       if (Object.entries(errors).length > 0) {
         showFormErrors(errors);
       } else if (hasChange) {
-        teacherData
-          ? await this.editTeacherHandler(teacherData.id, person)
+        personData
+          ? await this.editTeacherHandler(personData.id, person)
           : await this.addTeacherHandler(person);
+
         this.closeModalHandler();
       }
     });
@@ -249,7 +316,8 @@ export class TeacherList {
    * Binds the handler for editing existing teacher.
    * @param {Function} handler - The handler function for editing teacher.
    */
-  bindEditTeacher(handler: (teacherId: string, person: Person) => void): void {
+
+  bindEditTeacher(handler: (personId: string, person: Person) => void): void {
     this.editTeacherHandler = handler;
   }
 
@@ -275,5 +343,10 @@ export class TeacherList {
       const errorElement = modalTeacher.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
+  }
+
+  // Bind the handler for getting detail of an teacher
+  bindGetDetailTeacher(handler: (personId: number) => void): void {
+    this.getDetailTeacherHandler = handler;
   }
 }
