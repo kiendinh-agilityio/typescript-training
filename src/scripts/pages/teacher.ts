@@ -86,17 +86,17 @@ export class TeacherPage {
   /**
    * Handles the asynchronous editing of existing teacher.
    * @param {number} personId - The ID of the ad to be edited.
-   * @param {object} updatedPersonItem - The updated data of the teacher.
+   * @param {object} updatedPerson - The updated data of the teacher.
    */
   async handleEditTeacher(
     personId: string,
-    updatedPersonItem: Person,
+    updatedPerson: Person,
   ): Promise<void> {
     delayAction(async () => {
       // Edit the ad in the model
       const response = await this.personServices.editPerson(
         personId,
-        updatedPersonItem,
+        updatedPerson,
       );
 
       // Find the edited ad in the personData array
