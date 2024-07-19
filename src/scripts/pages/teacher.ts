@@ -40,6 +40,9 @@ export class TeacherPage {
     this.teacherList.bindGetDetailTeacher(
       this.handleGetDetailTeacher.bind(this),
     );
+
+    // Add event delete
+    this.teacherList.bindDeleteTeacher(this.handleDeleteTeacher.bind(this));
   }
 
   /**
@@ -129,5 +132,33 @@ export class TeacherPage {
 
     // Display the teacher modal with the retrieved details from the model.
     this.teacherList.showTeacherModal(response);
+  }
+
+  /**
+   * Handles the teacher deletion.
+   * @param {number} personId - The ID of the teacher to be deleted.
+   */
+  async handleDeleteTeacher(personId: string): Promise<void> {
+    delayAction(async () => {
+      const response = await this.personServices.deletePerson(personId);
+
+      // Filter out the deleted ad from the personData list
+      const updatedTeacherData = this.personServices.personData.filter(
+        (person) => person.id !== personId,
+      );
+
+      // Display the updated list of person
+      this.teacherList.displayTeacherList(updatedTeacherData);
+
+      // Return to the initial state
+      await this.initialize();
+
+      if (response) {
+        stopLoadingSpinner();
+      }
+
+      // Show a success notification
+      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
+    });
   }
 }
