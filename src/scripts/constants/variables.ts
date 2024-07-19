@@ -62,6 +62,12 @@ export const ICONS = {
 // Constants for time
 export const TIMES = {
   SHOW_TOAST: 2000,
+  DEBOUNCE: 500,
+};
+
+// Variables Key Event
+export const SPECIAL_KEYS = {
+  ENTER: 'Enter',
 };
 
 // Constants for person
