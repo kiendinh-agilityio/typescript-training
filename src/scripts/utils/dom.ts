@@ -14,3 +14,8 @@ export const toggleDropdown = (element: HTMLElement): void => {
 
 // Get the element with ID 'modal'
 export const modalTeacher = document.getElementById('modal-add-teacher');
+
+// Get the element with ID 'modal confirm delete'
+export const confirmModalTeacher = document.getElementById(
+  'modal-confirm-teacher',
+);
