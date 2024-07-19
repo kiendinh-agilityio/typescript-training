@@ -12,11 +12,11 @@ const {
 
 // Function to validate a field based on a regex pattern
 const validateField = (
-  value?: string | undefined,
+  value?: string,
   fieldName?: string,
   regex?: RegExp,
   errorMessage?: string,
-): string | null =>
+): string =>
   !value
     ? REQUIRED_ERROR(fieldName)
     : !regex.test(value)
@@ -24,27 +24,25 @@ const validateField = (
     : null;
 
 // Function to validate an email field
-export const validateEmailField = (email: string): string | null =>
+export const validateEmailField = (email: string): string =>
   validateField(email, 'Email', REGEX.EMAIL, INVALID_EMAIL);
 
 // Function to validate a name field
-export const validateNameField = (name: string): string | null =>
+export const validateNameField = (name: string): string =>
   validateField(name, 'Name', REGEX.CHARACTER, INVALID_NAME);
 
 // Function to validate a subject field
-export const validateSubjectField = (subject: string): string | null =>
+export const validateSubjectField = (subject: string): string =>
   validateField(subject, 'Subject', REGEX.CHARACTER, INVALID_SUBJECT);
 
 // Function to validate a class field
-export const validateClassField = (
-  className: string | undefined,
-): string | null => (!className ? REQUIRED_ERROR('Class') : null);
+export const validateClassField = (className: string): string =>
+  !className && REQUIRED_ERROR('Class');
 
 // Function to validate a avatarUrl field
-export const validateAvatarField = (avatarUrl: string): string | null =>
+export const validateAvatarField = (avatarUrl: string): string =>
   validateField(avatarUrl, 'Avatar url', REGEX.AVATAR_URL, INVALID_AVATAR_URL);
 
 // Function to validate a gender field
-export const validateGenderField = (
-  gender: string | undefined,
-): string | null => (!gender ? REQUIRED_ERROR('Gender') : null);
+export const validateGenderField = (gender: string): string =>
+  !gender && REQUIRED_ERROR('Gender');
