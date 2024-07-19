@@ -123,7 +123,7 @@ export const generateTeacherModal = (item: Person, title?: string): string => {
  */
 export const generateModalConfirm = (): string => `
   <div class="modal-confirm-content">
-    <button class="btn btn-close" id="close-modal">x</button>
+    <button class="btn btn-close" id="close-modal-confirm">x</button>
     <p class="heading-confirm">
       Are you sure you want to delete this item from the list?
     </p>
