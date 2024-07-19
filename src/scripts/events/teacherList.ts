@@ -316,7 +316,6 @@ export class TeacherList {
    * Binds the handler for editing existing teacher.
    * @param {Function} handler - The handler function for editing teacher.
    */
-
   bindEditTeacher(handler: (personId: string, person: Person) => void): void {
     this.editTeacherHandler = handler;
   }
