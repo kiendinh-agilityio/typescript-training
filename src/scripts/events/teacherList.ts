@@ -66,7 +66,7 @@ export class TeacherList {
 
       // Handle action click for edit and delete
       const handleActionButtonClick = async (
-        button: HTMLElement | null,
+        button: HTMLElement,
         action: (id: number) => void | Promise<void>,
       ) => {
         if (button) {
