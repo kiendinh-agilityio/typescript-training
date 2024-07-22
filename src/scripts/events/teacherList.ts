@@ -25,6 +25,7 @@ import {
   confirmModalTeacher,
   generateModalConfirm,
   teacherSearchElement,
+  generateSelectFilterClass,
 } from '@/utils';
 
 // Definition teacherList class
@@ -41,11 +42,13 @@ export class TeacherList {
   btnSearchTeacher: HTMLElement;
   inputSearchTeacher: HTMLInputElement;
   clearSearchTeacher: HTMLElement;
+  teacherFilterClass: HTMLElement;
 
   constructor() {
     this.initElementsTeacher();
     this.initEventListenersTeacher();
     this.initializeSearchInput();
+    this.renderSelectFilter();
   }
 
   /**
@@ -60,6 +63,7 @@ export class TeacherList {
     this.inputSearchTeacher = teacherSearchElement.querySelector(
       '#input-search-teacher',
     );
+    this.teacherFilterClass = document.getElementById('teacher-filter');
   }
 
   // Initialize event listeners
@@ -457,5 +461,22 @@ export class TeacherList {
 
     // Call function to display teacher list
     this.displayTeacherList(personData);
+  }
+
+  // Renders the select filter for teacher classes
+  renderSelectFilter(): void {
+    this.teacherFilterClass.innerHTML = generateSelectFilterClass();
+  }
+
+  /**
+   * @param handler - The function to be called when the filter class selection changes.
+   */
+  bindFilterClassTeacher(handler: (event: Event) => void): void {
+    const selectFilter = document.getElementById(
+      'select-filter',
+    ) as HTMLSelectElement;
+
+    // Add an event listener to handle changes in the select element
+    selectFilter.addEventListener('change', handler);
   }
 }
