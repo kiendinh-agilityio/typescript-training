@@ -1,5 +1,5 @@
 // Import the constant
-import { CLASS_LIST, DISPLAY_CLASSES, TIME } from '@/constants';
+import { CLASS_LIST, DISPLAY_CLASSES, TIMES } from '@/constants';
 
 // Import the Teacher interface
 import { Person } from '@/interfaces';
@@ -177,7 +177,7 @@ export const showToast = (
   setTimeout(() => {
     toastContainer.style.display = DISPLAY_CLASSES.FLEX;
     document.body.removeChild(toastContainer);
-  }, TIME.SHOW_TOAST);
+  }, TIMES.SHOW_TOAST);
 };
 
 /**

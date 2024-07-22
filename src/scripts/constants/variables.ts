@@ -41,12 +41,12 @@ export const TITLE_MODAL = {
 };
 
 // Variables class
-export const CLASS = {
+export const CLASSES = {
   BUTTON_DISABLE: 'btn-disabled',
 };
 
 // Variables get ID
-export const ELEMENT_ID = {
+export const ID_ELEMENTS = {
   FORM_TEACHER: '#teacher-form',
   BTN_SUBMIT: '#btn-submit',
   BTN_CANCEL: '#btn-cancel-modal',
@@ -60,6 +60,6 @@ export const ICONS = {
 };
 
 // Constants for time
-export const TIME = {
+export const TIMES = {
   SHOW_TOAST: 2000,
 };

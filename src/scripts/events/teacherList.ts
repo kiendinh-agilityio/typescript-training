@@ -3,8 +3,8 @@ import {
   DISPLAY_CLASSES,
   TITLE_MODAL,
   PROFILE_PERSON,
-  ELEMENT_ID,
-  CLASS,
+  ID_ELEMENTS,
+  CLASSES,
 } from '@/constants';
 
 // Import teacher list
@@ -156,16 +156,16 @@ export class TeacherList {
 
     // Get references to the close button, cancel button, submit button, and the teacher form
     const closeBtn = modalTeacher.querySelector(
-      ELEMENT_ID.CLOSE_MODAL,
+      ID_ELEMENTS.CLOSE_MODAL,
     ) as HTMLElement;
     const cancelBtn = modalTeacher.querySelector(
-      ELEMENT_ID.BTN_CANCEL,
+      ID_ELEMENTS.BTN_CANCEL,
     ) as HTMLElement;
     const submitBtn = modalTeacher.querySelector(
-      ELEMENT_ID.BTN_SUBMIT,
+      ID_ELEMENTS.BTN_SUBMIT,
     ) as HTMLElement;
     const formTeacher = modalTeacher.querySelector(
-      ELEMENT_ID.FORM_TEACHER,
+      ID_ELEMENTS.FORM_TEACHER,
     ) as HTMLElement;
 
     // Add event listeners for close button and cancel button clicks
@@ -227,14 +227,14 @@ export class TeacherList {
         // Enable the submit button when changes are made and the modal is "Edit teacher"
         if (title === TITLE_MODAL.EDIT_TEACHER && hasChange) {
           submitBtn.removeAttribute(DISPLAY_CLASSES.DISABLED);
-          submitBtn.classList.remove(CLASS.BUTTON_DISABLE);
+          submitBtn.classList.remove(CLASSES.BUTTON_DISABLE);
         } else if (!hasChange) {
           submitBtn.setAttribute(
             DISPLAY_CLASSES.DISABLED,
             DISPLAY_CLASSES.DISABLED,
           );
 
-          submitBtn.classList.add(CLASS.BUTTON_DISABLE);
+          submitBtn.classList.add(CLASSES.BUTTON_DISABLE);
         }
       });
     });
@@ -300,7 +300,7 @@ export class TeacherList {
         DISPLAY_CLASSES.DISABLED,
         DISPLAY_CLASSES.DISABLED,
       );
-      submitBtn.classList.add(CLASS.BUTTON_DISABLE);
+      submitBtn.classList.add(CLASSES.BUTTON_DISABLE);
     }
   }
 
