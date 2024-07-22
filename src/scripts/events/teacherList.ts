@@ -5,6 +5,7 @@ import {
   PROFILE_PERSON,
   ID_ELEMENTS,
   CLASSES,
+  MESSAGES,
 } from '@/constants';
 
 // Import teacher list
@@ -23,6 +24,7 @@ import {
   toggleDropdown,
   confirmModalTeacher,
   generateModalConfirm,
+  teacherSearchElement,
 } from '@/utils';
 
 // Definition teacherList class
@@ -36,10 +38,14 @@ export class TeacherList {
   cancelDeleteButton: HTMLElement;
   closeDeleteModalButton: HTMLElement;
   deleteHandler: (personId: number) => void;
+  btnSearchTeacher: HTMLElement;
+  inputSearchTeacher: HTMLInputElement;
+  clearSearchTeacher: HTMLElement;
 
   constructor() {
     this.initElementsTeacher();
     this.initEventListenersTeacher();
+    this.initializeSearchInput();
   }
 
   /**
@@ -48,10 +54,20 @@ export class TeacherList {
   initElementsTeacher(): void {
     this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
+    this.btnSearchTeacher = teacherSearchElement.querySelector(
+      '#btn-search-teacher',
+    );
+    this.inputSearchTeacher = teacherSearchElement.querySelector(
+      '#input-search-teacher',
+    );
   }
 
   // Initialize event listeners
   initEventListenersTeacher(): void {
+    this.clearSearchTeacher = teacherSearchElement.querySelector(
+      '#clear-search-teacher',
+    );
+
     // Event listener for modal click
     modalTeacher.addEventListener('click', (event: MouseEvent) => {
       if (event.target === modalTeacher) {
@@ -63,6 +79,12 @@ export class TeacherList {
     this.btnAdd.addEventListener('click', () => {
       this.showTeacherModal(null);
     });
+
+    // Event listener for clear search button click
+    this.clearSearchTeacher.addEventListener(
+      'click',
+      this.clearSearchHandler.bind(this),
+    );
 
     // Event listener for table element click
     this.tableTeacher.addEventListener('click', async (event: MouseEvent) => {
@@ -411,5 +433,29 @@ export class TeacherList {
   // Hide modal confirm
   hideDeleteModal(): void {
     confirmModalTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
+  }
+
+  // Initialize the search input and its event listeners
+  initializeSearchInput(): void {
+    this.inputSearchTeacher.addEventListener('input', () => {
+      const inputValue = this.inputSearchTeacher.value.trim();
+      this.clearSearchTeacher.style.display = inputValue
+        ? DISPLAY_CLASSES.FLEX
+        : DISPLAY_CLASSES.HIDDEN;
+    });
+  }
+
+  // Handle the case when no search results are found
+  handleSearchNoResult(): void {
+    this.tableTeacher.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+  }
+
+  // Clear the search input
+  clearSearchHandler(personData: Person[]): void {
+    this.inputSearchTeacher.value = '';
+    this.clearSearchTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
+
+    // Call function to display teacher list
+    this.displayTeacherList(personData);
   }
 }
