@@ -1,12 +1,7 @@
+import { Person } from '@/interfaces';
+
 // Create interface for validate
-export interface ConfigValidate {
-  name?: string;
-  email?: string;
-  className?: string;
-  subject?: string;
-  gender?: string;
-  avatarUrl?: string;
-}
+export type ConfigValidate = Partial<Person>;
 
 // Create interface for errors
 export interface Errors {
