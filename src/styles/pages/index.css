@@ -9,7 +9,7 @@
 }
 
 .select-filter {
-  max-width: 132px;
+  width: 132px;
   position: relative;
 }
 
@@ -22,7 +22,7 @@
 .arrow-icon {
   position: absolute;
   top: 41%;
-  right: 38px;
+  right: 15px;
   cursor: pointer;
 }
 
@@ -211,6 +211,10 @@
     font-size: var(--font-size-xl);
     line-height: var(--line-height-xl);
     padding: 50px 0;
+  }
+
+  .arrow-icon {
+    right: 30px;
   }
 }
 

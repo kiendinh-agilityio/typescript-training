@@ -83,6 +83,9 @@ export class TeacherPage {
         }
       },
     );
+
+    // Add event for filter class
+    this.teacherList.bindFilterClassTeacher(this.handleFilterChange.bind(this));
   }
 
   /**
@@ -254,5 +257,22 @@ export class TeacherPage {
   // Handles clearing the search input and displaying the initial data
   handleClearSearch(): void {
     this.initialize();
+  }
+
+  /**
+   * Handles changes to the class filter selection.
+   * @param event - The event object triggered by the filter change (e.g., a change event on a select element).
+   * @returns A promise that resolves when the filtering and display update are complete.
+   */
+  async handleFilterChange(event: Event): Promise<void> {
+    const target = event.target as HTMLSelectElement;
+    const selectedClass = target.value;
+
+    // Fetch the filtered list of teachers based on the selected class
+    const filterClassTeachers =
+      await this.personServices.filterPersonByClass(selectedClass);
+
+    // Update the display with the filtered list of teachers
+    this.teacherList.displayTeacherList(filterClassTeachers);
   }
 }
