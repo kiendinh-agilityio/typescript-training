@@ -63,3 +63,9 @@ export const ICONS = {
 export const TIMES = {
   SHOW_TOAST: 2000,
 };
+
+// Constants for person
+export const PERSONS = {
+  TEACHERS: 'Teachers',
+  STUDENTS: 'Students',
+};

@@ -1,11 +1,16 @@
 // Import constants
-import { MESSAGES, ICONS } from '@/constants';
+import { MESSAGES, ICONS, PERSONS } from '@/constants';
 
 // Define the structure of advertisement data
 import { Person } from '@/interfaces';
 
 // Import utils
-import { delayAction, showToast, stopLoadingSpinner } from '@/utils';
+import {
+  delayAction,
+  showToast,
+  stopLoadingSpinner,
+  showTabletNoData,
+} from '@/utils';
 
 // Import class TeacherList
 import { TeacherList } from '@/events';
@@ -43,9 +48,9 @@ export class TeacherPage {
   async initialize(): Promise<void> {
     const data = await this.personServices.fetchPersonData();
 
-    if (data) {
-      this.teacherList.displayTeacherList(data);
-    }
+    data && data.length > 0
+      ? this.teacherList.displayTeacherList(data)
+      : showTabletNoData(PERSONS.TEACHERS);
   }
 
   /**
@@ -66,9 +71,6 @@ export class TeacherPage {
 
       // Display the list of teacher after adding
       this.teacherList.displayTeacherList(this.personServices.personData);
-
-      // Return to the initial state
-      await this.initialize();
 
       // Directly stop loading spinner after response is received
       stopLoadingSpinner();
@@ -107,8 +109,8 @@ export class TeacherPage {
       // Update the edited teacher with the response data
       editedTeacher && Object.assign(editedTeacher, response);
 
-      // Return to the initial state
-      await this.initialize();
+      // Display the list of teacher after edit
+      this.teacherList.displayTeacherList(this.personServices.personData);
 
       // Directly stop loading spinner after response is received
       stopLoadingSpinner();

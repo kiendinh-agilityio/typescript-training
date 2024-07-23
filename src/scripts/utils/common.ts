@@ -222,3 +222,20 @@ export const delayAction = (callback: () => void, delayTime: number): void => {
     callback();
   }, delayTime);
 };
+
+// Function show UI when data is empty
+export const showTabletNoData = (person: string): void => {
+  const showNoData = document.querySelectorAll(
+    '.dashboard-content',
+  ) as NodeListOf<HTMLElement>;
+
+  showNoData.forEach(
+    (container: HTMLElement) =>
+      (container.innerHTML = `
+    <div class="flex-column justify-center items-center tablet-no-data">
+      <h3>No ${person} at this time</h3>
+      <p>${person} will appear here after they enroll in school.</p>
+    </div>
+  `),
+  );
+};

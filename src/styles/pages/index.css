@@ -154,6 +154,25 @@
   padding: 10px 8px;
 }
 
+.tablet-no-data {
+  color: var(--color-dark);
+  min-height: 419px;
+  gap: 5px;
+  background-color: var(--color-tablet-empty);
+}
+
+.tablet-no-data h3 {
+  font-family: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+}
+
+.tablet-no-data p {
+  font-family: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {
