@@ -193,12 +193,13 @@ export class TeacherPage {
       // Update the personData in personServices with the filtered list
       this.personServices.personData = updatedTeacherData;
 
-      // Display the updated list of person
-      this.teacherList.displayTeacherList(updatedTeacherData);
+      // Display the updated list of person and show tablet when no data
+      updatedTeacherData && updatedTeacherData.length > 0
+        ? this.teacherList.displayTeacherList(updatedTeacherData)
+        : showTabletNoData(PERSONS.TEACHERS);
 
-      if (response) {
-        stopLoadingSpinner();
-      }
+      // If the response is defined, stop the loading spinner to indicate that the operation is complete.
+      response && stopLoadingSpinner();
 
       // Show a success notification
       showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
