@@ -178,20 +178,23 @@ export class TeacherPage {
    * Handles the teacher deletion.
    * @param {number} personId - The ID of the teacher to be deleted.
    */
-  async handleDeleteTeacher(personId: string): Promise<void> {
+  async handleDeleteTeacher(personId: number): Promise<void> {
     delayAction(async () => {
       const response = await this.personServices.deletePerson(personId);
 
+      // Get the updated list of people from personServices after deletion
+      const teacherList = this.personServices.personData;
+
       // Filter out the deleted ad from the personData list
-      const updatedTeacherData = this.personServices.personData.filter(
-        (person) => person.id !== personId,
+      const updatedTeacherData = teacherList.filter(
+        (person) => Number(person.id) !== personId,
       );
+
+      // Update the personData in personServices with the filtered list
+      this.personServices.personData = updatedTeacherData;
 
       // Display the updated list of person
       this.teacherList.displayTeacherList(updatedTeacherData);
-
-      // Return to the initial state
-      await this.initialize();
 
       if (response) {
         stopLoadingSpinner();

@@ -60,7 +60,7 @@ export class PersonServices {
    * @param {number} personId - The ID of the person to be deleted.
    * @returns {Promise} - A promise that resolves when the deletion is successful or rejects with an error.
    */
-  async deletePerson(personId: string): Promise<Person[]> {
+  async deletePerson(personId: number): Promise<Person[]> {
     try {
       const response = await httpServices().delete(`/${personId}`);
 
