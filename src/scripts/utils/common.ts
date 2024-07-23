@@ -213,7 +213,10 @@ export const stopLoadingSpinner = (): void => {
 };
 
 // Function to delay an action with a loading spinner
-export const delayAction = (callback: () => void, delayTime: number): void => {
+export const delayAction = (
+  callback: () => void,
+  delayTime: number = 50,
+): void => {
   // Start the loading spinner
   startLoadingSpinner();
 
