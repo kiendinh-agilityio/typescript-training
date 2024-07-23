@@ -242,3 +242,21 @@ export const showTabletNoData = (person: string): void => {
   `),
   );
 };
+
+/**
+ * @param func - The function to debounce.
+ * @param delay The debounce delay in milliseconds.
+ * @returns A debounced function
+ */
+export const debounce = (func: () => void, delay: number) => {
+  // Initialize timeoutId to hold the ID of the timeout
+  let timeoutId: NodeJS.Timeout;
+
+  // Return a debounced function
+  return () => {
+    clearTimeout(timeoutId);
+
+    // Set a new timeout to execute the function after delay milliseconds.
+    timeoutId = setTimeout(func, delay);
+  };
+};
