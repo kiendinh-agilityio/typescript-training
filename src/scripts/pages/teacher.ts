@@ -1,5 +1,12 @@
 // Import constants
-import { MESSAGES, ICONS, PERSONS } from '@/constants';
+import {
+  MESSAGES,
+  ICONS,
+  TIMES,
+  SPECIAL_KEYS,
+  REGEX,
+  PERSONS,
+} from '@/constants';
 
 // Define the structure of advertisement data
 import { Person } from '@/interfaces';
@@ -9,6 +16,7 @@ import {
   delayAction,
   showToast,
   stopLoadingSpinner,
+  debounce,
   showTabletNoData,
 } from '@/utils';
 
@@ -24,6 +32,7 @@ import { PersonServices } from '@/services';
 export class TeacherPage {
   personServices: PersonServices;
   teacherList: TeacherList;
+  handleSearchDebounced: () => void;
 
   constructor(personServices: PersonServices, teacherList: TeacherList) {
     this.personServices = personServices;
@@ -43,6 +52,37 @@ export class TeacherPage {
 
     // Add event delete
     this.teacherList.bindDeleteTeacher(this.handleDeleteTeacher.bind(this));
+
+    // Add event listeners for search and clear search buttons
+    this.teacherList.btnSearchTeacher.addEventListener(
+      'click',
+      this.handleSearch.bind(this),
+    );
+    this.teacherList.clearSearchTeacher.addEventListener(
+      'click',
+      this.handleClearSearch.bind(this),
+    );
+
+    // Initialize debounced search handling
+    this.handleSearchDebounced = debounce(
+      this.handleSearch.bind(this),
+      TIMES.DEBOUNCE,
+    );
+
+    // Add event listeners for real-time search
+    this.teacherList.inputSearchTeacher.addEventListener('input', () => {
+      this.handleSearchDebounced();
+    });
+
+    // Add event listener for pressing Enter key in the search input
+    this.teacherList.inputSearchTeacher.addEventListener(
+      'keypress',
+      (event) => {
+        if (event.key === SPECIAL_KEYS.ENTER) {
+          this.handleSearch();
+        }
+      },
+    );
   }
 
   /**
@@ -160,5 +200,52 @@ export class TeacherPage {
       // Show a success notification
       showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
     });
+  }
+
+  /**
+   * Handles the search action.
+   */
+  async handleSearch(): Promise<void> {
+    const keyword: string = this.teacherList.inputSearchTeacher.value
+      .trim()
+      .toLowerCase();
+
+    // Check if a keyword is present and if person data needs to be loaded
+    if (
+      keyword &&
+      (!this.personServices.personData.length || this.personServices.error)
+    ) {
+      await this.personServices.fetchPersonData();
+    }
+
+    // Remove spaces in the keyword
+    const formattedKeyword: string = keyword.replace(REGEX.KEYWORD, '');
+
+    // Filter the personData based on the entered keyword in the search input.
+    const filteredPerson = this.personServices.personData.filter((person) => {
+      const { name = '', email = '' } = person || {};
+
+      // Remove spaces and convert to lowercase
+      const formattedName: string = name
+        .replace(REGEX.KEYWORD, '')
+        .toLowerCase();
+
+      return (
+        formattedName.includes(formattedKeyword) ||
+        email.includes(formattedKeyword)
+      );
+    });
+
+    // Display matching ads if results are found
+    if (filteredPerson.length) {
+      this.teacherList.displayTeacherList(filteredPerson);
+    } else {
+      this.teacherList.handleSearchNoResult();
+    }
+  }
+
+  // Handles clearing the search input and displaying the initial data
+  handleClearSearch(): void {
+    this.initialize();
   }
 }
