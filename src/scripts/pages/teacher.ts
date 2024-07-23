@@ -209,6 +209,9 @@ export class TeacherPage {
   /**
    * Handles the search action.
    */
+  /**
+   * Handles the search action.
+   */
   async handleSearch(): Promise<void> {
     const keyword: string = this.teacherList.inputSearchTeacher.value
       .trim()
