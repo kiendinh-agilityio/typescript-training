@@ -47,7 +47,7 @@ export class TeacherList {
   // Initialize event listeners
   initEventListenersTeacher(): void {
     // Event listener for modal click
-    modalTeacher.addEventListener('click', (event) => {
+    modalTeacher.addEventListener('click', (event: MouseEvent) => {
       if (event.target === modalTeacher) {
         this.closeModalHandler();
       }
@@ -59,7 +59,7 @@ export class TeacherList {
     });
 
     // Event listener for table element click
-    this.tableTeacher.addEventListener('click', async (event) => {
+    this.tableTeacher.addEventListener('click', async (event: MouseEvent) => {
       const editButton = (event.target as HTMLElement)?.closest(
         '.dropdown-content button:first-child',
       ) as HTMLElement;
@@ -110,14 +110,14 @@ export class TeacherList {
           (content): content is HTMLElement => content instanceof HTMLElement,
         );
 
-        htmlDropdownContents.forEach((content) => {
-          content.style.display = DISPLAY_CLASSES.HIDDEN;
-        });
+        htmlDropdownContents.forEach(
+          (content) => (content.style.display = DISPLAY_CLASSES.HIDDEN),
+        );
       }
     };
 
     dropdownButtons.forEach((button) => {
-      button.addEventListener('click', (event) => {
+      button.addEventListener('click', (event: MouseEvent) => {
         const mouseEvent = event as MouseEvent;
         mouseEvent.stopPropagation();
         const id = (mouseEvent.target as HTMLElement).getAttribute('data-id');
@@ -339,7 +339,7 @@ export class TeacherList {
       'gender',
     ];
 
-    errorFields.forEach((field) => {
+    errorFields.forEach((field: string) => {
       const errorElement = modalTeacher.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
