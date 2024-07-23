@@ -8,7 +8,3 @@ export interface Person {
   avatarUrl: string;
   subject: string;
 }
-
-export interface Teacher extends Person {
-  subject: string;
-}

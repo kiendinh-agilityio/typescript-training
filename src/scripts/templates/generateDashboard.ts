@@ -1,8 +1,8 @@
-// Import the AdsData interface
-import { Teacher } from '@/interfaces';
+// Import the Person interface
+import { Person } from '@/interfaces';
 
 // Function to generate the HTML for a single teacher item
-export const teacherItem = (item: Teacher): string => {
+export const teacherItem = (item: Person): string => {
   // Destructure properties from the item object
   const { id, name, subject, email, className, gender, avatarUrl } = item || {};
 
@@ -65,8 +65,8 @@ export const teacherItem = (item: Teacher): string => {
   `;
 };
 
-// Function to generate the HTML for a list of ads
-export const generateListTeacher = (items: Teacher[]): string => `
+// Function to generate the HTML for a list of teacher
+export const generateListTeacher = (items: Person[]): string => `
   <div class="table-container">
     <!-- Table header with column titles -->
     <ul class="flex flex-wrap justify-start table-row thead">

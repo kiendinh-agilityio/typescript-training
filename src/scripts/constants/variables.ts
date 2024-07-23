@@ -23,3 +23,49 @@ export const API_METHODS = {
   POST: 'POST',
   DELETE: 'DELETE',
 };
+
+// Variables profile user
+export const PROFILE_PERSON = {
+  NAME: '#name',
+  SUBJECT: '#subject',
+  EMAIL: '#email',
+  AVATAR: '#avatar',
+  CLASS: '#class',
+  GENDER: '#gender',
+};
+
+// Variables title modal
+export const TITLE_MODAL = {
+  ADD_TEACHER: 'Add Teacher',
+  EDIT_TEACHER: 'Edit Teacher',
+};
+
+// Variables class
+export const CLASSES = {
+  BUTTON_DISABLE: 'btn-disabled',
+};
+
+// Variables get ID
+export const ID_ELEMENTS = {
+  FORM_TEACHER: '#teacher-form',
+  BTN_SUBMIT: '#btn-submit',
+  BTN_CANCEL: '#btn-cancel-modal',
+  CLOSE_MODAL: '#close-modal',
+};
+
+// Varibales for icon
+export const ICONS = {
+  SUCCESS: 'icon-success.svg',
+  ERROR: 'icon-error.svg',
+};
+
+// Constants for time
+export const TIMES = {
+  SHOW_TOAST: 2000,
+};
+
+// Constants for person
+export const PERSONS = {
+  TEACHERS: 'Teachers',
+  STUDENTS: 'Students',
+};
