@@ -227,8 +227,8 @@ export class TeacherPage {
 
       // Remove spaces and convert to lowercase
       const formattedName: string = name
-        .replace(REGEX.KEYWORD, '')
-        .toLowerCase();
+        ? name.replace(REGEX.KEYWORD, '').toLowerCase()
+        : '';
 
       return (
         formattedName.includes(formattedKeyword) ||
