@@ -12,10 +12,10 @@ export const toggleDropdown = (element: HTMLElement): void => {
       : DISPLAY_CLASSES.FLEX;
 };
 
-// Get the element with ID 'modal'
+// Get the element with ID 'modal teacher'
 export const modalTeacher = document.getElementById('modal-add-teacher');
 
-// Get the element with ID 'modal confirm delete'
+// Get the element with ID 'modal confirm delete teacher'
 export const confirmModalTeacher = document.getElementById(
   'modal-confirm-teacher',
 );

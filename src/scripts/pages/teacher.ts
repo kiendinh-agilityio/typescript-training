@@ -77,7 +77,7 @@ export class TeacherPage {
     // Add event listener for pressing Enter key in the search input
     this.teacherList.inputSearchTeacher.addEventListener(
       'keypress',
-      (event) => {
+      (event: KeyboardEvent) => {
         if (event.key === SPECIAL_KEYS.ENTER) {
           this.handleSearch();
         }
