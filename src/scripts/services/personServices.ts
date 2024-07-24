@@ -11,10 +11,12 @@ export class PersonServices {
   personData: Person[];
   error?: Error | null;
   personDetail: Person;
+  endpoint: string;
 
-  constructor() {
+  constructor(endpoint: string) {
     this.personData = [];
     this.error = null;
+    this.endpoint = endpoint;
   }
 
   /**
@@ -24,7 +26,7 @@ export class PersonServices {
    */
   async fetchPersonData(queryString = ''): Promise<Person[]> {
     try {
-      const response = await httpServices().get(queryString);
+      const response = await httpServices(this.endpoint).get(queryString);
 
       // Save the response data to the personData array
       this.personData = response;
@@ -41,7 +43,7 @@ export class PersonServices {
     try {
       const newPerson = person;
 
-      const response = await httpServices().post(newPerson);
+      const response = await httpServices(this.endpoint).post(newPerson);
 
       return response;
     } catch (error) {
@@ -62,7 +64,7 @@ export class PersonServices {
    */
   async deletePerson(personId: number): Promise<Person[]> {
     try {
-      const response = await httpServices().delete(`/${personId}`);
+      const response = await httpServices(this.endpoint).delete(`/${personId}`);
 
       return response;
     } catch (error) {
@@ -78,7 +80,7 @@ export class PersonServices {
    */
   async getPersonDetail(id: string): Promise<Person> {
     try {
-      const response = await httpServices().getDetail(id);
+      const response = await httpServices(this.endpoint).getDetail(id);
       this.personDetail = response;
 
       return response;
@@ -97,7 +99,10 @@ export class PersonServices {
   async editPerson(personId: string, updatedPerson: Person): Promise<Person[]> {
     try {
       // Update updatedPerson
-      const response = await httpServices().put(`/${personId}`, updatedPerson);
+      const response = await httpServices(this.endpoint).put(
+        `/${personId}`,
+        updatedPerson,
+      );
 
       return response;
     } catch (error) {
