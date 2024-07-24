@@ -173,6 +173,15 @@
   line-height: var(--line-height-sm);
 }
 
+.search-result-message {
+  font-family: var(--font-bold);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  text-align: center;
+  color: var(--color-input);
+  padding: 20px 0;
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {
@@ -196,6 +205,12 @@
   .class-item,
   .gender-item {
     max-width: 100%;
+  }
+
+  .search-result-message {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-xl);
+    padding: 50px 0;
   }
 }
 

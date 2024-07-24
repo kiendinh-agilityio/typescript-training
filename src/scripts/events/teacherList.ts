@@ -5,6 +5,7 @@ import {
   PROFILE_PERSON,
   ID_ELEMENTS,
   CLASSES,
+  MESSAGES,
 } from '@/constants';
 
 // Import teacher list
@@ -21,6 +22,9 @@ import {
   showFormErrors,
   modalTeacher,
   toggleDropdown,
+  confirmModalTeacher,
+  generateModalConfirm,
+  teacherSearchElement,
 } from '@/utils';
 
 // Definition teacherList class
@@ -30,10 +34,18 @@ export class TeacherList {
   addTeacherHandler: (person: Person) => void;
   editTeacherHandler: (teachId: string, person: Person) => void;
   getDetailTeacherHandler: (personId: number) => void;
+  confirmDeleteButton: HTMLElement;
+  cancelDeleteButton: HTMLElement;
+  closeDeleteModalButton: HTMLElement;
+  deleteHandler: (personId: number) => void;
+  btnSearchTeacher: HTMLElement;
+  inputSearchTeacher: HTMLInputElement;
+  clearSearchTeacher: HTMLElement;
 
   constructor() {
     this.initElementsTeacher();
     this.initEventListenersTeacher();
+    this.initializeSearchInput();
   }
 
   /**
@@ -42,10 +54,20 @@ export class TeacherList {
   initElementsTeacher(): void {
     this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
+    this.btnSearchTeacher = teacherSearchElement.querySelector(
+      '#btn-search-teacher',
+    );
+    this.inputSearchTeacher = teacherSearchElement.querySelector(
+      '#input-search-teacher',
+    );
   }
 
   // Initialize event listeners
   initEventListenersTeacher(): void {
+    this.clearSearchTeacher = teacherSearchElement.querySelector(
+      '#clear-search-teacher',
+    );
+
     // Event listener for modal click
     modalTeacher.addEventListener('click', (event: MouseEvent) => {
       if (event.target === modalTeacher) {
@@ -58,10 +80,19 @@ export class TeacherList {
       this.showTeacherModal(null);
     });
 
+    // Event listener for clear search button click
+    this.clearSearchTeacher.addEventListener(
+      'click',
+      this.clearSearchHandler.bind(this),
+    );
+
     // Event listener for table element click
     this.tableTeacher.addEventListener('click', async (event: MouseEvent) => {
       const editButton = (event.target as HTMLElement)?.closest(
         '.dropdown-content button:first-child',
+      ) as HTMLElement;
+      const deleteButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:last-child',
       ) as HTMLElement;
 
       // Handle action click for edit and delete
@@ -78,6 +109,12 @@ export class TeacherList {
       // Handle edit button click
       if (editButton)
         await handleActionButtonClick(editButton, this.getDetailTeacherHandler);
+
+      // Handle delete button click
+      if (deleteButton)
+        await handleActionButtonClick(deleteButton, (personId: number) => {
+          this.showConfirmModal(personId);
+        });
     });
   }
 
@@ -316,7 +353,6 @@ export class TeacherList {
    * Binds the handler for editing existing teacher.
    * @param {Function} handler - The handler function for editing teacher.
    */
-
   bindEditTeacher(handler: (personId: string, person: Person) => void): void {
     this.editTeacherHandler = handler;
   }
@@ -348,5 +384,78 @@ export class TeacherList {
   // Bind the handler for getting detail of an teacher
   bindGetDetailTeacher(handler: (personId: number) => void): void {
     this.getDetailTeacherHandler = handler;
+  }
+
+  // Bind the delete ad handler to the table element
+  bindDeleteTeacher(handler: (personId: number) => void): void {
+    this.deleteHandler = handler;
+  }
+
+  // Show confirm modal
+  showConfirmModal(personId: number): void {
+    confirmModalTeacher.innerHTML = generateModalConfirm();
+
+    // Get button
+    const confirmDeleteButton = confirmModalTeacher.querySelector(
+      '#confirm-delete',
+    ) as HTMLElement;
+    const cancelDeleteButton = confirmModalTeacher.querySelector(
+      '#cancel-delete',
+    ) as HTMLElement;
+    const closeDeleteModalButton = confirmModalTeacher.querySelector(
+      '#close-modal-confirm',
+    ) as HTMLElement;
+
+    // Set data-id attribute for confirm button
+    confirmDeleteButton.setAttribute('data-id', personId.toString());
+
+    // Add event listeners
+    confirmDeleteButton.addEventListener('click', () => {
+      const personId = parseInt(confirmDeleteButton.getAttribute('data-id')!);
+      this.hideDeleteModal();
+      this.deleteHandler(personId);
+    });
+
+    cancelDeleteButton.addEventListener(
+      'click',
+      this.hideDeleteModal.bind(this),
+    );
+
+    closeDeleteModalButton.addEventListener(
+      'click',
+      this.hideDeleteModal.bind(this),
+    );
+
+    // Show modal confirm
+    confirmModalTeacher.style.display = DISPLAY_CLASSES.FLEX;
+  }
+
+  // Hide modal confirm
+  hideDeleteModal(): void {
+    confirmModalTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
+  }
+
+  // Initialize the search input and its event listeners
+  initializeSearchInput(): void {
+    this.inputSearchTeacher.addEventListener('input', () => {
+      const inputValue = this.inputSearchTeacher.value.trim();
+      this.clearSearchTeacher.style.display = inputValue
+        ? DISPLAY_CLASSES.FLEX
+        : DISPLAY_CLASSES.HIDDEN;
+    });
+  }
+
+  // Handle the case when no search results are found
+  handleSearchNoResult(): void {
+    this.tableTeacher.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+  }
+
+  // Clear the search input
+  clearSearchHandler(personData: Person[]): void {
+    this.inputSearchTeacher.value = '';
+    this.clearSearchTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
+
+    // Call function to display teacher list
+    this.displayTeacherList(personData);
   }
 }
