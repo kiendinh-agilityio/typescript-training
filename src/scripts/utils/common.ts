@@ -260,3 +260,34 @@ export const debounce = (func: () => void, delay: number) => {
     timeoutId = setTimeout(func, delay);
   };
 };
+
+/**
+ * The select input includes the classListOption as its options.
+ * @returns {string} - A string representing the HTML for the select filter.
+ */
+export const generateSelectFilterClass = (): string => `
+  <div class="form-select flex-column select-filter">
+    <select
+      id="select-filter"
+      name="select-filter"
+      class="form-input-select form-select-filter"
+    >
+      <option value="">Add filter</option>
+      ${classListOption}
+    </select>
+    <img
+      loading="lazy"
+      width="12px"
+      height="8px"
+      class="arrow-icon"
+      src="/images/svg/arrow.svg"
+      alt="Arrow icon"
+    />
+  </div>
+`;
+
+// This constant maps over CLASS_LIST to create a string of option elements for a select input.
+const classListOption: string = CLASS_LIST.map(
+  (classOption: string) =>
+    `<option value="${classOption}">${classOption}</option>`,
+).join('');

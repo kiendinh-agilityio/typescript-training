@@ -10,6 +10,7 @@ export const MESSAGES = {
   EDIT_SUCCESS: 'You have edited it successfully!',
   GET_DETAIL_ID_ERROR: 'Failed to get detail id person!',
   NO_CHANGES: 'No changes were made!',
+  FILTER_FAILED: 'Failed to filter person by class!',
 };
 
 // Validate Message
