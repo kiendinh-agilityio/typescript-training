@@ -288,5 +288,5 @@ export const generateSelectFilterClass = (): string => `
 
 // This constant maps over CLASS_LIST to create a string of option elements for a select input.
 const classListOption: string = CLASS_LIST.map(
-  (cls: string) => `<option value="${cls}">${cls}</option>`,
+  (classItem: string) => `<option value="${classItem}">${classItem}</option>`,
 ).join('');
