@@ -75,3 +75,10 @@ export const PERSONS = {
   TEACHERS: 'Teachers',
   STUDENTS: 'Students',
 };
+
+// Variables constants for current path
+export const CURRENT_PATH = {
+  HOME: '/',
+  TEACHER: 'teacher-dashboard',
+  STUDENT: 'student-dashboard',
+};
