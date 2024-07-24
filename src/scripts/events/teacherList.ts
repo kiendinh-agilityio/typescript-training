@@ -9,7 +9,7 @@ import {
 } from '@/constants';
 
 // Import teacher list
-import { generateListTeacher } from '@/templates';
+import { generateListPerson } from '@/templates';
 
 // Import interfaces Person data
 import { Person } from '@/interfaces';
@@ -54,7 +54,7 @@ export class TeacherList {
   /**
    * Initializes the DOM elements.
    */
-  initElementsTeacher(): void {
+  private initElementsTeacher(): void {
     this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
     this.btnSearchTeacher = teacherSearchElement.querySelector(
@@ -131,7 +131,7 @@ export class TeacherList {
     const reversedTeacherData = teacherData.slice().reverse();
 
     // Generate the HTML for the reversed list of teacher
-    const teacherListHTML = generateListTeacher(reversedTeacherData);
+    const teacherListHTML = generateListPerson(reversedTeacherData, false);
 
     // Update the table element's inner HTML with the new teacher list
     this.tableTeacher.innerHTML = teacherListHTML;

@@ -6,6 +6,7 @@ import {
   SPECIAL_KEYS,
   REGEX,
   PERSONS,
+  END_POINTS,
 } from '@/constants';
 
 // Define the structure of advertisement data
@@ -34,8 +35,8 @@ export class TeacherPage {
   teacherList: TeacherList;
   handleSearchDebounced: () => void;
 
-  constructor(personServices: PersonServices, teacherList: TeacherList) {
-    this.personServices = personServices;
+  constructor(teacherList: TeacherList) {
+    this.personServices = new PersonServices(END_POINTS.TEACHER);
     this.teacherList = teacherList;
     this.initialize();
 
