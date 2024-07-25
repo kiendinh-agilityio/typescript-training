@@ -19,19 +19,11 @@ export const personItem = (item: Person, isStudentPage: boolean): string => {
         />
         <p class="name-item">${name}</p>
       </div>
-      ${
-        isStudentPage
-          ? `
-        <div class="table-cell dasboard-item">
-          <p class="student-id-item">${id}</p>
-        </div>
-      `
-          : `
-        <div class="table-cell dasboard-item">
-          <p class="subject-item">${subject}</p>
-        </div>
-      `
-      }
+      <div class="table-cell dasboard-item">
+        <p class="${isStudentPage ? 'student-id-item' : 'subject-item'}">${
+          isStudentPage ? id : subject
+        }</p>
+      </div>
       <div class="table-cell dasboard-item">
         <p class="class-item">${className}</p>
       </div>
@@ -84,7 +76,7 @@ export const generateListPerson = (
     <!-- Table header with column titles -->
     <ul class="flex flex-wrap justify-start table-row thead">
       <li>Name</li>
-      ${isStudentPage ? '<li>Student ID</li>' : '<li>Subject</li>'}
+      <li>${isStudentPage ? 'Student ID' : 'Subject'}</li>
       <li>Class</li>
       <li>Email address</li>
       <li>Gender</li>
