@@ -79,6 +79,6 @@ export const PERSONS = {
 // Variables constants for current path
 export const CURRENT_PATH = {
   HOME: '/',
-  TEACHER: 'teacher-dashboard',
-  STUDENT: 'student-dashboard',
+  TEACHER: '/teacher',
+  STUDENT: '/student',
 };

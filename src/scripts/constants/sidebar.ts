@@ -9,14 +9,14 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     label: 'Dashboard',
   },
   {
-    href: '/teacher-dashboard',
+    href: '/teacher',
     url: '/images/svg/home.svg',
     alt: 'Teacher icon',
     label: 'Teachers',
     active: true,
   },
   {
-    href: '/student-dashboard',
+    href: '/student',
     url: '/images/svg/student.svg',
     alt: 'Students icon',
     label: 'Students/ classes',
