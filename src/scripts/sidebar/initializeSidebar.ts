@@ -1,5 +1,5 @@
 // Import constants
-import { SIDEBAR_ITEMS } from '@/constants';
+import { SIDEBAR_ITEMS, CURRENT_PATH } from '@/constants';
 
 // Import interfaces for sidebar
 import { SidebarItem } from '@/interfaces';
@@ -142,5 +142,5 @@ export const initializeSidebar = (): void => {
     document.querySelector(`a[href="${url}"]`)?.closest('.sub-sidebar-item');
 
   // Set the active item based on the current URL or default to "Teachers" if no match is found
-  setActiveItem(activeItem(currentUrl) || activeItem('/teacher-dashboard'));
+  setActiveItem(activeItem(currentUrl) || activeItem(CURRENT_PATH.TEACHER));
 };

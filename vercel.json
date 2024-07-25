@@ -12,9 +12,9 @@
   ],
   "rewrites": [
     {
-      "source": "/teacher-dashboard",
+      "source": "/teacher",
       "destination": "/index.html"
     },
-    { "source": "/student-dashboard", "destination": "/student-dashboard.html" }
+    { "source": "/student", "destination": "/student.html" }
   ]
 }

@@ -1,5 +1,5 @@
 // Import constants
-import { BASE_API, END_POINTS, API_METHODS, MESSAGES } from '@/constants';
+import { BASE_API, API_METHODS, MESSAGES } from '@/constants';
 
 // Import type and interfaces
 import { Person } from '@/interfaces';
@@ -33,14 +33,14 @@ const sendRequest = async <T>(
   return (await response.json()) as T;
 };
 
-export const httpServices = () => {
+export const httpServices = (endpoint: string) => {
   return {
     /**
      * Fetch a list of person from the API.
      * @returns {Promise} A promise that resolves to the list of person.
      */
     async get(queryString = ''): Promise<Person[]> {
-      const url = `${BASE_API}${END_POINTS.TEACHER}${queryString}`;
+      const url = `${BASE_API}${endpoint}${queryString}`;
 
       return sendRequest<Person[]>(url, API_METHODS.GET).catch((error) => {
         throw error;
@@ -53,7 +53,7 @@ export const httpServices = () => {
      * @returns {Promise} A promise that resolves to the newly added person.
      */
     async post(data: Person): Promise<Person> {
-      const url = `${BASE_API}${END_POINTS.TEACHER}`;
+      const url = `${BASE_API}${endpoint}`;
 
       return sendRequest<Person>(url, API_METHODS.POST, data).catch((error) => {
         throw error;
@@ -67,7 +67,7 @@ export const httpServices = () => {
      * @returns {Promise} A promise that resolves to the updated person data.
      */
     async put(id: string, data: Person): Promise<Person[]> {
-      const url = `${BASE_API}${END_POINTS.TEACHER}${id}`;
+      const url = `${BASE_API}${endpoint}/${id}`;
 
       return sendRequest<Person[]>(url, API_METHODS.PUT, data).catch(
         (error) => {
@@ -82,7 +82,7 @@ export const httpServices = () => {
      * @returns {Promise} A promise that resolves to the deleted person.
      */
     async delete(id: string): Promise<Person[]> {
-      const url = `${BASE_API}${END_POINTS.TEACHER}${id}`;
+      const url = `${BASE_API}${endpoint}/${id}`;
 
       return sendRequest<Person[]>(url, API_METHODS.DELETE).catch((error) => {
         throw error;
@@ -95,7 +95,7 @@ export const httpServices = () => {
      * @returns {Promise} A promise that resolves to the updated person data.
      */
     async getDetail(id: string): Promise<Person> {
-      const url = `${BASE_API}${END_POINTS.TEACHER}/${id}`;
+      const url = `${BASE_API}${endpoint}/${id}`;
 
       return sendRequest<Person>(url, API_METHODS.GET).catch((error) => {
         throw error;

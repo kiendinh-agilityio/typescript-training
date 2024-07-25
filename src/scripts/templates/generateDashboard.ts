@@ -1,8 +1,8 @@
 // Import the Person interface
 import { Person } from '@/interfaces';
 
-// Function to generate the HTML for a single teacher item
-export const teacherItem = (item: Person): string => {
+// Function to generate the HTML for a single item (Teacher or Student)
+export const personItem = (item: Person, isStudentPage: boolean): string => {
   // Destructure properties from the item object
   const { id, name, subject, email, className, gender, avatarUrl } = item || {};
 
@@ -20,7 +20,9 @@ export const teacherItem = (item: Person): string => {
         <p class="name-item">${name}</p>
       </div>
       <div class="table-cell dasboard-item">
-        <p class="subject-item">${subject}</p>
+        <p class="${isStudentPage ? 'student-id-item' : 'subject-item'}">${
+          isStudentPage ? id : subject
+        }</p>
       </div>
       <div class="table-cell dasboard-item">
         <p class="class-item">${className}</p>
@@ -65,13 +67,16 @@ export const teacherItem = (item: Person): string => {
   `;
 };
 
-// Function to generate the HTML for a list of teacher
-export const generateListTeacher = (items: Person[]): string => `
+// Function to generate the HTML for a list of teachers or students
+export const generateListPerson = (
+  items: Person[],
+  isStudentPage: boolean,
+): string => `
   <div class="table-container">
     <!-- Table header with column titles -->
     <ul class="flex flex-wrap justify-start table-row thead">
       <li>Name</li>
-      <li>Subject</li>
+      <li>${isStudentPage ? 'Student ID' : 'Subject'}</li>
       <li>Class</li>
       <li>Email address</li>
       <li>Gender</li>
@@ -79,8 +84,8 @@ export const generateListTeacher = (items: Person[]): string => `
     </ul>
     <!-- Table body with items -->
     <div class="flex-column flex-wrap tbody relative">
-      <!-- Generate HTML for each ad item and join them into a single string -->
-      ${items.map(teacherItem).join('')}
+      <!-- Generate HTML for each item and join them into a single string -->
+      ${items.map((item) => personItem(item, isStudentPage)).join('')}
     </div>
   </div>
 `;
