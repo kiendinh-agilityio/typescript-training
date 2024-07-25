@@ -17,6 +17,7 @@ import {
   delayAction,
   showToast,
   stopLoadingSpinner,
+  startLoadingSpinner,
   debounce,
   showTabletNoData,
 } from '@/utils';
@@ -93,11 +94,17 @@ export class TeacherPage {
    * Initializes and fetches the initial data.
    */
   async initialize(): Promise<void> {
+    // Start the loading spinner to indicate data fetching
+    startLoadingSpinner();
+
     const data = await this.personServices.fetchPersonData();
 
     data && data.length > 0
       ? this.teacherList.displayTeacherList(data)
       : showTabletNoData(PERSONS.TEACHERS);
+
+    // Directly stop loading spinner after response is received
+    stopLoadingSpinner();
   }
 
   /**
