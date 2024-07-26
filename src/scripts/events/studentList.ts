@@ -29,6 +29,8 @@ import {
   stopLoadingSpinner,
   showToast,
   toggleDropdown,
+  confirmModalStudent,
+  generateModalConfirm,
 } from '@/utils';
 
 // Definition StudentList class
@@ -38,6 +40,10 @@ export class StudentList {
   addStudentHandler: (person: Person) => void;
   editStudentHandler: (personId: string, person: Person) => void;
   getDetailStudentHandler: (personId: number) => void;
+  confirmDeleteButton: HTMLElement;
+  cancelDeleteButton: HTMLElement;
+  closeDeleteModalButton: HTMLElement;
+  deleteStudentHandler: (personId: number) => void;
 
   constructor() {
     this.initElementsStudent();
@@ -71,6 +77,9 @@ export class StudentList {
       const editButton = (event.target as HTMLElement)?.closest(
         '.dropdown-content button:first-child',
       ) as HTMLElement;
+      const deleteButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:last-child',
+      ) as HTMLElement;
 
       // Handle action click for edit and delete
       const handleActionButtonClick = async (
@@ -86,6 +95,12 @@ export class StudentList {
       // Handle edit button click
       if (editButton)
         await handleActionButtonClick(editButton, this.getDetailStudentHandler);
+
+      // Handle delete button click
+      if (deleteButton)
+        await handleActionButtonClick(deleteButton, (personId: number) => {
+          this.showConfirmModal(personId);
+        });
     });
   }
 
@@ -351,5 +366,55 @@ export class StudentList {
   // Bind the handler for getting detail of an student
   bindGetDetailStudent(handler: (personId: number) => void): void {
     this.getDetailStudentHandler = handler;
+  }
+
+  // Bind the delete ad handler to the table element
+  bindDeleteStudent(handler: (personId: number) => void): void {
+    this.deleteStudentHandler = handler;
+  }
+
+  // Show confirm modal
+  showConfirmModal(personId: number): void {
+    confirmModalStudent.innerHTML = generateModalConfirm();
+
+    // Get button
+    const confirmDeleteButton = confirmModalStudent.querySelector(
+      '#confirm-delete',
+    ) as HTMLElement;
+    const cancelDeleteButton = confirmModalStudent.querySelector(
+      '#cancel-delete',
+    ) as HTMLElement;
+    const closeDeleteModalButton = confirmModalStudent.querySelector(
+      '#close-modal-confirm',
+    ) as HTMLElement;
+
+    // Set data-id attribute for confirm button
+    confirmDeleteButton.setAttribute('data-id', personId.toString());
+
+    // Add event listeners
+    confirmDeleteButton.addEventListener('click', () => {
+      const personId = parseInt(confirmDeleteButton.getAttribute('data-id')!);
+
+      this.hideDeleteModal();
+      this.deleteStudentHandler(personId);
+    });
+
+    cancelDeleteButton.addEventListener(
+      'click',
+      this.hideDeleteModal.bind(this),
+    );
+
+    closeDeleteModalButton.addEventListener(
+      'click',
+      this.hideDeleteModal.bind(this),
+    );
+
+    // Show modal confirm
+    confirmModalStudent.style.display = DISPLAY_CLASSES.FLEX;
+  }
+
+  // Hide modal confirm
+  hideDeleteModal(): void {
+    confirmModalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 }

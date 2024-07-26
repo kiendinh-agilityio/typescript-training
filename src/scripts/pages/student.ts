@@ -1,5 +1,5 @@
 // Import constants
-import { PERSONS, END_POINTS } from '@/constants';
+import { PERSONS, END_POINTS, ICONS, MESSAGES } from '@/constants';
 
 // Define the structure of advertisement data
 import { Person } from '@/interfaces';
@@ -9,6 +9,8 @@ import {
   showTabletNoData,
   startLoadingSpinner,
   stopLoadingSpinner,
+  delayAction,
+  showToast,
 } from '@/utils';
 
 // Import class StudentList
@@ -39,6 +41,9 @@ export class StudentPage {
     this.studentList.bindGetDetailStudent(
       this.handleGetDetailStudent.bind(this),
     );
+
+    // Add event delete
+    this.studentList.bindDeleteStudent(this.handleDeleteStudent.bind(this));
   }
 
   /**
@@ -111,5 +116,37 @@ export class StudentPage {
 
     // Display the student modal with the retrieved details from the model.
     this.studentList.showStudentModal(response);
+  }
+
+  /**
+   * Handles the student deletion.
+   * @param {number} personId - The ID of the student to be deleted.
+   */
+  async handleDeleteStudent(personId: number): Promise<void> {
+    delayAction(async () => {
+      const response = await this.personServices.deletePerson(personId);
+
+      // Get the updated list of people from personServices after deletion
+      const studentList = this.personServices.personData;
+
+      // Filter out the deleted ad from the personData list
+      const updatedStudentData = studentList.filter(
+        (person) => Number(person.id) !== personId,
+      );
+
+      // Update the personData in personServices with the filtered list
+      this.personServices.personData = updatedStudentData;
+
+      // Display the updated list of person and show tablet when no data
+      updatedStudentData && updatedStudentData.length > 0
+        ? this.studentList.displayStudentList(updatedStudentData)
+        : showTabletNoData(PERSONS.STUDENTS);
+
+      // If the response is defined, stop the loading spinner to indicate that the operation is complete.
+      response && stopLoadingSpinner();
+
+      // Show a success notification
+      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
+    });
   }
 }
