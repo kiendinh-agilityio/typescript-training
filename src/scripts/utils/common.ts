@@ -5,12 +5,6 @@ import { CLASS_LIST, DISPLAY_CLASSES, TIMES } from '@/constants';
 import { Person } from '@/interfaces';
 
 /**
- * Generates HTML markup for a modal form to manage advertisements.
- * @param item - Object containing advertisement data (optional).
- * @param title - Optional title for the modal (default: 'Add' if no ID is provided, otherwise 'Edit').
- * @returns HTML string for the modal form.
- */
-/**
  * Generates HTML markup for a modal form to manage people (teachers or students).
  * @param item - Object containing person data (optional).
  * @param title - Optional title for the modal (default: 'Add' if no ID is provided, otherwise 'Edit').
@@ -65,18 +59,19 @@ export const generatePersonModal = (
           <p id="name-error" class="error-message-form"></p>
         </div>
         ${
-          isTeacher
-            ? `<div class="flex-column">
-                <label class="form-text">Subject</label>
-                <input
-                  id="subject"
-                  class="form-input"
-                  type="text"
-                  value="${subject}"
-                />
-                <p id="subject-error" class="error-message-form"></p>
-              </div>`
-            : ''
+          (isTeacher &&
+            `
+            <div class="flex-column">
+              <label class="form-text">Subject</label>
+              <input
+                id="subject"
+                class="form-input"
+                type="text"
+                value="${subject}"
+              />
+              <p id="subject-error" class="error-message-form"></p>
+            </div>`) ||
+          ''
         }
         <div class="flex-column">
           <label class="form-text">Email address</label>
