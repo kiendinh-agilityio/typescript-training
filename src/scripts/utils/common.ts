@@ -10,7 +10,18 @@ import { Person } from '@/interfaces';
  * @param title - Optional title for the modal (default: 'Add' if no ID is provided, otherwise 'Edit').
  * @returns HTML string for the modal form.
  */
-export const generateTeacherModal = (item: Person, title?: string): string => {
+/**
+ * Generates HTML markup for a modal form to manage people (teachers or students).
+ * @param item - Object containing person data (optional).
+ * @param title - Optional title for the modal (default: 'Add' if no ID is provided, otherwise 'Edit').
+ * @param isTeacher - Boolean indicating whether the modal is for a teacher (default: true).
+ * @returns HTML string for the modal form.
+ */
+export const generatePersonModal = (
+  item: Person,
+  title?: string,
+  isTeacher: boolean = true,
+): string => {
   // Destructure properties from the item object with default values
   const {
     id = '',
@@ -36,13 +47,13 @@ export const generateTeacherModal = (item: Person, title?: string): string => {
     <div class="modal-content">
       <div class="modal-header flex-row justify-between items-center">
         <h2 class="modal-heading">
-          ${title || (id ? 'Edit' : 'Add')}
+          ${title || (id ? 'Edit' : 'Add')} ${isTeacher ? 'Teacher' : 'Student'}
         </h2>
         <button class="btn btn-close-modal" id="close-modal">
           <span>X</span>
         </button>
       </div>
-      <div id="teacher-form" class="flex-column form-modal">
+      <div id="person-form" class="flex-column form-modal">
         <div class="flex-column">
           <label class="form-text">Name</label>
           <input
@@ -53,16 +64,20 @@ export const generateTeacherModal = (item: Person, title?: string): string => {
           />
           <p id="name-error" class="error-message-form"></p>
         </div>
-        <div class="flex-column">
-          <label class="form-text">Subject</label>
-          <input
-            id="subject"
-            class="form-input"
-            type="text"
-            value="${subject}"
-          />
-          <p id="subject-error" class="error-message-form"></p>
-        </div>
+        ${
+          isTeacher
+            ? `<div class="flex-column">
+                <label class="form-text">Subject</label>
+                <input
+                  id="subject"
+                  class="form-input"
+                  type="text"
+                  value="${subject}"
+                />
+                <p id="subject-error" class="error-message-form"></p>
+              </div>`
+            : ''
+        }
         <div class="flex-column">
           <label class="form-text">Email address</label>
           <input
@@ -106,7 +121,7 @@ export const generateTeacherModal = (item: Person, title?: string): string => {
         </div>
         <div class="flex justify-end btn-modal-group">
           <button class="btn btn-submit" id="btn-submit">
-            ${id ? 'Save' : 'Add'} Teacher
+            ${id ? 'Save' : 'Add'} ${isTeacher ? 'Teacher' : 'Student'}
           </button>
           <button id="btn-cancel-modal" class="btn btn-cancel-modal">
             Cancel
