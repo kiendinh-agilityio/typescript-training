@@ -11,8 +11,14 @@ import {
 // Import interfaces
 import { Person, ConfigValidate } from '@/interfaces';
 
+// Import enums
+import { PersonType } from '@/enums';
+
 // Function to validate an person form
-export const validateForm = (item: Person): ConfigValidate => {
+export const validateForm = (
+  item: Person,
+  personType: PersonType,
+): ConfigValidate => {
   // Destructure the personItem properties with default empty strings
   const {
     email = '',
@@ -45,9 +51,11 @@ export const validateForm = (item: Person): ConfigValidate => {
   }
 
   // Validate the subject field and add an error if validation fails
-  const subjectError = validateSubjectField(subject);
-  if (subjectError) {
-    errors.subject = subjectError;
+  if (personType === PersonType.Teacher) {
+    const subjectError = validateSubjectField(subject);
+    if (subjectError) {
+      errors.subject = subjectError;
+    }
   }
 
   // Validate the avatarUrl field and add an error if validation fails

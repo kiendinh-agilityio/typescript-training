@@ -36,8 +36,8 @@ export const PROFILE_PERSON = {
 
 // Variables title modal
 export const TITLE_MODAL = {
-  ADD_TEACHER: 'Add Teacher',
-  EDIT_TEACHER: 'Edit Teacher',
+  ADD: 'Add',
+  EDIT: 'Edit',
 };
 
 // Variables class
@@ -47,7 +47,7 @@ export const CLASSES = {
 
 // Variables get ID
 export const ID_ELEMENTS = {
-  FORM_TEACHER: '#teacher-form',
+  FORM_PERSON: '#person-form',
   BTN_SUBMIT: '#btn-submit',
   BTN_CANCEL: '#btn-cancel-modal',
   CLOSE_MODAL: '#close-modal',

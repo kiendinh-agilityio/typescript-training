@@ -6,5 +6,5 @@ export interface Person {
   className: string;
   gender: string;
   avatarUrl: string;
-  subject: string;
+  subject?: string;
 }

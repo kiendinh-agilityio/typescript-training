@@ -16,7 +16,7 @@ import { Person } from '@/interfaces';
 
 // Import utils
 import {
-  generateTeacherModal,
+  generatePersonModal,
   trailingString,
   validateForm,
   showFormErrors,
@@ -27,6 +27,9 @@ import {
   teacherSearchElement,
   generateSelectFilterClass,
 } from '@/utils';
+
+// Import enums
+import { PersonType } from '@/enums';
 
 // Definition teacherList class
 export class TeacherList {
@@ -54,7 +57,7 @@ export class TeacherList {
   /**
    * Initializes the DOM elements.
    */
-  private initElementsTeacher(): void {
+  initElementsTeacher(): void {
     this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
     this.btnSearchTeacher = teacherSearchElement.querySelector(
@@ -186,10 +189,8 @@ export class TeacherList {
    * @param {Object} personData - The data of the teacher to be displayed in the modal.
    */
   showTeacherModal(personData: Person): void {
-    const title = personData
-      ? TITLE_MODAL.EDIT_TEACHER
-      : TITLE_MODAL.ADD_TEACHER;
-    const modalTeacherContent = generateTeacherModal(personData, title);
+    const title = personData ? TITLE_MODAL.EDIT : TITLE_MODAL.ADD;
+    const modalTeacherContent = generatePersonModal(personData, title);
 
     // Set the modal's HTML content and display it
     modalTeacher.innerHTML = modalTeacherContent;
@@ -206,7 +207,7 @@ export class TeacherList {
       ID_ELEMENTS.BTN_SUBMIT,
     ) as HTMLElement;
     const formTeacher = modalTeacher.querySelector(
-      ID_ELEMENTS.FORM_TEACHER,
+      ID_ELEMENTS.FORM_PERSON,
     ) as HTMLElement;
 
     // Add event listeners for close button and cancel button clicks
@@ -266,7 +267,7 @@ export class TeacherList {
           : true;
 
         // Enable the submit button when changes are made and the modal is "Edit teacher"
-        if (title === TITLE_MODAL.EDIT_TEACHER && hasChange) {
+        if (title === TITLE_MODAL.EDIT && hasChange) {
           submitBtn.removeAttribute(DISPLAY_CLASSES.DISABLED);
           submitBtn.classList.remove(CLASSES.BUTTON_DISABLE);
         } else if (!hasChange) {
@@ -324,7 +325,7 @@ export class TeacherList {
       this.clearErrorMessageForm();
 
       // Validate the teacher and show errors if any
-      const errors = validateForm(person);
+      const errors = validateForm(person, PersonType.Teacher);
       if (Object.entries(errors).length > 0) {
         showFormErrors(errors);
       } else if (hasChange) {
@@ -336,7 +337,7 @@ export class TeacherList {
       }
     });
 
-    if (title === TITLE_MODAL.EDIT_TEACHER) {
+    if (title === TITLE_MODAL.EDIT) {
       submitBtn.setAttribute(
         DISPLAY_CLASSES.DISABLED,
         DISPLAY_CLASSES.DISABLED,
