@@ -22,3 +22,6 @@ export const confirmModalTeacher = document.getElementById(
 
 // Get the first element with id 'teacher-search'
 export const teacherSearchElement = document.getElementById('teacher-search');
+
+// Get the element with ID 'modal teacher'
+export const modalStudent = document.getElementById('modal-add-student');

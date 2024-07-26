@@ -1,6 +1,9 @@
 // Import constants
 import { PERSONS, END_POINTS } from '@/constants';
 
+// Define the structure of advertisement data
+import { Person } from '@/interfaces';
+
 // Import utils
 import {
   showTabletNoData,
@@ -15,7 +18,7 @@ import { StudentList } from '@/events';
 import { PersonServices } from '@/services';
 
 /**
- * Represents the TeacherPage class for handling the business logic and user interactions.
+ * Represents the StudentPage class for handling the business logic and user interactions.
  */
 export class StudentPage {
   personServices: PersonServices;
@@ -25,6 +28,9 @@ export class StudentPage {
     this.personServices = new PersonServices(END_POINTS.STUDENT);
     this.studentList = studentList;
     this.initialize();
+
+    // Bind add handler
+    this.studentList.bindAddStudent(this.handleAddStudent.bind(this));
   }
 
   /**
@@ -44,5 +50,20 @@ export class StudentPage {
 
     // Directly stop loading spinner after response is received
     stopLoadingSpinner();
+  }
+
+  /**
+   * Handles the asynchronous addition of new student.
+   * @param {object} newPerson - The data of the new student to be added.
+   */
+  async handleAddStudent(newPerson: Person): Promise<void> {
+    // Send a request to add the new person and await the response
+    const response = await this.personServices.addPerson(newPerson);
+
+    // Check if the response is an array, then push the items into personData
+    this.personServices.personData.push(response);
+
+    // Display the list of student after adding
+    this.studentList.displayStudentList(this.personServices.personData);
   }
 }
