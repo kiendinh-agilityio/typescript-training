@@ -31,6 +31,14 @@ export class StudentPage {
 
     // Bind add handler
     this.studentList.bindAddStudent(this.handleAddStudent.bind(this));
+
+    // Bind edit handler
+    this.studentList.bindEditStudent(this.handleEditStudent.bind(this));
+
+    // Get detail student
+    this.studentList.bindGetDetailStudent(
+      this.handleGetDetailStudent.bind(this),
+    );
   }
 
   /**
@@ -65,5 +73,43 @@ export class StudentPage {
 
     // Display the list of student after adding
     this.studentList.displayStudentList(this.personServices.personData);
+  }
+
+  /**
+   * Handles the asynchronous editing of existing student.
+   * @param {number} personId - The ID of the ad to be edited.
+   * @param {object} updatedPerson - The updated data of the student.
+   */
+  async handleEditStudent(
+    personId: string,
+    updatedPerson: Person,
+  ): Promise<void> {
+    // Edit the ad in the model
+    const response = await this.personServices.editPerson(
+      personId,
+      updatedPerson,
+    );
+
+    // Find the edited ad in the personData array
+    const editedStudent = this.personServices.personData.find(
+      (person) => person.id === personId,
+    );
+
+    // Update the edited student with the response data
+    editedStudent && Object.assign(editedStudent, response);
+
+    // Display the list of student after edit
+    this.studentList.displayStudentList(this.personServices.personData);
+  }
+
+  /**
+   * Asynchronously handles the retrieval of detailed information for a specific student.
+   * @param {string} personId - The unique identifier of the student.
+   */
+  async handleGetDetailStudent(personId: string): Promise<void> {
+    const response = await this.personServices.getPersonDetail(personId);
+
+    // Display the student modal with the retrieved details from the model.
+    this.studentList.showStudentModal(response);
   }
 }
