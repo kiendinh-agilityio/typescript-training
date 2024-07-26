@@ -28,6 +28,9 @@ import {
   startLoadingSpinner,
   stopLoadingSpinner,
   showToast,
+  toggleDropdown,
+  confirmModalStudent,
+  generateModalConfirm,
 } from '@/utils';
 
 // Definition StudentList class
@@ -35,7 +38,12 @@ export class StudentList {
   tableStudent: HTMLElement;
   btnAddStudent: HTMLElement;
   addStudentHandler: (person: Person) => void;
-  editStudentHandler: (studentId: string, person: Person) => void;
+  editStudentHandler: (personId: string, person: Person) => void;
+  getDetailStudentHandler: (personId: number) => void;
+  confirmDeleteButton: HTMLElement;
+  cancelDeleteButton: HTMLElement;
+  closeDeleteModalButton: HTMLElement;
+  deleteStudentHandler: (personId: number) => void;
 
   constructor() {
     this.initElementsStudent();
@@ -63,6 +71,37 @@ export class StudentList {
     this.btnAddStudent.addEventListener('click', () => {
       this.showStudentModal(null);
     });
+
+    // Event listener for table element click
+    this.tableStudent.addEventListener('click', async (event: MouseEvent) => {
+      const editButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:first-child',
+      ) as HTMLElement;
+      const deleteButton = (event.target as HTMLElement)?.closest(
+        '.dropdown-content button:last-child',
+      ) as HTMLElement;
+
+      // Handle action click for edit and delete
+      const handleActionButtonClick = async (
+        button: HTMLElement,
+        action: (id: number) => void | Promise<void>,
+      ) => {
+        if (button) {
+          const dataId = button.getAttribute('data-id');
+          if (dataId) await action(parseInt(dataId));
+        }
+      };
+
+      // Handle edit button click
+      if (editButton)
+        await handleActionButtonClick(editButton, this.getDetailStudentHandler);
+
+      // Handle delete button click
+      if (deleteButton)
+        await handleActionButtonClick(deleteButton, (personId: number) => {
+          this.showConfirmModal(personId);
+        });
+    });
   }
 
   /**
@@ -78,6 +117,48 @@ export class StudentList {
 
     // Update the table element's inner HTML with the new student list
     this.tableStudent.innerHTML = studentListHTML;
+
+    // Dropdown buttons
+    const dropdownButtons = this.tableStudent.querySelectorAll('.btn-dropdown');
+    const dropdownContents =
+      this.tableStudent.querySelectorAll('.dropdown-content');
+
+    const closeDropdowns = (event: MouseEvent) => {
+      const isInsideDropdown = Array.from(dropdownContents).some((content) =>
+        content.contains(event.target as Node),
+      );
+
+      if (!isInsideDropdown) {
+        const htmlDropdownContents = Array.from(dropdownContents).filter(
+          (content): content is HTMLElement => content instanceof HTMLElement,
+        );
+
+        htmlDropdownContents.forEach(
+          (content) => (content.style.display = DISPLAY_CLASSES.HIDDEN),
+        );
+      }
+    };
+
+    dropdownButtons.forEach((button) => {
+      button.addEventListener('click', (event: MouseEvent) => {
+        const mouseEvent = event as MouseEvent;
+        mouseEvent.stopPropagation();
+        const id = (mouseEvent.target as HTMLElement).getAttribute('data-id');
+
+        // Find the corresponding dropdown content
+        const dropdownContent = this.tableStudent.querySelector(
+          `.dropdown-content[data-id="${id}"]`,
+        );
+
+        // Hide other dropdown contents
+        closeDropdowns(mouseEvent);
+
+        // Toggle the selected dropdown content
+        toggleDropdown(dropdownContent as HTMLElement);
+      });
+    });
+
+    document.addEventListener('click', closeDropdowns);
   }
 
   /**
@@ -219,18 +300,34 @@ export class StudentList {
         // Start the spinner
         startLoadingSpinner();
 
-        // Perform the async operation
-        personData
-          ? await this.editStudentHandler(personData.id, person)
-          : await this.addStudentHandler(person);
+        // Determine whether this operation is an edit or an add
+        const isEditStudent = !!personData;
+
+        // Perform the appropriate action: edit or add student
+        await (isEditStudent
+          ? this.editStudentHandler(personData.id, person)
+          : this.addStudentHandler(person));
 
         // Stop the spinner
         stopLoadingSpinner();
 
-        // Show success toast message
-        showToast(MESSAGES.ADD_SUCCESS, ICONS.SUCCESS, true);
+        // Show success toast message add or edit
+        showToast(
+          isEditStudent ? MESSAGES.EDIT_SUCCESS : MESSAGES.ADD_SUCCESS,
+          ICONS.SUCCESS,
+          true,
+        );
       }
     });
+
+    if (title === TITLE_MODAL.EDIT) {
+      submitAddStudent.setAttribute(
+        DISPLAY_CLASSES.DISABLED,
+        DISPLAY_CLASSES.DISABLED,
+      );
+
+      submitAddStudent.classList.add(CLASSES.BUTTON_DISABLE);
+    }
   }
 
   /**
@@ -256,5 +353,68 @@ export class StudentList {
       const errorElement = modalStudent.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
+  }
+
+  /**
+   * Binds the handler for editing existing student.
+   * @param {Function} handler - The handler function for editing student.
+   */
+  bindEditStudent(handler: (personId: string, person: Person) => void): void {
+    this.editStudentHandler = handler;
+  }
+
+  // Bind the handler for getting detail of an student
+  bindGetDetailStudent(handler: (personId: number) => void): void {
+    this.getDetailStudentHandler = handler;
+  }
+
+  // Bind the delete ad handler to the table element
+  bindDeleteStudent(handler: (personId: number) => void): void {
+    this.deleteStudentHandler = handler;
+  }
+
+  // Show confirm modal
+  showConfirmModal(personId: number): void {
+    confirmModalStudent.innerHTML = generateModalConfirm();
+
+    // Get button
+    const confirmDeleteButton = confirmModalStudent.querySelector(
+      '#confirm-delete',
+    ) as HTMLElement;
+    const cancelDeleteButton = confirmModalStudent.querySelector(
+      '#cancel-delete',
+    ) as HTMLElement;
+    const closeDeleteModalButton = confirmModalStudent.querySelector(
+      '#close-modal-confirm',
+    ) as HTMLElement;
+
+    // Set data-id attribute for confirm button
+    confirmDeleteButton.setAttribute('data-id', personId.toString());
+
+    // Add event listeners
+    confirmDeleteButton.addEventListener('click', () => {
+      const personId = parseInt(confirmDeleteButton.getAttribute('data-id')!);
+
+      this.hideDeleteModal();
+      this.deleteStudentHandler(personId);
+    });
+
+    cancelDeleteButton.addEventListener(
+      'click',
+      this.hideDeleteModal.bind(this),
+    );
+
+    closeDeleteModalButton.addEventListener(
+      'click',
+      this.hideDeleteModal.bind(this),
+    );
+
+    // Show modal confirm
+    confirmModalStudent.style.display = DISPLAY_CLASSES.FLEX;
+  }
+
+  // Hide modal confirm
+  hideDeleteModal(): void {
+    confirmModalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 }
