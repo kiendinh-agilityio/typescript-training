@@ -41,8 +41,11 @@
               alt="Arrow icon"
             />
           </div>
-          <div class="flex items-center dashboard-search">
-            <button class="flex items-center justify-center btn-search">
+          <div id="student-search" class="flex items-center dashboard-search">
+            <button
+              id="btn-search-student"
+              class="flex items-center justify-center btn-search"
+            >
               <img
                 loading="lazy"
                 width="16px"
@@ -53,12 +56,16 @@
               />
             </button>
             <input
+              id="input-search-student"
               class="input input-search"
               placeholder="Search for a student by name or email"
               type="text"
               name="search"
             />
-            <button class="justify-center items-center btn-clear-search">
+            <button
+              id="clear-search-student"
+              class="justify-center items-center btn-clear-search"
+            >
               x
             </button>
           </div>
