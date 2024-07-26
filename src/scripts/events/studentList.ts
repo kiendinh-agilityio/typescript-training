@@ -31,6 +31,7 @@ import {
   toggleDropdown,
   confirmModalStudent,
   generateModalConfirm,
+  studentSearchElement,
 } from '@/utils';
 
 // Definition StudentList class
@@ -44,10 +45,14 @@ export class StudentList {
   cancelDeleteButton: HTMLElement;
   closeDeleteModalButton: HTMLElement;
   deleteStudentHandler: (personId: number) => void;
+  btnSearchStudent: HTMLElement;
+  inputSearchStudent: HTMLInputElement;
+  clearSearchStudent: HTMLElement;
 
   constructor() {
     this.initElementsStudent();
     this.initEventListenersStudent();
+    this.initializeSearchInput();
   }
 
   /**
@@ -56,10 +61,20 @@ export class StudentList {
   initElementsStudent(): void {
     this.tableStudent = document.getElementById('list-student');
     this.btnAddStudent = document.getElementById('btn-add-student');
+    this.btnSearchStudent = studentSearchElement.querySelector(
+      '#btn-search-student',
+    );
+    this.inputSearchStudent = studentSearchElement.querySelector(
+      '#input-search-student',
+    );
   }
 
   // Initialize event listeners
   initEventListenersStudent(): void {
+    this.clearSearchStudent = studentSearchElement.querySelector(
+      '#clear-search-student',
+    );
+
     // Event listener for modal click
     modalStudent.addEventListener('click', (event: MouseEvent) => {
       if (event.target === modalStudent) {
@@ -102,6 +117,12 @@ export class StudentList {
           this.showConfirmModal(personId);
         });
     });
+
+    // Event listener for clear search button click
+    this.clearSearchStudent.addEventListener(
+      'click',
+      this.clearSearchHandler.bind(this),
+    );
   }
 
   /**
@@ -416,5 +437,29 @@ export class StudentList {
   // Hide modal confirm
   hideDeleteModal(): void {
     confirmModalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
+  }
+
+  // Initialize the search input and its event listeners
+  initializeSearchInput(): void {
+    this.inputSearchStudent.addEventListener('input', () => {
+      const inputValue = this.inputSearchStudent.value.trim();
+      this.clearSearchStudent.style.display = inputValue
+        ? DISPLAY_CLASSES.FLEX
+        : DISPLAY_CLASSES.HIDDEN;
+    });
+  }
+
+  // Handle the case when no search results are found
+  handleSearchNoResult(): void {
+    this.tableStudent.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+  }
+
+  // Clear the search input
+  clearSearchHandler(personData: Person[]): void {
+    this.inputSearchStudent.value = '';
+    this.clearSearchStudent.style.display = DISPLAY_CLASSES.HIDDEN;
+
+    // Call function to display student list
+    this.displayStudentList(personData);
   }
 }
