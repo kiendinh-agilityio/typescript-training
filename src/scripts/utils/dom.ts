@@ -30,3 +30,6 @@ export const modalStudent = document.getElementById('modal-add-student');
 export const confirmModalStudent = document.getElementById(
   'modal-confirm-student',
 );
+
+// Get the first element with id 'student-search'
+export const studentSearchElement = document.getElementById('student-search');
