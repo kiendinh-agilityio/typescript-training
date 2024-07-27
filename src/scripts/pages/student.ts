@@ -85,6 +85,12 @@ export class StudentPage {
         }
       },
     );
+
+    // Add event for filter class
+    this.studentList.studentFilterClass.addEventListener(
+      'change',
+      this.filterClassStudent.bind(this),
+    );
   }
 
   /**
@@ -236,5 +242,27 @@ export class StudentPage {
   // Handles clearing the search input and displaying the initial data
   handleClearSearch(): void {
     this.initialize();
+  }
+
+  /**
+   * Handles changes to the class filter selection.
+   * @param event - The event object triggered by the filter change (e.g., a change event on a select element).
+   * @returns A promise that resolves when the filtering and display update are complete.
+   */
+  async filterClassStudent(): Promise<void> {
+    const selectedClass = (
+      this.studentList.studentFilterClass as HTMLSelectElement
+    ).value;
+
+    try {
+      // Fetch the filtered list of students based on the selected class
+      const filterClassStudents =
+        await this.personServices.filterPersonByClass(selectedClass);
+
+      // Update the display with the filtered list of students
+      this.studentList.displayStudentList(filterClassStudents);
+    } catch (error) {
+      this.studentList.handleSearchNoResult();
+    }
   }
 }
