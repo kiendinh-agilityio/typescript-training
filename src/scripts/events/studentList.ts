@@ -32,6 +32,7 @@ import {
   confirmModalStudent,
   generateModalConfirm,
   studentSearchElement,
+  generateSelectFilterClass,
 } from '@/utils';
 
 // Definition StudentList class
@@ -48,11 +49,13 @@ export class StudentList {
   btnSearchStudent: HTMLElement;
   inputSearchStudent: HTMLInputElement;
   clearSearchStudent: HTMLElement;
+  studentFilterClass: HTMLElement;
 
   constructor() {
     this.initElementsStudent();
     this.initEventListenersStudent();
     this.initializeSearchInput();
+    this.selectFilterStudent();
   }
 
   /**
@@ -462,5 +465,14 @@ export class StudentList {
 
     // Call function to display student list
     this.displayStudentList(personData);
+  }
+
+  // Renders the select filter for students classes
+  selectFilterStudent(): void {
+    const filterStudentContainer = document.getElementById('student-filter');
+    filterStudentContainer.innerHTML = generateSelectFilterClass();
+
+    // Bind the filter class student event
+    this.studentFilterClass = document.getElementById('select-filter');
   }
 }
