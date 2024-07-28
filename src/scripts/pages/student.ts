@@ -250,19 +250,19 @@ export class StudentPage {
    * @returns A promise that resolves when the filtering and display update are complete.
    */
   async filterClassStudent(): Promise<void> {
-    const selectedClass = (
+    const selectedClassStudent = (
       this.studentList.studentFilterClass as HTMLSelectElement
     ).value;
 
     try {
       // Fetch the filtered list of students based on the selected class
       const filterClassStudents =
-        await this.personServices.filterPersonByClass(selectedClass);
+        await this.personServices.filterPersonByClass(selectedClassStudent);
 
       // Update the display with the filtered list of students
       this.studentList.displayStudentList(filterClassStudents);
     } catch (error) {
-      this.studentList.handleSearchNoResult();
+      this.studentList.handleFilterNoResult();
     }
   }
 }

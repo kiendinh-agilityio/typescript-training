@@ -33,6 +33,7 @@ import {
   generateModalConfirm,
   studentSearchElement,
   generateSelectFilterClass,
+  renderFilterNoResult,
 } from '@/utils';
 
 // Definition StudentList class
@@ -467,12 +468,17 @@ export class StudentList {
     this.displayStudentList(personData);
   }
 
-  // Renders the select filter for students classes
+  // Render the select filter for students classes
   selectFilterStudent(): void {
     const filterStudentContainer = document.getElementById('student-filter');
     filterStudentContainer.innerHTML = generateSelectFilterClass();
 
     // Bind the filter class student event
     this.studentFilterClass = document.getElementById('select-filter');
+  }
+
+  // Handle the case when filter class no results are found
+  handleFilterNoResult(): void {
+    this.tableStudent.innerHTML = renderFilterNoResult();
   }
 }
