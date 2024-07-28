@@ -26,6 +26,7 @@ import {
   generateModalConfirm,
   teacherSearchElement,
   generateSelectFilterClass,
+  renderFilterNoResult,
 } from '@/utils';
 
 // Import enums
@@ -51,7 +52,7 @@ export class TeacherList {
     this.initElementsTeacher();
     this.initEventListenersTeacher();
     this.initializeSearchInput();
-    this.renderSelectFilter();
+    this.selectFilterTeacher();
   }
 
   /**
@@ -66,7 +67,6 @@ export class TeacherList {
     this.inputSearchTeacher = teacherSearchElement.querySelector(
       '#input-search-teacher',
     );
-    this.teacherFilterClass = document.getElementById('teacher-filter');
   }
 
   // Initialize event listeners
@@ -464,20 +464,17 @@ export class TeacherList {
     this.displayTeacherList(personData);
   }
 
-  // Renders the select filter for teacher classes
-  renderSelectFilter(): void {
-    this.teacherFilterClass.innerHTML = generateSelectFilterClass();
+  // Render the select filter for teachers classes
+  selectFilterTeacher(): void {
+    const filterTeacherContainer = document.getElementById('teacher-filter');
+    filterTeacherContainer.innerHTML = generateSelectFilterClass();
+
+    // Bind the filter class teacher event
+    this.teacherFilterClass = document.getElementById('select-filter');
   }
 
-  /**
-   * @param handler - The function to be called when the filter class selection changes.
-   */
-  bindFilterClassTeacher(handler: (event: Event) => void): void {
-    const selectFilter = document.getElementById(
-      'select-filter',
-    ) as HTMLSelectElement;
-
-    // Add an event listener to handle changes in the select element
-    selectFilter.addEventListener('change', handler);
+  // Handle the case when filter class no results are found
+  handleFilterNoResult(): void {
+    this.tableTeacher.innerHTML = renderFilterNoResult();
   }
 }
