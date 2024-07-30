@@ -1,5 +1,13 @@
 // Import constants
-import { PERSONS, END_POINTS, ICONS, MESSAGES } from '@/constants';
+import {
+  PERSONS,
+  END_POINTS,
+  ICONS,
+  MESSAGES,
+  TIMES,
+  SPECIAL_KEYS,
+  REGEX,
+} from '@/constants';
 
 // Define the structure of advertisement data
 import { Person } from '@/interfaces';
@@ -11,6 +19,7 @@ import {
   stopLoadingSpinner,
   delayAction,
   showToast,
+  debounce,
 } from '@/utils';
 
 // Import class StudentList
@@ -25,6 +34,7 @@ import { PersonServices } from '@/services';
 export class StudentPage {
   personServices: PersonServices;
   studentList: StudentList;
+  handleSearchDebounced: () => void;
 
   constructor(studentList: StudentList) {
     this.personServices = new PersonServices(END_POINTS.STUDENT);
@@ -44,6 +54,43 @@ export class StudentPage {
 
     // Add event delete
     this.studentList.bindDeleteStudent(this.handleDeleteStudent.bind(this));
+
+    // Add event listeners for search and clear search buttons
+    this.studentList.btnSearchStudent.addEventListener(
+      'click',
+      this.handleSearchStudent.bind(this),
+    );
+    this.studentList.clearSearchStudent.addEventListener(
+      'click',
+      this.handleClearSearch.bind(this),
+    );
+
+    // Initialize debounced search handling
+    this.handleSearchDebounced = debounce(
+      this.handleSearchStudent.bind(this),
+      TIMES.DEBOUNCE,
+    );
+
+    // Add event listeners for real-time search
+    this.studentList.inputSearchStudent.addEventListener('input', () => {
+      this.handleSearchDebounced();
+    });
+
+    // Add event listener for pressing Enter key in the search input
+    this.studentList.inputSearchStudent.addEventListener(
+      'keypress',
+      (event: KeyboardEvent) => {
+        if (event.key === SPECIAL_KEYS.ENTER) {
+          this.handleSearchStudent();
+        }
+      },
+    );
+
+    // Add event for filter class
+    this.studentList.studentFilterClass.addEventListener(
+      'change',
+      this.filterClassStudent.bind(this),
+    );
   }
 
   /**
@@ -148,5 +195,73 @@ export class StudentPage {
       // Show a success notification
       showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
     });
+  }
+
+  /**
+   * Handles the search student action.
+   */
+  async handleSearchStudent(): Promise<void> {
+    const keyword: string = this.studentList.inputSearchStudent.value
+      .trim()
+      .toLowerCase();
+
+    // Check if a keyword is present and if person data needs to be loaded
+    if (
+      keyword &&
+      (!this.personServices.personData.length || this.personServices.error)
+    ) {
+      await this.personServices.fetchPersonData();
+    }
+
+    // Remove spaces in the keyword
+    const formattedKeyword: string = keyword.replace(REGEX.KEYWORD, '');
+
+    // Filter the personData based on the entered keyword in the search input.
+    const filteredPerson = this.personServices.personData.filter((person) => {
+      const { name = '', email = '' } = person || {};
+
+      // Remove spaces and convert to lowercase
+      const formattedName: string = name
+        ? name.replace(REGEX.KEYWORD, '').toLowerCase()
+        : '';
+
+      return (
+        formattedName.includes(formattedKeyword) ||
+        email.includes(formattedKeyword)
+      );
+    });
+
+    // Display matching ads if results are found
+    if (filteredPerson.length) {
+      this.studentList.displayStudentList(filteredPerson);
+    } else {
+      this.studentList.handleSearchNoResult();
+    }
+  }
+
+  // Handles clearing the search input and displaying the initial data
+  handleClearSearch(): void {
+    this.initialize();
+  }
+
+  /**
+   * Handles changes to the class filter selection.
+   * @returns A promise that resolves when the filtering and display update are complete.
+   */
+  async filterClassStudent(): Promise<void> {
+    const selectedClassStudent = (
+      this.studentList.studentFilterClass as HTMLSelectElement
+    ).value;
+
+    try {
+      // Fetch the filtered list of students based on the selected class
+      const filterClassStudents =
+        await this.personServices.filterPersonByClass(selectedClassStudent);
+
+      // Update the display with the filtered list of students
+      this.studentList.displayStudentList(filterClassStudents);
+    } catch (error) {
+      this.studentList.handleFilterNoResult();
+    }
   }
 }

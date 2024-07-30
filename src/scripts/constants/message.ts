@@ -11,6 +11,7 @@ export const MESSAGES = {
   GET_DETAIL_ID_ERROR: 'Failed to get detail id person!',
   NO_CHANGES: 'No changes were made!',
   FILTER_FAILED: 'Failed to filter person by class!',
+  NO_RESULT_FILTER: 'No class found with the selected name!',
 };
 
 // Validate Message

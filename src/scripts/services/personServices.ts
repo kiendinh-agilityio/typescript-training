@@ -116,14 +116,6 @@ export class PersonServices {
    * @returns A promise that resolves to an array of `Person` objects that match the specified class name.
    */
   async filterPersonByClass(className: string): Promise<Person[]> {
-    try {
-      const query = className ? `?className=${className}` : '';
-      const response = await this.fetchPersonData(query);
-
-      return response;
-    } catch (error) {
-      console.error(MESSAGES.FILTER_FAILED);
-      throw error;
-    }
+    return this.fetchPersonData(`?className=${className}`);
   }
 }

@@ -1,5 +1,5 @@
 // Import the constant
-import { CLASS_LIST, DISPLAY_CLASSES, TIMES } from '@/constants';
+import { CLASS_LIST, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 
 // Import the Teacher interface
 import { Person } from '@/interfaces';
@@ -301,3 +301,8 @@ const classListOption: string = CLASS_LIST.map(
   (classOption: string) =>
     `<option value="${classOption}">${classOption}</option>`,
 ).join('');
+
+// Create function common show message no results when filter class
+export const renderFilterNoResult = (): string => `
+  <p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER}</p>
+`;
