@@ -442,7 +442,8 @@ export class StudentList {
   // Initialize the search input and its event listeners
   initializeSearchInput(): void {
     this.inputSearchStudent.addEventListener('input', () => {
-      const inputValue = this.inputSearchStudent.value.trim();
+      const inputValue: string = this.inputSearchStudent.value.trim();
+
       this.clearSearchStudent.style.display = inputValue
         ? DISPLAY_CLASSES.FLEX
         : DISPLAY_CLASSES.HIDDEN;
