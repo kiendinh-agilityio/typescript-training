@@ -17,8 +17,8 @@ export const personItem = (
       <div class="flex items-center dasboard-item">
         <img
           loading="lazy"
-          width="24px"
-          height="24px"
+          width="32px"
+          height="32px"
           class="avatar-item"
           src="${avatarUrl}"
           alt="Avatar"
