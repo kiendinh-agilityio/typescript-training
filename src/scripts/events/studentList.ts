@@ -1,5 +1,5 @@
 // Import student list
-import { generateListPerson } from '@/templates';
+import { generateListPerson, generateDetailStudent } from '@/templates';
 
 // Import interfaces Person data
 import { Person } from '@/interfaces';
@@ -16,6 +16,7 @@ import {
   CLASSES,
   MESSAGES,
   ICONS,
+  END_POINTS,
 } from '@/constants';
 
 // Import utils
@@ -36,6 +37,9 @@ import {
   renderFilterNoResult,
 } from '@/utils';
 
+// Import class PersonServices
+import { PersonServices } from '@/services';
+
 // Definition StudentList class
 export class StudentList {
   tableStudent: HTMLElement;
@@ -51,12 +55,15 @@ export class StudentList {
   inputSearchStudent: HTMLInputElement;
   clearSearchStudent: HTMLElement;
   studentFilterClass: HTMLElement;
+  detailContainer: HTMLElement;
+  selectedStudentId: string;
 
   constructor() {
     this.initElementsStudent();
     this.initEventListenersStudent();
     this.initializeSearchInput();
     this.selectFilterStudent();
+    this.selectedStudentId = '';
   }
 
   /**
@@ -71,6 +78,7 @@ export class StudentList {
     this.inputSearchStudent = studentSearchElement.querySelector(
       '#input-search-student',
     );
+    this.detailContainer = document.getElementById('detail-infor-student');
   }
 
   // Initialize event listeners
@@ -100,6 +108,10 @@ export class StudentList {
         '.dropdown-content button:last-child',
       ) as HTMLElement;
 
+      const showDetailInfor = (event.target as HTMLElement)
+        ?.closest('[data-id]')
+        ?.getAttribute('data-id');
+
       // Handle action click for edit and delete
       const handleActionButtonClick = async (
         button: HTMLElement,
@@ -120,6 +132,15 @@ export class StudentList {
         await handleActionButtonClick(deleteButton, (personId: number) => {
           this.showConfirmModal(personId);
         });
+
+      // Handle show detail infor student when click
+      if (showDetailInfor) {
+        this.selectedStudentId = showDetailInfor;
+
+        await this.handleDetailStudent(showDetailInfor);
+
+        this.highlightSelectedRow();
+      }
     });
 
     // Event listener for clear search button click
@@ -480,5 +501,41 @@ export class StudentList {
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
     this.tableStudent.innerHTML = renderFilterNoResult();
+  }
+
+  /**
+   * Handles the display of detailed information for a student.
+   * @param personId - The ID of the student whose details are to be fetched.
+   * @returns A promise that resolves when the details have been successfully displayed.
+   */
+  async handleDetailStudent(personId: string): Promise<void> {
+    const personServices = new PersonServices(END_POINTS.STUDENT);
+
+    // Fetch the details of the student with the specified ID
+    const studentDetail = await personServices.getPersonDetail(personId);
+
+    // Generate the HTML for the student's detail view
+    const detailHTML = generateDetailStudent(studentDetail);
+
+    // Update the detail container with the generated HTML
+    this.detailContainer.innerHTML = detailHTML;
+  }
+
+  /**
+   * Highlights the selected row by adding a CSS class.
+   */
+  highlightSelectedRow(): void {
+    const tabletStudent = this.tableStudent.querySelectorAll('.table-row');
+    tabletStudent.forEach((row) => {
+      row.classList.remove('highlighted');
+    });
+
+    const selectedRow = this.tableStudent.querySelector(
+      `[data-id="${this.selectedStudentId}"]`,
+    );
+
+    if (selectedRow) {
+      selectedRow.classList.add('highlighted');
+    }
   }
 }
