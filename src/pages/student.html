@@ -22,38 +22,49 @@
           <h2 class="dashboard-heading">Students</h2>
           <button id="btn-add-student" class="btn">Add Students</button>
         </div>
-        <div class="flex items-center">
-          <div id="student-filter"></div>
-          <div id="student-search" class="flex items-center dashboard-search">
-            <button
-              id="btn-search-student"
-              class="flex items-center justify-center btn-search"
-            >
-              <img
-                loading="lazy"
-                width="16px"
-                height="16px"
-                class="search-icon"
-                src="../assets/images/svg/search.svg"
-                alt="search icon"
-              />
-            </button>
-            <input
-              id="input-search-student"
-              class="input input-search"
-              placeholder="Search for a student by name or email"
-              type="text"
-              name="search"
-            />
-            <button
-              id="clear-search-student"
-              class="justify-center items-center btn-clear-search"
-            >
-              x
-            </button>
+        <div class="dashboard-container flex-row">
+          <div class="student-list-wrapper">
+            <div class="flex items-center">
+              <div id="student-filter"></div>
+              <div
+                id="student-search"
+                class="flex items-center dashboard-search"
+              >
+                <button
+                  id="btn-search-student"
+                  class="flex items-center justify-center btn-search"
+                >
+                  <img
+                    loading="lazy"
+                    width="16px"
+                    height="16px"
+                    class="search-icon"
+                    src="../assets/images/svg/search.svg"
+                    alt="search icon"
+                  />
+                </button>
+                <input
+                  id="input-search-student"
+                  class="input input-search"
+                  placeholder="Search for a student by name or email"
+                  type="text"
+                  name="search"
+                />
+                <button
+                  id="clear-search-student"
+                  class="justify-center items-center btn-clear-search"
+                >
+                  x
+                </button>
+              </div>
+            </div>
+            <div id="list-student" class="dashboard-content"></div>
           </div>
+          <article
+            id="detail-infor-student"
+            class="detail-infor-student"
+          ></article>
         </div>
-        <div id="list-student" class="dashboard-content"></div>
         <div class="loading-container" id="loading-container">
           <span class="loading-indicator" id="loading-indicator"></span>
         </div>

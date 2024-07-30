@@ -163,6 +163,9 @@ export class StudentPage {
 
     // Display the student modal with the retrieved details from the model.
     this.studentList.showStudentModal(response);
+
+    // Display detail information for students
+    this.studentList.handleDetailStudent(personId);
   }
 
   /**
