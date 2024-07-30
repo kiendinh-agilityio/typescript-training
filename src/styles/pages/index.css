@@ -173,7 +173,7 @@
   line-height: var(--line-height-sm);
 }
 
-.class-result-message,
+.filter-no-results,
 .search-result-message {
   font-family: var(--font-bold);
   font-size: var(--font-size-md);
@@ -208,7 +208,7 @@
     max-width: 100%;
   }
 
-  .class-result-message,
+  .filter-no-results,
   .search-result-message {
     font-size: var(--font-size-xl);
     line-height: var(--line-height-xl);

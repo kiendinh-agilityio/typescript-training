@@ -304,5 +304,5 @@ const classListOption: string = CLASS_LIST.map(
 
 // Create function common show message no results when filter class
 export const renderFilterNoResult = (): string => `
-  <p class="class-result-message">${MESSAGES.NO_RESULT_FILTER}</p>
+  <p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER}</p>
 `;

@@ -269,7 +269,6 @@ export class TeacherPage {
 
   /**
    * Handles changes to the class filter selection.
-   * @param event - The event object triggered by the filter change (e.g., a change event on a select element).
    * @returns A promise that resolves when the filtering and display update are complete.
    */
   async filterClassTeacher(): Promise<void> {
