@@ -255,6 +255,10 @@
   margin-right: 0;
 }
 
+.btn-modal-group {
+  justify-content: center;
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {
@@ -346,6 +350,10 @@
 
   .student-table {
     gap: 15px;
+  }
+
+  .btn-modal-group {
+    justify-content: end;
   }
 }
 

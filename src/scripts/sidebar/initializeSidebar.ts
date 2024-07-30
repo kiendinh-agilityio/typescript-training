@@ -36,7 +36,7 @@ const generateSubSidebar = (): string =>
  * Function to generate the sidebar HTML
  */
 const generateSidebar = (): string => `
-  <div id="btn-toggle-group" class="flex justify-end btn-toggle-group">
+  <div id="btn-toggle-group" class="flex justify-start btn-toggle-group">
     <button id="open-btn" class="btn-menu">
       <img
         width="20px"

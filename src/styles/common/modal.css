@@ -51,6 +51,7 @@
   text-align: center;
   z-index: var(--z-index-md);
   position: relative;
+  max-width: 650px;
 }
 
 .heading-confirm {
