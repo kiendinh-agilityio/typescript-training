@@ -44,7 +44,13 @@ export const generatePersonModal = (
           ${title || (id ? 'Edit' : 'Add')} ${isTeacher ? 'Teacher' : 'Student'}
         </h2>
         <button class="btn btn-close-modal" id="close-modal">
-          <span>X</span>
+          <img
+            loading="lazy"
+            width="30px"
+            height="30px"
+            src="/images/svg/close.svg"
+            alt="Close icon"
+          />
         </button>
       </div>
       <div id="person-form" class="flex-column form-modal">
@@ -114,7 +120,7 @@ export const generatePersonModal = (
             <p id="gender-error" class="error-message-form"></p>
           </div>
         </div>
-        <div class="flex justify-end btn-modal-group">
+        <div class="flex btn-modal-group">
           <button class="btn btn-submit" id="btn-submit">
             ${id ? 'Save' : 'Add'} ${isTeacher ? 'Teacher' : 'Student'}
           </button>
@@ -133,11 +139,19 @@ export const generatePersonModal = (
  */
 export const generateModalConfirm = (): string => `
   <div class="modal-confirm-content">
-    <button class="btn btn-close" id="close-modal-confirm">x</button>
+    <button class="btn btn-close" id="close-modal-confirm">
+      <img
+        loading="lazy"
+        width="24px"
+        height="24px"
+        src="/images/svg/close.svg"
+        alt="Close icon"
+      />
+    </button>
     <p class="heading-confirm">
       Are you sure you want to delete this item from the list?
     </p>
-    <div class="flex justify-end">
+    <div class="flex justify-center">
       <button id="cancel-delete" class="btn-confirm">Cancel</button>
       <button id="confirm-delete" class="btn-confirm">Delete</button>
     </div>
