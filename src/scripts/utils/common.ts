@@ -205,7 +205,7 @@ const createToastContainer = (
 export const showToast = (
   message: string,
   icon: string,
-  isSuccess = false,
+  isSuccess = true,
 ): void => {
   const toastContainer = createToastContainer(message, icon, isSuccess);
   document.body.appendChild(toastContainer);

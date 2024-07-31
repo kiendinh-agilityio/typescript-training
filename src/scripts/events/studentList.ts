@@ -362,7 +362,6 @@ export class StudentList {
         showToast(
           isEditStudent ? MESSAGES.EDIT_SUCCESS : MESSAGES.ADD_SUCCESS,
           ICONS.SUCCESS,
-          true,
         );
       }
     });

@@ -7,6 +7,7 @@ import {
   CLASSES,
   MESSAGES,
   TIMES,
+  ICONS,
 } from '@/constants';
 
 // Import teacher list
@@ -29,6 +30,8 @@ import {
   generateSelectFilterClass,
   renderFilterNoResult,
   startLoadingSpinner,
+  stopLoadingSpinner,
+  showToast,
 } from '@/utils';
 
 // Import enums
@@ -331,11 +334,28 @@ export class TeacherList {
       if (Object.entries(errors).length > 0) {
         showFormErrors(errors);
       } else if (hasChange) {
-        personData
-          ? await this.editTeacherHandler(personData.id, person)
-          : await this.addTeacherHandler(person);
-
+        // Close the modal
         this.closeModalHandler();
+
+        // Start the spinner
+        startLoadingSpinner();
+
+        // Determine whether this operation is an edit or an add
+        const isEditTeacher = !!personData;
+
+        // Perform the appropriate action: edit or add teacher
+        await (isEditTeacher
+          ? this.editTeacherHandler(personData.id, person)
+          : this.addTeacherHandler(person));
+
+        // Stop the spinner
+        stopLoadingSpinner();
+
+        // Show success toast message add or edit
+        showToast(
+          isEditTeacher ? MESSAGES.EDIT_SUCCESS : MESSAGES.ADD_SUCCESS,
+          ICONS.SUCCESS,
+        );
       }
     });
 
