@@ -61,8 +61,9 @@ export const ICONS = {
 
 // Constants for time
 export const TIMES = {
-  SHOW_TOAST: 2000,
-  DEBOUNCE: 500,
+  SHOW_TOAST: 3000,
+  DEBOUNCE: 1500,
+  SPINNER: 1000,
 };
 
 // Variables Key Event
