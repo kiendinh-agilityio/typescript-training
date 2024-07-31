@@ -6,6 +6,7 @@ import {
   ID_ELEMENTS,
   CLASSES,
   MESSAGES,
+  TIMES,
 } from '@/constants';
 
 // Import teacher list
@@ -27,6 +28,7 @@ import {
   teacherSearchElement,
   generateSelectFilterClass,
   renderFilterNoResult,
+  startLoadingSpinner,
 } from '@/utils';
 
 // Import enums
@@ -442,8 +444,17 @@ export class TeacherList {
 
   // Initialize the search input and its event listeners
   initializeSearchInput(): void {
+    let timeSearch: NodeJS.Timeout;
+
     this.inputSearchTeacher.addEventListener('input', () => {
       const inputValue = this.inputSearchTeacher.value.trim();
+
+      // Clear any existing time
+      clearTimeout(timeSearch);
+
+      // Set a new timer to start loading spinner after 1 second
+      timeSearch = setTimeout(startLoadingSpinner, TIMES.SPINNER);
+
       this.clearSearchTeacher.style.display = inputValue
         ? DISPLAY_CLASSES.FLEX
         : DISPLAY_CLASSES.HIDDEN;

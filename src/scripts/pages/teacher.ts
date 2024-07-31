@@ -260,6 +260,9 @@ export class TeacherPage {
     } else {
       this.teacherList.handleSearchNoResult();
     }
+
+    // Stop the loading spinner
+    stopLoadingSpinner();
   }
 
   // Handles clearing the search input and displaying the initial data
@@ -272,6 +275,9 @@ export class TeacherPage {
    * @returns A promise that resolves when the filtering and display update are complete.
    */
   async filterClassTeacher(): Promise<void> {
+    // start the loading spinner
+    startLoadingSpinner();
+
     const selectedClassTeacher = (
       this.teacherList.teacherFilterClass as HTMLSelectElement
     ).value;
@@ -286,5 +292,8 @@ export class TeacherPage {
     } catch (error) {
       this.teacherList.handleFilterNoResult();
     }
+
+    // Stop the loading spinner
+    stopLoadingSpinner();
   }
 }

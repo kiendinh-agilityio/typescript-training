@@ -105,6 +105,14 @@ export const generatePersonModal = (
               <option value="">Class</option>
               ${classOptions}
             </select>
+            <img
+                loading="lazy"
+                width="12px"
+                height="8px"
+                class="form-select-icon"
+                src="/images/svg/arrow.svg"
+                alt="Arrow icon"
+            />
             <p id="className-error" class="error-message-form"></p>
           </div>
           <div class="form-select flex-column">
@@ -117,6 +125,14 @@ export const generatePersonModal = (
                 gender === 'Male' ? 'selected' : ''
               }>Male</option>
             </select>
+            <img
+                loading="lazy"
+                width="12px"
+                height="8px"
+                class="form-select-icon"
+                src="/images/svg/arrow.svg"
+                alt="Arrow icon"
+            />
             <p id="gender-error" class="error-message-form"></p>
           </div>
         </div>
