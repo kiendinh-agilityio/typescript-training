@@ -60,6 +60,7 @@ export class StudentPage {
       'click',
       this.handleSearchStudent.bind(this),
     );
+
     this.studentList.clearSearchStudent.addEventListener(
       'click',
       this.handleClearSearch.bind(this),
@@ -240,6 +241,9 @@ export class StudentPage {
     } else {
       this.studentList.handleSearchNoResult();
     }
+
+    // Stop loading spinner
+    stopLoadingSpinner();
   }
 
   // Handles clearing the search input and displaying the initial data
@@ -252,6 +256,9 @@ export class StudentPage {
    * @returns A promise that resolves when the filtering and display update are complete.
    */
   async filterClassStudent(): Promise<void> {
+    // start the loading spinner
+    startLoadingSpinner();
+
     const selectedClassStudent = (
       this.studentList.studentFilterClass as HTMLSelectElement
     ).value;
@@ -266,5 +273,8 @@ export class StudentPage {
     } catch (error) {
       this.studentList.handleFilterNoResult();
     }
+
+    // Stop the loading spinner
+    stopLoadingSpinner();
   }
 }

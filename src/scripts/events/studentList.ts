@@ -17,6 +17,7 @@ import {
   MESSAGES,
   ICONS,
   END_POINTS,
+  TIMES,
 } from '@/constants';
 
 // Import utils
@@ -466,8 +467,16 @@ export class StudentList {
 
   // Initialize the search input and its event listeners
   initializeSearchInput(): void {
+    let timeSearch: NodeJS.Timeout;
+
     this.inputSearchStudent.addEventListener('input', () => {
       const inputValue: string = this.inputSearchStudent.value.trim();
+
+      // Clear any existing time
+      clearTimeout(timeSearch);
+
+      // Set a new timer to start loading spinner after 1 second
+      timeSearch = setTimeout(startLoadingSpinner, TIMES.SPINNER);
 
       this.clearSearchStudent.style.display = inputValue
         ? DISPLAY_CLASSES.FLEX
