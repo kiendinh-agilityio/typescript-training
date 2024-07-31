@@ -94,19 +94,17 @@
 .name-item,
 .subject-item,
 .class-item,
-.email-item,
-.gender-item {
+.email-item {
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 60px;
+  max-width: 80px;
   overflow: hidden;
 }
 
 .email-item,
-.class-item,
-.gender-item {
+.class-item {
   display: inline-block;
-  max-width: 65px;
+  max-width: 90px;
 }
 
 .btn-dropdown {
@@ -259,6 +257,20 @@
   justify-content: center;
 }
 
+.dropdown-group {
+  width: calc(100% / 6);
+  display: flex;
+  justify-content: end;
+}
+
+.gender-item {
+  width: 42px;
+}
+
+.student-id-item {
+  padding: 0 25px;
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {
@@ -279,8 +291,7 @@
   }
 
   .email-item,
-  .class-item,
-  .gender-item {
+  .class-item {
     max-width: 100%;
   }
 

@@ -11,7 +11,7 @@ export const personItem = (
   const { id, name, subject, email, className, gender, avatarUrl } = item || {};
 
   return `
-    <div class="flex justify-start items-center table-row student-table ${
+    <div class="flex items-center table-row student-table ${
       isSelected ? 'highlighted' : ''
     }" data-id="${id}">
       <div class="flex items-center dasboard-item">
@@ -36,7 +36,7 @@ export const personItem = (
       <div class="table-cell dasboard-item">
         <a href="mailto:${email}" class="email-item">${email}</a>
       </div>
-      <div class="table-cell dasboard-item">
+      <div class="flex justify-center table-cell dasboard-item">
         <p class="gender-item">${gender}</p>
       </div>
       <div class="table-cell dropdown-group">
@@ -85,7 +85,7 @@ export const generateListPerson = (
       <li>${isStudentPage ? 'Student ID' : 'Subject'}</li>
       <li>Class</li>
       <li>Email address</li>
-      <li>Gender</li>
+      <li class="flex justify-center">Gender</li>
       <li></li>
     </ul>
     <!-- Table body with items -->
