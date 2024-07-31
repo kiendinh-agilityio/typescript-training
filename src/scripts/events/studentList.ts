@@ -22,20 +22,20 @@ import {
 
 // Import utils
 import {
-  generatePersonModal,
-  trailingString,
-  validateForm,
-  showFormErrors,
-  modalStudent,
-  startLoadingSpinner,
-  stopLoadingSpinner,
-  showToast,
-  toggleDropdown,
-  confirmModalStudent,
-  generateModalConfirm,
-  studentSearchElement,
-  generateSelectFilterClass,
-  renderFilterNoResult,
+  createModalPerson,
+  createTrailingString,
+  createFormValidate,
+  createFormErrors,
+  createModalStudent,
+  createStartLoading,
+  createStopLoading,
+  createShowToast,
+  createToggleDropdown,
+  createModalDeleteStudent,
+  createModalConfirm,
+  createSearchStudent,
+  createFilterClass,
+  createFilterNoResult,
 } from '@/utils';
 
 // Import class PersonServices
@@ -73,10 +73,10 @@ export class StudentList {
   initElementsStudent(): void {
     this.tableStudent = document.getElementById('list-student');
     this.btnAddStudent = document.getElementById('btn-add-student');
-    this.btnSearchStudent = studentSearchElement.querySelector(
+    this.btnSearchStudent = createSearchStudent.querySelector(
       '#btn-search-student',
     );
-    this.inputSearchStudent = studentSearchElement.querySelector(
+    this.inputSearchStudent = createSearchStudent.querySelector(
       '#input-search-student',
     );
     this.detailContainer = document.getElementById('detail-infor-student');
@@ -84,13 +84,13 @@ export class StudentList {
 
   // Initialize event listeners
   initEventListenersStudent(): void {
-    this.clearSearchStudent = studentSearchElement.querySelector(
+    this.clearSearchStudent = createSearchStudent.querySelector(
       '#clear-search-student',
     );
 
     // Event listener for modal click
-    modalStudent.addEventListener('click', (event: MouseEvent) => {
-      if (event.target === modalStudent) {
+    createModalStudent.addEventListener('click', (event: MouseEvent) => {
+      if (event.target === createModalStudent) {
         this.closeModalHandler();
       }
     });
@@ -201,7 +201,7 @@ export class StudentList {
         closeDropdowns(mouseEvent);
 
         // Toggle the selected dropdown content
-        toggleDropdown(dropdownContent as HTMLElement);
+        createToggleDropdown(dropdownContent as HTMLElement);
       });
     });
 
@@ -216,23 +216,23 @@ export class StudentList {
    */
   showStudentModal(personData: Person): void {
     const title = personData ? TITLE_MODAL.EDIT : TITLE_MODAL.ADD;
-    const modalStudentContent = generatePersonModal(personData, title, false);
+    const modalStudentContent = createModalPerson(personData, title, false);
 
     // Set the modal's HTML content and display it
-    modalStudent.innerHTML = modalStudentContent;
-    modalStudent.style.display = DISPLAY_CLASSES.FLEX;
+    createModalStudent.innerHTML = modalStudentContent;
+    createModalStudent.style.display = DISPLAY_CLASSES.FLEX;
 
     // Get references to the close button, cancel button, submit button, and the student form
-    const closeBtn = modalStudent.querySelector(
+    const closeBtn = createModalStudent.querySelector(
       ID_ELEMENTS.CLOSE_MODAL,
     ) as HTMLElement;
-    const cancelBtn = modalStudent.querySelector(
+    const cancelBtn = createModalStudent.querySelector(
       ID_ELEMENTS.BTN_CANCEL,
     ) as HTMLElement;
-    const submitAddStudent = modalStudent.querySelector(
+    const submitAddStudent = createModalStudent.querySelector(
       ID_ELEMENTS.BTN_SUBMIT,
     ) as HTMLElement;
-    const formStudent = modalStudent.querySelector(
+    const formStudent = createModalStudent.querySelector(
       ID_ELEMENTS.FORM_PERSON,
     ) as HTMLElement;
 
@@ -247,21 +247,21 @@ export class StudentList {
     let hasChange = false;
 
     // Add event listeners for input changes to set the hasChange flag
-    const formInputs = modalStudent.querySelectorAll('input, select');
+    const formInputs = createModalStudent.querySelectorAll('input, select');
     formInputs.forEach((input) => {
       input.addEventListener('input', () => {
         // Compare new values with old values
-        const name = trailingString(
+        const name = createTrailingString(
           (formStudent.querySelector(PROFILE_PERSON.NAME) as HTMLInputElement)
             .value,
         );
 
-        const avatarUrl = trailingString(
+        const avatarUrl = createTrailingString(
           (formStudent.querySelector(PROFILE_PERSON.AVATAR) as HTMLInputElement)
             .value,
         );
 
-        const email = trailingString(
+        const email = createTrailingString(
           (formStudent.querySelector(PROFILE_PERSON.EMAIL) as HTMLInputElement)
             .value,
         );
@@ -300,17 +300,17 @@ export class StudentList {
 
     // Handle the event of submitting the form
     submitAddStudent.addEventListener('click', async () => {
-      const name = trailingString(
+      const name = createTrailingString(
         (formStudent.querySelector(PROFILE_PERSON.NAME) as HTMLInputElement)
           .value,
       );
 
-      const avatarUrl = trailingString(
+      const avatarUrl = createTrailingString(
         (formStudent.querySelector(PROFILE_PERSON.AVATAR) as HTMLInputElement)
           .value,
       );
 
-      const email = trailingString(
+      const email = createTrailingString(
         (formStudent.querySelector(PROFILE_PERSON.EMAIL) as HTMLInputElement)
           .value,
       );
@@ -336,16 +336,16 @@ export class StudentList {
       this.clearErrorMessageForm();
 
       // Validate the student and show errors
-      const errors = validateForm(person, PersonType.Student);
+      const errors = createFormValidate(person, PersonType.Student);
 
       if (Object.entries(errors).length > 0) {
-        showFormErrors(errors);
+        createFormErrors(errors);
       } else if (hasChange) {
         // Close the modal
         this.closeModalHandler();
 
         // Start the spinner
-        startLoadingSpinner();
+        createStartLoading();
 
         // Determine whether this operation is an edit or an add
         const isEditStudent = !!personData;
@@ -356,10 +356,10 @@ export class StudentList {
           : this.addStudentHandler(person));
 
         // Stop the spinner
-        stopLoadingSpinner();
+        createStopLoading();
 
         // Show success toast message add or edit
-        showToast(
+        createShowToast(
           isEditStudent ? MESSAGES.EDIT_SUCCESS : MESSAGES.ADD_SUCCESS,
           ICONS.SUCCESS,
         );
@@ -386,7 +386,7 @@ export class StudentList {
 
   // Close the modal
   closeModalHandler(): void {
-    modalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
+    createModalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
   /**
@@ -396,7 +396,7 @@ export class StudentList {
     const errorFields = ['name', 'avatarUrl', 'email', 'className', 'gender'];
 
     errorFields.forEach((field: string) => {
-      const errorElement = modalStudent.querySelector(`#${field}-error`)!;
+      const errorElement = createModalStudent.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
   }
@@ -421,16 +421,16 @@ export class StudentList {
 
   // Show confirm modal
   showConfirmModal(personId: number): void {
-    confirmModalStudent.innerHTML = generateModalConfirm();
+    createModalDeleteStudent.innerHTML = createModalConfirm();
 
     // Get button
-    const confirmDeleteButton = confirmModalStudent.querySelector(
+    const confirmDeleteButton = createModalDeleteStudent.querySelector(
       '#confirm-delete',
     ) as HTMLElement;
-    const cancelDeleteButton = confirmModalStudent.querySelector(
+    const cancelDeleteButton = createModalDeleteStudent.querySelector(
       '#cancel-delete',
     ) as HTMLElement;
-    const closeDeleteModalButton = confirmModalStudent.querySelector(
+    const closeDeleteModalButton = createModalDeleteStudent.querySelector(
       '#close-modal-confirm',
     ) as HTMLElement;
 
@@ -456,12 +456,12 @@ export class StudentList {
     );
 
     // Show modal confirm
-    confirmModalStudent.style.display = DISPLAY_CLASSES.FLEX;
+    createModalDeleteStudent.style.display = DISPLAY_CLASSES.FLEX;
   }
 
   // Hide modal confirm
   hideDeleteModal(): void {
-    confirmModalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
+    createModalDeleteStudent.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
   // Initialize the search input and its event listeners
@@ -475,7 +475,7 @@ export class StudentList {
       clearTimeout(timeSearch);
 
       // Set a new timer to start loading spinner after 1 second
-      timeSearch = setTimeout(startLoadingSpinner, TIMES.SPINNER);
+      timeSearch = setTimeout(createStartLoading, TIMES.SPINNER);
 
       this.clearSearchStudent.style.display = inputValue
         ? DISPLAY_CLASSES.FLEX
@@ -500,7 +500,7 @@ export class StudentList {
   // Render the select filter for students classes
   selectFilterStudent(): void {
     const filterStudentContainer = document.getElementById('student-filter');
-    filterStudentContainer.innerHTML = generateSelectFilterClass();
+    filterStudentContainer.innerHTML = createFilterClass();
 
     // Bind the filter class student event
     this.studentFilterClass = document.getElementById('select-filter');
@@ -508,7 +508,7 @@ export class StudentList {
 
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
-    this.tableStudent.innerHTML = renderFilterNoResult();
+    this.tableStudent.innerHTML = createFilterNoResult();
   }
 
   /**
