@@ -197,7 +197,7 @@ export class StudentPage {
       response && stopLoadingSpinner();
 
       // Show a success notification
-      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS, true);
+      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
     });
   }
 
