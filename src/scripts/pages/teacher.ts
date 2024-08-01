@@ -15,11 +15,11 @@ import { Person } from '@/interfaces';
 // Import utils
 import {
   createDelayAction,
-  createShowToast,
-  createStopLoading,
-  createStartLoading,
   createSearchDebounce,
-  createTabletNoData,
+  displayToastMessage,
+  displayTabletNoData,
+  stopLoadingSpinner,
+  startLoadingSpinner,
 } from '@/utils';
 
 // Import class TeacherList
@@ -98,16 +98,16 @@ export class TeacherPage {
    */
   async initialize(): Promise<void> {
     // Start the loading spinner to indicate data fetching
-    createStartLoading();
+    startLoadingSpinner();
 
     const data = await this.personServices.fetchPersonData();
 
     data && data.length > 0
       ? this.teacherList.displayTeacherList(data)
-      : createTabletNoData(PERSONS.TEACHERS);
+      : displayTabletNoData(PERSONS.TEACHERS);
 
     // Directly stop loading spinner after response is received
-    createStopLoading();
+    stopLoadingSpinner();
   }
 
   /**
@@ -190,13 +190,13 @@ export class TeacherPage {
       // Display the updated list of person and show tablet when no data
       updatedTeacherData && updatedTeacherData.length > 0
         ? this.teacherList.displayTeacherList(updatedTeacherData)
-        : createTabletNoData(PERSONS.TEACHERS);
+        : displayTabletNoData(PERSONS.TEACHERS);
 
       // If the response is defined, stop the loading spinner to indicate that the operation is complete.
-      response && createStopLoading();
+      response && stopLoadingSpinner();
 
       // Show a success notification
-      createShowToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
+      displayToastMessage(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
     });
   }
 
@@ -242,7 +242,7 @@ export class TeacherPage {
     }
 
     // Stop the loading spinner
-    createStopLoading();
+    stopLoadingSpinner();
   }
 
   // Handles clearing the search input and displaying the initial data
@@ -256,7 +256,7 @@ export class TeacherPage {
    */
   async filterClassTeacher(): Promise<void> {
     // start the loading spinner
-    createStartLoading();
+    startLoadingSpinner();
 
     const selectedClassTeacher = (
       this.teacherList.teacherFilterClass as HTMLSelectElement
@@ -274,6 +274,6 @@ export class TeacherPage {
     }
 
     // Stop the loading spinner
-    createStopLoading();
+    stopLoadingSpinner();
   }
 }
