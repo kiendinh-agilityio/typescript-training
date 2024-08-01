@@ -13,23 +13,23 @@ export const createToggleDropdown = (element: HTMLElement): void => {
 };
 
 // Get the element with ID 'modal teacher'
-export const createModalTeacher = document.getElementById('modal-add-teacher');
+export const getModalTeacher = document.getElementById('modal-add-teacher');
 
 // Get the element with ID 'modal confirm delete teacher'
-export const createModalDeleteTeacher = document.getElementById(
+export const getModalDeleteTeacher = document.getElementById(
   'modal-confirm-teacher',
 );
 
 // Get the first element with id 'teacher-search'
-export const createSearchTeacher = document.getElementById('teacher-search');
+export const getSearchTeacher = document.getElementById('teacher-search');
 
 // Get the element with ID 'modal student'
-export const createModalStudent = document.getElementById('modal-add-student');
+export const getModalStudent = document.getElementById('modal-add-student');
 
 // Get the element with ID 'modal confirm delete student'
-export const createModalDeleteStudent = document.getElementById(
+export const getModalDeleteStudent = document.getElementById(
   'modal-confirm-student',
 );
 
 // Get the first element with id 'student-search'
-export const createSearchStudent = document.getElementById('student-search');
+export const getSearchStudent = document.getElementById('student-search');

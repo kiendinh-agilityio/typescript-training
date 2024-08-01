@@ -11,7 +11,7 @@ import { Person, Errors } from '@/interfaces';
  * @param isTeacher - Boolean indicating whether the modal is for a teacher (default: true).
  * @returns HTML string for the modal form.
  */
-export const createModalPerson = (
+export const generateModalPerson = (
   item: Person,
   title?: string,
   isTeacher: boolean = true,
@@ -153,7 +153,7 @@ export const createModalPerson = (
  * Function to create a modal confirmation dialog as a string
  * @returns {string} The HTML string for the modal confirmation dialog
  */
-export const createModalConfirm = (): string => `
+export const generateModalConfirm = (): string => `
   <div class="modal-confirm-content">
     <button class="btn btn-close" id="close-modal-confirm">
       <img
@@ -202,7 +202,7 @@ const createToastContainer = (
 };
 
 // Displays a toast notification with the specified message, icon, and success status.
-export const createShowToast = (
+export const displayToastMessage = (
   message: string,
   icon: string,
   isSuccess = true,
@@ -243,12 +243,12 @@ const loadingSpinner = {
 };
 
 // Function to start the loading spinner
-export const createStartLoading = (): void => {
+export const startLoadingSpinner = (): void => {
   loadingSpinner.start();
 };
 
 // Function to stop the loading spinner
-export const createStopLoading = (): void => {
+export const stopLoadingSpinner = (): void => {
   loadingSpinner.stop();
 };
 
@@ -258,7 +258,7 @@ export const createDelayAction = (
   delayTime: number = 50,
 ): void => {
   // Start the loading spinner
-  createStartLoading();
+  startLoadingSpinner();
 
   // Set a timeout to execute the callback after the specified delay time
   setTimeout(() => {
@@ -267,7 +267,7 @@ export const createDelayAction = (
 };
 
 // Function show UI when data is empty
-export const createTabletNoData = (person: string): void => {
+export const displayTabletNoData = (person: string): void => {
   const showNoData = document.querySelectorAll(
     '.dashboard-content',
   ) as NodeListOf<HTMLElement>;
@@ -333,7 +333,7 @@ const classListOption: string = CLASS_LIST.map(
 ).join('');
 
 // Create function common show message no results when filter class
-export const createFilterNoResult = (): string => `
+export const displayFilterNoResult = (): string => `
   <p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER}</p>
 `;
 
@@ -357,5 +357,5 @@ const updateErrorMessages = (errors: Errors): void => {
  * Create shows form errors by updating error messages.
  * @param {Errors} errors - An object where keys are field names and values are error messages.
  */
-export const createFormErrors = (errors: Errors): void =>
+export const displayFormErrors = (errors: Errors): void =>
   updateErrorMessages(errors);

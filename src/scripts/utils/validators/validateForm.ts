@@ -15,7 +15,7 @@ import { Person, ConfigValidate } from '@/interfaces';
 import { PersonType } from '@/enums';
 
 // Function to validate an person form
-export const createFormValidate = (
+export const validateForm = (
   item: Person,
   personType: PersonType,
 ): ConfigValidate => {

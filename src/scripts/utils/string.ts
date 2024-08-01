@@ -3,4 +3,4 @@
  * @param value - The string to trim.
  * @returns The trimmed string.
  */
-export const createTrailingString = (value: string): string => value.trim();
+export const processTrailingString = (value: string): string => value.trim();
