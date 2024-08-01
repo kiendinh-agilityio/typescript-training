@@ -120,6 +120,7 @@
   position: absolute;
   box-shadow: 0px 8px 16px 0px var(--color-box-shadow-dropdown);
   z-index: var(--z-index-lg);
+  background: var(--color-light);
 }
 
 .dropdown-content button {
@@ -269,6 +270,16 @@
 
 .student-id-item {
   padding: 0 25px;
+}
+
+.detail-same-class {
+  font-size: var(--font-semibold);
+  margin-top: 26px;
+  margin-bottom: 17px;
+}
+
+.detail-more {
+  color: var(--color-primary);
 }
 
 /* Large devices (tablets, 768px and up) */

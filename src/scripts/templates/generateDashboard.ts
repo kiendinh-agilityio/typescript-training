@@ -97,7 +97,10 @@ export const generateListPerson = (
 `;
 
 // Function to generate the HTML for display detail information student
-export const generateDetailStudent = (item: Person): string => {
+export const generateDetailStudent = (
+  item: Person,
+  studentSameClass: Person[],
+): string => {
   // Destructure properties from the item object
   const { id, name, email, className, gender, avatarUrl } = item || {};
 
@@ -156,8 +159,49 @@ export const generateDetailStudent = (item: Person): string => {
         </div>
       </div>
       <div>
-        <p>People from the same class</p>
+        <p class="detail-same-class">People from the same class</p>
+        ${displayStudentSameClass(studentSameClass)}
       </div>
+    </div>
+  `;
+};
+
+// Generate HTML for student from the same class
+const displayStudentSameClass = (studentSameClass: Person[]): string => {
+  if (studentSameClass.length === 0) return '';
+
+  // Display up to 3 student
+  const displayAvatarStudent = studentSameClass.slice(0, 3);
+  const remainingCount = studentSameClass.length - displayAvatarStudent.length;
+
+  // Create HTML for displayed student
+  const avatarStudent = displayAvatarStudent
+    .map(
+      (person) => `
+    <div>
+      <img
+        loading="lazy"
+        width="38px"
+        height="38px"
+        class="avatar-item"
+        src="${person.avatarUrl}"
+        alt="Avatar"
+      />
+    </div>
+  `,
+    )
+    .join('');
+
+  // Add "+X more" if there are additional student
+  const moreInfo =
+    (remainingCount > 0 &&
+      `<p class="detail-more">+${remainingCount} more</p>`) ||
+    '';
+
+  return `
+    <div class="flex items-center">
+      ${avatarStudent}
+      ${moreInfo}
     </div>
   `;
 };
