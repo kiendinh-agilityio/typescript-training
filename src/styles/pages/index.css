@@ -271,6 +271,16 @@
   padding: 0 25px;
 }
 
+.detail-same-class {
+  font-size: var(--font-semibold);
+  margin-top: 26px;
+  margin-bottom: 17px;
+}
+
+.detail-more {
+  color: var(--color-primary);
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {
