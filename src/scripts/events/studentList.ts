@@ -22,20 +22,20 @@ import {
 
 // Import utils
 import {
-  generatePersonModal,
+  createToggleDropdown,
+  createFilterClass,
+  displayFormErrors,
+  displayFilterNoResult,
+  displayToastMessage,
+  generateModalPerson,
+  generateModalConfirm,
+  modelStudent,
+  modelDeleteStudent,
+  searchStudent,
   trailingString,
-  validateForm,
-  showFormErrors,
-  modalStudent,
   startLoadingSpinner,
   stopLoadingSpinner,
-  showToast,
-  toggleDropdown,
-  confirmModalStudent,
-  generateModalConfirm,
-  studentSearchElement,
-  generateSelectFilterClass,
-  renderFilterNoResult,
+  validateForm,
 } from '@/utils';
 
 // Import class PersonServices
@@ -73,10 +73,8 @@ export class StudentList {
   initElementsStudent(): void {
     this.tableStudent = document.getElementById('list-student');
     this.btnAddStudent = document.getElementById('btn-add-student');
-    this.btnSearchStudent = studentSearchElement.querySelector(
-      '#btn-search-student',
-    );
-    this.inputSearchStudent = studentSearchElement.querySelector(
+    this.btnSearchStudent = searchStudent.querySelector('#btn-search-student');
+    this.inputSearchStudent = searchStudent.querySelector(
       '#input-search-student',
     );
     this.detailContainer = document.getElementById('detail-infor-student');
@@ -84,13 +82,13 @@ export class StudentList {
 
   // Initialize event listeners
   initEventListenersStudent(): void {
-    this.clearSearchStudent = studentSearchElement.querySelector(
+    this.clearSearchStudent = searchStudent.querySelector(
       '#clear-search-student',
     );
 
     // Event listener for modal click
-    modalStudent.addEventListener('click', (event: MouseEvent) => {
-      if (event.target === modalStudent) {
+    modelStudent.addEventListener('click', (event: MouseEvent) => {
+      if (event.target === modelStudent) {
         this.closeModalHandler();
       }
     });
@@ -201,7 +199,7 @@ export class StudentList {
         closeDropdowns(mouseEvent);
 
         // Toggle the selected dropdown content
-        toggleDropdown(dropdownContent as HTMLElement);
+        createToggleDropdown(dropdownContent as HTMLElement);
       });
     });
 
@@ -216,23 +214,23 @@ export class StudentList {
    */
   showStudentModal(personData: Person): void {
     const title = personData ? TITLE_MODAL.EDIT : TITLE_MODAL.ADD;
-    const modalStudentContent = generatePersonModal(personData, title, false);
+    const modalStudentContent = generateModalPerson(personData, title, false);
 
     // Set the modal's HTML content and display it
-    modalStudent.innerHTML = modalStudentContent;
-    modalStudent.style.display = DISPLAY_CLASSES.FLEX;
+    modelStudent.innerHTML = modalStudentContent;
+    modelStudent.style.display = DISPLAY_CLASSES.FLEX;
 
     // Get references to the close button, cancel button, submit button, and the student form
-    const closeBtn = modalStudent.querySelector(
+    const closeBtn = modelStudent.querySelector(
       ID_ELEMENTS.CLOSE_MODAL,
     ) as HTMLElement;
-    const cancelBtn = modalStudent.querySelector(
+    const cancelBtn = modelStudent.querySelector(
       ID_ELEMENTS.BTN_CANCEL,
     ) as HTMLElement;
-    const submitAddStudent = modalStudent.querySelector(
+    const submitAddStudent = modelStudent.querySelector(
       ID_ELEMENTS.BTN_SUBMIT,
     ) as HTMLElement;
-    const formStudent = modalStudent.querySelector(
+    const formStudent = modelStudent.querySelector(
       ID_ELEMENTS.FORM_PERSON,
     ) as HTMLElement;
 
@@ -247,7 +245,7 @@ export class StudentList {
     let hasChange = false;
 
     // Add event listeners for input changes to set the hasChange flag
-    const formInputs = modalStudent.querySelectorAll('input, select');
+    const formInputs = modelStudent.querySelectorAll('input, select');
     formInputs.forEach((input) => {
       input.addEventListener('input', () => {
         // Compare new values with old values
@@ -339,7 +337,7 @@ export class StudentList {
       const errors = validateForm(person, PersonType.Student);
 
       if (Object.entries(errors).length > 0) {
-        showFormErrors(errors);
+        displayFormErrors(errors);
       } else if (hasChange) {
         // Close the modal
         this.closeModalHandler();
@@ -359,7 +357,7 @@ export class StudentList {
         stopLoadingSpinner();
 
         // Show success toast message add or edit
-        showToast(
+        displayToastMessage(
           isEditStudent ? MESSAGES.EDIT_SUCCESS : MESSAGES.ADD_SUCCESS,
           ICONS.SUCCESS,
         );
@@ -386,7 +384,7 @@ export class StudentList {
 
   // Close the modal
   closeModalHandler(): void {
-    modalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
+    modelStudent.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
   /**
@@ -396,7 +394,7 @@ export class StudentList {
     const errorFields = ['name', 'avatarUrl', 'email', 'className', 'gender'];
 
     errorFields.forEach((field: string) => {
-      const errorElement = modalStudent.querySelector(`#${field}-error`)!;
+      const errorElement = modelStudent.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
   }
@@ -421,16 +419,16 @@ export class StudentList {
 
   // Show confirm modal
   showConfirmModal(personId: number): void {
-    confirmModalStudent.innerHTML = generateModalConfirm();
+    modelDeleteStudent.innerHTML = generateModalConfirm();
 
     // Get button
-    const confirmDeleteButton = confirmModalStudent.querySelector(
+    const confirmDeleteButton = modelDeleteStudent.querySelector(
       '#confirm-delete',
     ) as HTMLElement;
-    const cancelDeleteButton = confirmModalStudent.querySelector(
+    const cancelDeleteButton = modelDeleteStudent.querySelector(
       '#cancel-delete',
     ) as HTMLElement;
-    const closeDeleteModalButton = confirmModalStudent.querySelector(
+    const closeDeleteModalButton = modelDeleteStudent.querySelector(
       '#close-modal-confirm',
     ) as HTMLElement;
 
@@ -456,12 +454,12 @@ export class StudentList {
     );
 
     // Show modal confirm
-    confirmModalStudent.style.display = DISPLAY_CLASSES.FLEX;
+    modelDeleteStudent.style.display = DISPLAY_CLASSES.FLEX;
   }
 
   // Hide modal confirm
   hideDeleteModal(): void {
-    confirmModalStudent.style.display = DISPLAY_CLASSES.HIDDEN;
+    modelDeleteStudent.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
   // Initialize the search input and its event listeners
@@ -500,7 +498,7 @@ export class StudentList {
   // Render the select filter for students classes
   selectFilterStudent(): void {
     const filterStudentContainer = document.getElementById('student-filter');
-    filterStudentContainer.innerHTML = generateSelectFilterClass();
+    filterStudentContainer.innerHTML = createFilterClass();
 
     // Bind the filter class student event
     this.studentFilterClass = document.getElementById('select-filter');
@@ -508,7 +506,7 @@ export class StudentList {
 
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
-    this.tableStudent.innerHTML = renderFilterNoResult();
+    this.tableStudent.innerHTML = displayFilterNoResult();
   }
 
   /**

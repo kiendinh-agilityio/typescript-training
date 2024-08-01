@@ -14,12 +14,12 @@ import { Person } from '@/interfaces';
 
 // Import utils
 import {
-  showTabletNoData,
+  createDelayAction,
+  createSearchDebounce,
+  displayToastMessage,
+  displayTabletNoData,
   startLoadingSpinner,
   stopLoadingSpinner,
-  delayAction,
-  showToast,
-  debounce,
 } from '@/utils';
 
 // Import class StudentList
@@ -67,7 +67,7 @@ export class StudentPage {
     );
 
     // Initialize debounced search handling
-    this.handleSearchDebounced = debounce(
+    this.handleSearchDebounced = createSearchDebounce(
       this.handleSearchStudent.bind(this),
       TIMES.DEBOUNCE,
     );
@@ -107,7 +107,7 @@ export class StudentPage {
     // Check if data is available and has items
     data && data.length > 0
       ? this.studentList.displayStudentList(data)
-      : showTabletNoData(PERSONS.STUDENTS);
+      : displayTabletNoData(PERSONS.STUDENTS);
 
     // Directly stop loading spinner after response is received
     stopLoadingSpinner();
@@ -174,7 +174,7 @@ export class StudentPage {
    * @param {number} personId - The ID of the student to be deleted.
    */
   async handleDeleteStudent(personId: number): Promise<void> {
-    delayAction(async () => {
+    createDelayAction(async () => {
       const response = await this.personServices.deletePerson(personId);
 
       // Get the updated list of people from personServices after deletion
@@ -191,13 +191,13 @@ export class StudentPage {
       // Display the updated list of person and show tablet when no data
       updatedStudentData && updatedStudentData.length > 0
         ? this.studentList.displayStudentList(updatedStudentData)
-        : showTabletNoData(PERSONS.STUDENTS);
+        : displayTabletNoData(PERSONS.STUDENTS);
 
       // If the response is defined, stop the loading spinner to indicate that the operation is complete.
       response && stopLoadingSpinner();
 
       // Show a success notification
-      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
+      displayToastMessage(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
     });
   }
 

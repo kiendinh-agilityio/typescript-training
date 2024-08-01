@@ -2,16 +2,16 @@
 import { CLASS_LIST, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 
 // Import the Teacher interface
-import { Person } from '@/interfaces';
+import { Person, Errors } from '@/interfaces';
 
 /**
- * Generates HTML markup for a modal form to manage people (teachers or students).
+ * Create HTML markup for a modal form to manage people (teachers or students).
  * @param item - Object containing person data (optional).
  * @param title - Optional title for the modal (default: 'Add' if no ID is provided, otherwise 'Edit').
  * @param isTeacher - Boolean indicating whether the modal is for a teacher (default: true).
  * @returns HTML string for the modal form.
  */
-export const generatePersonModal = (
+export const generateModalPerson = (
   item: Person,
   title?: string,
   isTeacher: boolean = true,
@@ -150,7 +150,7 @@ export const generatePersonModal = (
 };
 
 /**
- * Function to generate a modal confirmation dialog as a string
+ * Function to create a modal confirmation dialog as a string
  * @returns {string} The HTML string for the modal confirmation dialog
  */
 export const generateModalConfirm = (): string => `
@@ -202,7 +202,7 @@ const createToastContainer = (
 };
 
 // Displays a toast notification with the specified message, icon, and success status.
-export const showToast = (
+export const displayToastMessage = (
   message: string,
   icon: string,
   isSuccess = true,
@@ -253,7 +253,7 @@ export const stopLoadingSpinner = (): void => {
 };
 
 // Function to delay an action with a loading spinner
-export const delayAction = (
+export const createDelayAction = (
   callback: () => void,
   delayTime: number = 50,
 ): void => {
@@ -267,7 +267,7 @@ export const delayAction = (
 };
 
 // Function show UI when data is empty
-export const showTabletNoData = (person: string): void => {
+export const displayTabletNoData = (person: string): void => {
   const showNoData = document.querySelectorAll(
     '.dashboard-content',
   ) as NodeListOf<HTMLElement>;
@@ -288,7 +288,7 @@ export const showTabletNoData = (person: string): void => {
  * @param delay The debounce delay in milliseconds.
  * @returns A debounced function
  */
-export const debounce = (func: () => void, delay: number) => {
+export const createSearchDebounce = (func: () => void, delay: number) => {
   // Initialize timeoutId to hold the ID of the timeout
   let timeoutId: NodeJS.Timeout;
 
@@ -305,7 +305,7 @@ export const debounce = (func: () => void, delay: number) => {
  * The select input includes the classListOption as its options.
  * @returns {string} - A string representing the HTML for the select filter.
  */
-export const generateSelectFilterClass = (): string => `
+export const createFilterClass = (): string => `
   <div class="form-select flex-column select-filter">
     <select
       id="select-filter"
@@ -333,6 +333,29 @@ const classListOption: string = CLASS_LIST.map(
 ).join('');
 
 // Create function common show message no results when filter class
-export const renderFilterNoResult = (): string => `
+export const displayFilterNoResult = (): string => `
   <p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER}</p>
 `;
+
+/**
+ * Updates error messages on the form.
+ * Iterates over the provided errors object and updates the innerText of each corresponding error element.
+ * @param {Errors} errors - An object where keys are field names and values are error messages.
+ */
+const updateErrorMessages = (errors: Errors): void => {
+  Object.entries(errors).forEach(([key, value]) => {
+    const errorTarget = document.getElementById(`${key}-error`);
+
+    // If errorTarget exists, set its innerText to `value` or an empty string if `value` is falsy.
+    if (errorTarget) {
+      errorTarget.innerText = value || '';
+    }
+  });
+};
+
+/**
+ * Create shows form errors by updating error messages.
+ * @param {Errors} errors - An object where keys are field names and values are error messages.
+ */
+export const displayFormErrors = (errors: Errors): void =>
+  updateErrorMessages(errors);

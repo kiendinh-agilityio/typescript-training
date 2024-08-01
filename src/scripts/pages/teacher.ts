@@ -14,12 +14,12 @@ import { Person } from '@/interfaces';
 
 // Import utils
 import {
-  delayAction,
-  showToast,
+  createDelayAction,
+  createSearchDebounce,
+  displayToastMessage,
+  displayTabletNoData,
   stopLoadingSpinner,
   startLoadingSpinner,
-  debounce,
-  showTabletNoData,
 } from '@/utils';
 
 // Import class TeacherList
@@ -66,7 +66,7 @@ export class TeacherPage {
     );
 
     // Initialize debounced search handling
-    this.handleSearchDebounced = debounce(
+    this.handleSearchDebounced = createSearchDebounce(
       this.handleSearch.bind(this),
       TIMES.DEBOUNCE,
     );
@@ -104,7 +104,7 @@ export class TeacherPage {
 
     data && data.length > 0
       ? this.teacherList.displayTeacherList(data)
-      : showTabletNoData(PERSONS.TEACHERS);
+      : displayTabletNoData(PERSONS.TEACHERS);
 
     // Directly stop loading spinner after response is received
     stopLoadingSpinner();
@@ -173,7 +173,7 @@ export class TeacherPage {
    * @param {number} personId - The ID of the teacher to be deleted.
    */
   async handleDeleteTeacher(personId: number): Promise<void> {
-    delayAction(async () => {
+    createDelayAction(async () => {
       const response = await this.personServices.deletePerson(personId);
 
       // Get the updated list of people from personServices after deletion
@@ -190,13 +190,13 @@ export class TeacherPage {
       // Display the updated list of person and show tablet when no data
       updatedTeacherData && updatedTeacherData.length > 0
         ? this.teacherList.displayTeacherList(updatedTeacherData)
-        : showTabletNoData(PERSONS.TEACHERS);
+        : displayTabletNoData(PERSONS.TEACHERS);
 
       // If the response is defined, stop the loading spinner to indicate that the operation is complete.
       response && stopLoadingSpinner();
 
       // Show a success notification
-      showToast(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
+      displayToastMessage(MESSAGES.DELETE_SUCCESS, ICONS.SUCCESS);
     });
   }
 
