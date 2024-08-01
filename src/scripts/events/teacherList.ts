@@ -25,10 +25,10 @@ import {
   displayToastMessage,
   generateModalConfirm,
   generateModalPerson,
-  getModalDeleteTeacher,
-  getModalTeacher,
-  getSearchTeacher,
-  processTrailingString,
+  modelDeleteTeacher,
+  modelTeacher,
+  searchTeacher,
+  trailingString,
   startLoadingSpinner,
   stopLoadingSpinner,
   validateForm,
@@ -66,23 +66,21 @@ export class TeacherList {
   initElementsTeacher(): void {
     this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
-    this.btnSearchTeacher = getSearchTeacher.querySelector(
-      '#btn-search-teacher',
-    );
-    this.inputSearchTeacher = getSearchTeacher.querySelector(
+    this.btnSearchTeacher = searchTeacher.querySelector('#btn-search-teacher');
+    this.inputSearchTeacher = searchTeacher.querySelector(
       '#input-search-teacher',
     );
   }
 
   // Initialize event listeners
   initEventListenersTeacher(): void {
-    this.clearSearchTeacher = getSearchTeacher.querySelector(
+    this.clearSearchTeacher = searchTeacher.querySelector(
       '#clear-search-teacher',
     );
 
     // Event listener for modal click
-    getModalTeacher.addEventListener('click', (event: MouseEvent) => {
-      if (event.target === getModalTeacher) {
+    modelTeacher.addEventListener('click', (event: MouseEvent) => {
+      if (event.target === modelTeacher) {
         this.closeModalHandler();
       }
     });
@@ -198,20 +196,20 @@ export class TeacherList {
     const modalTeacherContent = generateModalPerson(personData, title);
 
     // Set the modal's HTML content and display it
-    getModalTeacher.innerHTML = modalTeacherContent;
-    getModalTeacher.style.display = DISPLAY_CLASSES.FLEX;
+    modelTeacher.innerHTML = modalTeacherContent;
+    modelTeacher.style.display = DISPLAY_CLASSES.FLEX;
 
     // Get references to the close button, cancel button, submit button, and the teacher form
-    const closeBtn = getModalTeacher.querySelector(
+    const closeBtn = modelTeacher.querySelector(
       ID_ELEMENTS.CLOSE_MODAL,
     ) as HTMLElement;
-    const cancelBtn = getModalTeacher.querySelector(
+    const cancelBtn = modelTeacher.querySelector(
       ID_ELEMENTS.BTN_CANCEL,
     ) as HTMLElement;
-    const submitBtn = getModalTeacher.querySelector(
+    const submitBtn = modelTeacher.querySelector(
       ID_ELEMENTS.BTN_SUBMIT,
     ) as HTMLElement;
-    const formTeacher = getModalTeacher.querySelector(
+    const formTeacher = modelTeacher.querySelector(
       ID_ELEMENTS.FORM_PERSON,
     ) as HTMLElement;
 
@@ -226,21 +224,21 @@ export class TeacherList {
     let hasChange = false;
 
     // Add event listeners for input changes to set the hasChange flag
-    const formInputs = getModalTeacher.querySelectorAll('input, select');
+    const formInputs = modelTeacher.querySelectorAll('input, select');
     formInputs.forEach((input) => {
       input.addEventListener('input', () => {
         // Compare new values with old values
-        const name = processTrailingString(
+        const name = trailingString(
           (formTeacher.querySelector(PROFILE_PERSON.NAME) as HTMLInputElement)
             .value,
         );
 
-        const avatarUrl = processTrailingString(
+        const avatarUrl = trailingString(
           (formTeacher.querySelector(PROFILE_PERSON.AVATAR) as HTMLInputElement)
             .value,
         );
 
-        const subject = processTrailingString(
+        const subject = trailingString(
           (
             formTeacher.querySelector(
               PROFILE_PERSON.SUBJECT,
@@ -248,7 +246,7 @@ export class TeacherList {
           ).value,
         );
 
-        const email = processTrailingString(
+        const email = trailingString(
           (formTeacher.querySelector(PROFILE_PERSON.EMAIL) as HTMLInputElement)
             .value,
         );
@@ -288,22 +286,22 @@ export class TeacherList {
 
     // Handle the event of submitting the form
     submitBtn.addEventListener('click', async () => {
-      const name = processTrailingString(
+      const name = trailingString(
         (formTeacher.querySelector(PROFILE_PERSON.NAME) as HTMLInputElement)
           .value,
       );
 
-      const avatarUrl = processTrailingString(
+      const avatarUrl = trailingString(
         (formTeacher.querySelector(PROFILE_PERSON.AVATAR) as HTMLInputElement)
           .value,
       );
 
-      const subject = processTrailingString(
+      const subject = trailingString(
         (formTeacher.querySelector(PROFILE_PERSON.SUBJECT) as HTMLInputElement)
           .value,
       );
 
-      const email = processTrailingString(
+      const email = trailingString(
         (formTeacher.querySelector(PROFILE_PERSON.EMAIL) as HTMLInputElement)
           .value,
       );
@@ -386,7 +384,7 @@ export class TeacherList {
 
   // Close the modal
   closeModalHandler(): void {
-    getModalTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
+    modelTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
   /**
@@ -403,7 +401,7 @@ export class TeacherList {
     ];
 
     errorFields.forEach((field: string) => {
-      const errorElement = getModalTeacher.querySelector(`#${field}-error`)!;
+      const errorElement = modelTeacher.querySelector(`#${field}-error`)!;
       errorElement.textContent = '';
     });
   }
@@ -420,16 +418,16 @@ export class TeacherList {
 
   // Show confirm modal
   showConfirmModal(personId: number): void {
-    getModalDeleteTeacher.innerHTML = generateModalConfirm();
+    modelDeleteTeacher.innerHTML = generateModalConfirm();
 
     // Get button
-    const confirmDeleteButton = getModalDeleteTeacher.querySelector(
+    const confirmDeleteButton = modelDeleteTeacher.querySelector(
       '#confirm-delete',
     ) as HTMLElement;
-    const cancelDeleteButton = getModalDeleteTeacher.querySelector(
+    const cancelDeleteButton = modelDeleteTeacher.querySelector(
       '#cancel-delete',
     ) as HTMLElement;
-    const closeDeleteModalButton = getModalDeleteTeacher.querySelector(
+    const closeDeleteModalButton = modelDeleteTeacher.querySelector(
       '#close-modal-confirm',
     ) as HTMLElement;
 
@@ -454,12 +452,12 @@ export class TeacherList {
     );
 
     // Show modal confirm
-    getModalDeleteTeacher.style.display = DISPLAY_CLASSES.FLEX;
+    modelDeleteTeacher.style.display = DISPLAY_CLASSES.FLEX;
   }
 
   // Hide modal confirm
   hideDeleteModal(): void {
-    getModalDeleteTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
+    modelDeleteTeacher.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
   // Initialize the search input and its event listeners
