@@ -157,7 +157,7 @@ export class StudentList {
     // Newly added student will appear at the top
     const reversedStudentData = studentData.slice().reverse();
 
-    // Generate the HTML for the reversed list of student
+    // Generate the HTML for the reversed list of students
     const studentListHTML = generateListPerson(reversedStudentData, true);
 
     // Update the table element's inner HTML with the new student list
@@ -204,6 +204,15 @@ export class StudentList {
     });
 
     document.addEventListener('click', closeDropdowns);
+
+    // Automatically select and display the first student detail if available
+    if (reversedStudentData.length > 0) {
+      const firstStudentId = reversedStudentData[0].id;
+      this.selectedStudentId = firstStudentId.toString();
+
+      this.handleDetailStudent(this.selectedStudentId);
+      this.highlightSelectedRow();
+    }
   }
 
   /**
@@ -520,8 +529,12 @@ export class StudentList {
     // Fetch the details of the student with the specified ID
     const studentDetail = await personServices.getPersonDetail(personId);
 
-    // Generate the HTML for the student's detail view
-    const detailHTML = generateDetailStudent(studentDetail);
+    // Ensure that `studentSameClass` is defined and available in your context.
+    const studentSameClass = await personServices.filterPersonByClass(
+      studentDetail.className,
+    );
+
+    const detailHTML = generateDetailStudent(studentDetail, studentSameClass);
 
     // Update the detail container with the generated HTML
     this.detailContainer.innerHTML = detailHTML;
