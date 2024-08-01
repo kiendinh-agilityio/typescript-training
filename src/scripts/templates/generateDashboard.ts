@@ -194,9 +194,9 @@ const displayStudentSameClass = (studentSameClass: Person[]): string => {
 
   // Add "+X more" if there are additional student
   const moreInfo =
-    remainingCount > 0
-      ? `<p class="detail-more">+${remainingCount} more</p>`
-      : '';
+    (remainingCount > 0 &&
+      `<p class="detail-more">+${remainingCount} more</p>`) ||
+    '';
 
   return `
     <div class="flex items-center">
