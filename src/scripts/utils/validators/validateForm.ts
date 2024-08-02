@@ -9,7 +9,7 @@ import {
 } from '@/utils';
 
 // Import interfaces
-import { Person, PartialValidate } from '@/interfaces';
+import { Person, PersonValidationError } from '@/interfaces';
 
 // Import enums
 import { PersonType } from '@/enums';
@@ -18,7 +18,7 @@ import { PersonType } from '@/enums';
 export const validateForm = (
   item: Person,
   personType: PersonType,
-): PartialValidate => {
+): PersonValidationError => {
   // Destructure the personItem properties with default empty strings
   const {
     email = '',
@@ -30,7 +30,7 @@ export const validateForm = (
   } = item || {};
 
   // Initialize an object to hold validation errors
-  const errors: PartialValidate = {};
+  const errors: PersonValidationError = {};
 
   // Validate the email field and add an error if validation fails
   const emailError = validateEmailField(email);
