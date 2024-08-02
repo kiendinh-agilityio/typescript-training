@@ -11,21 +11,5 @@
     "semi": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
     "@typescript-eslint/consistent-type-definitions": "error"
-  },
-  "globals": {
-    "module": "readonly",
-    "define": "readonly",
-    "exports": "readonly",
-    "location": "readonly",
-    "WebSocket": "readonly",
-    "console": "readonly",
-    "window": "readonly",
-    "CustomEvent": "readonly",
-    "document": "readonly",
-    "setTimeout": "readonly",
-    "clearTimeout": "readonly",
-    "importScripts": "readonly",
-    "fetch": "readonly",
-    "HTMLElement": "readonly"
   }
 }
