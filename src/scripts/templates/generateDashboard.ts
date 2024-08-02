@@ -1,17 +1,28 @@
 // Import the Person interface
 import { Person } from '@/interfaces';
 
+// Import constants
+import { CLASSES } from '@/constants';
+
+// Returns the background color class for table rows based on the index.
+const getRowColorClass = (index: number): string =>
+  index % 2 === 0 ? CLASSES.BG_LIGHT : CLASSES.BG_HIGH_LIGHT;
+
 // Function to generate the HTML for a single item (Teacher or Student)
 export const personItem = (
   item: Person,
   isStudentPage: boolean,
+  index: number,
   isSelected?: boolean,
 ): string => {
   // Destructure properties from the item object
   const { id, name, subject, email, className, gender, avatarUrl } = item || {};
 
+  // Get the row color class
+  const rowColorClass = getRowColorClass(index);
+
   return `
-    <div class="flex items-center table-row student-table ${
+    <div class="flex items-center table-row student-table ${rowColorClass} ${
       isSelected ? 'highlighted' : ''
     }" data-id="${id}">
       <div class="flex items-center dasboard-item">
@@ -91,7 +102,9 @@ export const generateListPerson = (
     <!-- Table body with items -->
     <div class="flex-column flex-wrap tbody relative">
       <!-- Generate HTML for each item and join them into a single string -->
-      ${items.map((item) => personItem(item, isStudentPage)).join('')}
+      ${items
+        .map((item, index) => personItem(item, isStudentPage, index))
+        .join('')}
     </div>
   </div>
 `;
