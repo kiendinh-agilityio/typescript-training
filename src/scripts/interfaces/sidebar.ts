@@ -3,5 +3,5 @@ export interface SidebarItem {
   url: string;
   alt: string;
   label: string;
-  active?: boolean;
+  isActive?: boolean;
 }
