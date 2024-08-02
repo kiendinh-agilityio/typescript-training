@@ -43,6 +43,8 @@ export const TITLE_MODAL = {
 // Variables class
 export const CLASSES = {
   BUTTON_DISABLE: 'btn-disabled',
+  BG_LIGHT: 'bg-light',
+  BG_HIGH_LIGHT: 'bg-blue-light',
 };
 
 // Variables get ID

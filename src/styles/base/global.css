@@ -75,6 +75,20 @@ body {
   position: relative;
 }
 
+.bg-light {
+  background-color: var(--color-light);
+}
+
+.bg-blue-light {
+  background-color: var(--color-highlight-tablet);
+}
+
+.highlighted {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: var(--color-light);
+}
+
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .container {
