@@ -5,7 +5,9 @@
     "start": "pnpx parcel src/pages/*.html",
     "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/pages/*.html --no-cache --no-source-maps --dist-dir dist",
     "prepare": "husky install",
-    "pre-push-lint": "pnpm build"
+    "pre-push-lint": "pnpm build",
+    "lint": "eslint . --ext .ts,.js",
+    "lint-fix": "eslint . --ext .ts,.js --fix"
   },
   "author": "Kien Dinh",
   "license": "ISC",
@@ -20,9 +22,9 @@
     "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.2.0",
+    "eslint-plugin-promise": "^6.1.1",
     "globals": "^15.8.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",

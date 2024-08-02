@@ -13,7 +13,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     url: '/images/svg/home.svg',
     alt: 'Teacher icon',
     label: 'Teachers',
-    active: true,
+    isActive: true,
   },
   {
     href: '/student',

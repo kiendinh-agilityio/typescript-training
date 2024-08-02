@@ -13,11 +13,17 @@ import { handleToggleSidebar } from '@/sidebar';
 const generateSubSidebar = (): string =>
   SIDEBAR_ITEMS.map((item: SidebarItem) => {
     // Destructure label, url, alt, and active properties from the item, defaulting to empty strings
-    const { href = '', label = '', url = '', alt = '', active = false } = item;
+    const {
+      href = '',
+      label = '',
+      url = '',
+      alt = '',
+      isActive = false,
+    } = item;
 
     // Return the HTML string for the sub-sidebar item
     return `
-    <li class="sub-sidebar-item ${active ? 'sidebar-active' : ''}">
+    <li class="sub-sidebar-item ${isActive ? 'sidebar-active' : ''}">
       <a class="flex wrapper-item" href="${href}">
         <img
           class="item-icon"
