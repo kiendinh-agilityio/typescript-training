@@ -493,6 +493,7 @@ export class StudentList {
   // Handle the case when no search results are found
   handleSearchNoResult(): void {
     this.tableStudent.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+    this.detailContainer.innerHTML = '';
   }
 
   // Clear the search input
@@ -516,6 +517,7 @@ export class StudentList {
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
     this.tableStudent.innerHTML = displayFilterNoResult();
+    this.detailContainer.innerHTML = '';
   }
 
   /**
