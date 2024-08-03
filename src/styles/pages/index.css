@@ -70,7 +70,7 @@
   display: none;
 }
 
-.dasboard-item {
+.dashboard-item {
   font-size: var(--font-size-xs);
   line-height: var(--line-height-xs);
   padding-top: 12px;
@@ -183,12 +183,12 @@
   padding: 20px 0;
 }
 
-.detail-infor-student {
+.detail-info-student {
   padding-top: 85px;
 }
 
-.detail-infor-content {
-  color: var(--color-detail-infor);
+.detail-info-content {
+  color: var(--color-detail-info);
   font-size: var(--font-size-xs);
   line-height: var(--line-height-xs);
   padding: 0 20px;
@@ -360,7 +360,7 @@
     width: calc(100% - 200px);
   }
 
-  .detail-infor-student {
+  .detail-info-student {
     width: 200px;
   }
 
@@ -388,7 +388,7 @@
 
 /* X-Large devices (large desktops, 1400px and up) */
 @media (min-width: 1400px) {
-  .detail-infor-content {
+  .detail-info-content {
     padding: 0 39px;
   }
 
@@ -396,7 +396,7 @@
     width: calc(100% - 313px);
   }
 
-  .detail-infor-student {
+  .detail-info-student {
     width: 313px;
   }
 

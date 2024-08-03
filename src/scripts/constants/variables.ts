@@ -55,7 +55,7 @@ export const ID_ELEMENTS = {
   CLOSE_MODAL: '#close-modal',
 };
 
-// Varibales for icon
+// Variables for icon
 export const ICONS = {
   SUCCESS: 'icon-success.svg',
   ERROR: 'icon-error.svg',

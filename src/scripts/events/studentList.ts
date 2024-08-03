@@ -77,7 +77,7 @@ export class StudentList {
     this.inputSearchStudent = searchStudent.querySelector(
       '#input-search-student',
     );
-    this.detailContainer = document.getElementById('detail-infor-student');
+    this.detailContainer = document.getElementById('detail-info-student');
   }
 
   // Initialize event listeners
@@ -107,7 +107,7 @@ export class StudentList {
         '.dropdown-content button:last-child',
       ) as HTMLElement;
 
-      const showDetailInfor = (event.target as HTMLElement)
+      const showDetailInfo = (event.target as HTMLElement)
         ?.closest('[data-id]')
         ?.getAttribute('data-id');
 
@@ -132,11 +132,11 @@ export class StudentList {
           this.showConfirmModal(personId);
         });
 
-      // Handle show detail infor student when click
-      if (showDetailInfor) {
-        this.selectedStudentId = showDetailInfor;
+      // Handle show detail info student when click
+      if (showDetailInfo) {
+        this.selectedStudentId = showDetailInfo;
 
-        await this.handleDetailStudent(showDetailInfor);
+        await this.handleDetailStudent(showDetailInfo);
 
         this.highlightSelectedRow();
       }
