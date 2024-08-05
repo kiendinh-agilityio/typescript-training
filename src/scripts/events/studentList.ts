@@ -123,23 +123,20 @@ export class StudentList {
       };
 
       // Handle edit button click
-      if (editButton)
-        await handleActionButtonClick(editButton, this.getDetailStudentHandler);
+      editButton &&
+        handleActionButtonClick(editButton, this.getDetailStudentHandler);
 
       // Handle delete button click
-      if (deleteButton)
-        await handleActionButtonClick(deleteButton, (personId: number) => {
-          this.showConfirmModal(personId);
-        });
+      deleteButton &&
+        handleActionButtonClick(deleteButton, (personId: number) =>
+          this.showConfirmModal(personId),
+        );
 
       // Handle show detail info student when click
-      if (showDetailInfo) {
-        this.selectedStudentId = showDetailInfo;
-
-        await this.handleDetailStudent(showDetailInfo);
-
-        this.highlightSelectedRow();
-      }
+      showDetailInfo &&
+        ((this.selectedStudentId = showDetailInfo),
+        this.handleDetailStudent(showDetailInfo),
+        this.highlightSelectedRow());
     });
 
     // Event listener for clear search button click
@@ -555,8 +552,6 @@ export class StudentList {
       `[data-id="${this.selectedStudentId}"]`,
     );
 
-    if (selectedRow) {
-      selectedRow.classList.add('highlighted');
-    }
+    selectedRow && selectedRow.classList.add('highlighted');
   }
 }
