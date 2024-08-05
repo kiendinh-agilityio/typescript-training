@@ -25,7 +25,7 @@ export const personItem = (
     <div class="flex items-center table-row student-table ${rowColorClass} ${
       isSelected ? 'highlighted' : ''
     }" data-id="${id}">
-      <div class="flex items-center dasboard-item">
+      <div class="flex items-center dashboard-item">
         <img
           loading="lazy"
           width="32px"
@@ -36,18 +36,18 @@ export const personItem = (
         />
         <p class="name-item">${name}</p>
       </div>
-      <div class="table-cell dasboard-item">
+      <div class="table-cell dashboard-item">
         <p class="${isStudentPage ? 'student-id-item' : 'subject-item'}">${
           isStudentPage ? id : subject
         }</p>
       </div>
-      <div class="table-cell dasboard-item">
+      <div class="table-cell dashboard-item">
         <p class="class-item">${className}</p>
       </div>
-      <div class="table-cell dasboard-item">
+      <div class="table-cell dashboard-item">
         <a href="mailto:${email}" class="email-item">${email}</a>
       </div>
-      <div class="flex justify-center table-cell dasboard-item">
+      <div class="flex justify-center table-cell dashboard-item">
         <p class="gender-item">${gender}</p>
       </div>
       <div class="table-cell dropdown-group">
@@ -118,7 +118,7 @@ export const generateDetailStudent = (
   const { id, name, email, className, gender, avatarUrl } = item || {};
 
   return `
-    <div class="flex-column detail-infor-content" data-id="${id}">
+    <div class="flex-column detail-info-content" data-id="${id}">
       <div class="flex-column items-center">
         <p class="detail-id">${id}</p>
         <img
