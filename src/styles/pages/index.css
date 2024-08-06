@@ -278,10 +278,6 @@
   color: var(--color-primary);
 }
 
-.student-table li span {
-  padding-left: 8px;
-}
-
 /* Large devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dashboard-search {

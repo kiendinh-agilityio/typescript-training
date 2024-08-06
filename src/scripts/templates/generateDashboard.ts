@@ -93,7 +93,7 @@ export const generateListPerson = (
   <div class="table-container">
     <!-- Table header with column titles -->
     <ul class="flex flex-wrap justify-start table-row thead student-table">
-      <li><span>Name</span></li>
+      <li class="person-name">Name</li>
       <li>${isStudentPage ? 'Student ID' : 'Subject'}</li>
       <li>Class</li>
       <li>Email address</li>
