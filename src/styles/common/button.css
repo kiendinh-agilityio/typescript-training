@@ -52,10 +52,16 @@
   outline: auto;
 }
 
+button:disabled,
+button[disabled] {
+  pointer-events: auto;
+}
+
 .btn-disabled {
   background-color: var(--color-bg-disable);
   color: var(--color-text-disable);
   border-color: var(--color-border-disable);
+  cursor: not-allowed;
 }
 
 .btn-search {
