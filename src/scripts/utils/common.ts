@@ -4,6 +4,9 @@ import { CLASS_LIST, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 // Import the Teacher interface
 import { Person, Errors } from '@/interfaces';
 
+// import enums
+import { PersonType } from '@/enums';
+
 /**
  * Create HTML markup for a modal form to manage people (teachers or students).
  * @param item - Object containing person data (optional).
@@ -333,9 +336,8 @@ const classListOption: string = CLASS_LIST.map(
 ).join('');
 
 // Create function common show message no results when filter class
-export const displayFilterNoResult = (): string => `
-  <p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER}</p>
-`;
+export const displayFilterNoResult = (person: PersonType): string =>
+  `<p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER(person)}</p>`;
 
 /**
  * Updates error messages on the form.
