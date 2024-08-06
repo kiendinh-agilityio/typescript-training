@@ -251,6 +251,7 @@
 }
 
 .btn-modal-group {
+  margin-top: 30px;
   justify-content: center;
 }
 
@@ -276,6 +277,10 @@
 
 .detail-more {
   color: var(--color-primary);
+}
+
+.subject-select-icon {
+  top: 40px;
 }
 
 /* Large devices (tablets, 768px and up) */
@@ -311,6 +316,10 @@
 
   .arrow-icon {
     right: 30px;
+  }
+
+  .btn-modal-group {
+    margin-top: 0;
   }
 }
 
