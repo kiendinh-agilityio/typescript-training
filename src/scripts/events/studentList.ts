@@ -513,7 +513,7 @@ export class StudentList {
 
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
-    this.tableStudent.innerHTML = displayFilterNoResult();
+    this.tableStudent.innerHTML = displayFilterNoResult(PersonType.Student);
     this.detailContainer.innerHTML = '';
   }
 

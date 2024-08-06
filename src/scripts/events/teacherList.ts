@@ -504,6 +504,6 @@ export class TeacherList {
 
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
-    this.tableTeacher.innerHTML = displayFilterNoResult();
+    this.tableTeacher.innerHTML = displayFilterNoResult(PersonType.Teacher);
   }
 }
