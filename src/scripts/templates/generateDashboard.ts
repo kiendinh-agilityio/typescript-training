@@ -58,6 +58,7 @@ export const personItem = (
               height="3px"
               src="/images/svg/more.svg"
               alt="Button group"
+              data-id="${id}"
             />
           </button>
           <div class="dropdown-content" data-id="${id}">
@@ -92,7 +93,7 @@ export const generateListPerson = (
   <div class="table-container">
     <!-- Table header with column titles -->
     <ul class="flex flex-wrap justify-start table-row thead student-table">
-      <li>Name</li>
+      <li><span>Name</span></li>
       <li>${isStudentPage ? 'Student ID' : 'Subject'}</li>
       <li>Class</li>
       <li>Email address</li>
