@@ -2,10 +2,7 @@
 import { SELECT_OPTIONS, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 
 // Import the Teacher interface
-import { Person, Errors } from '@/interfaces';
-
-// import enums
-import { PersonType } from '@/enums';
+import { Person, Errors, Teacher, isItemTeacher, PersonType } from '@/types';
 
 /**
  * Create HTML markup for a modal form to manage people (teachers or students).
@@ -15,7 +12,7 @@ import { PersonType } from '@/enums';
  * @returns HTML string for the modal form.
  */
 export const generateModalPerson = (
-  item: Person,
+  item: Person | Teacher,
   title?: string,
   isTeacher: boolean = true,
 ): string => {
@@ -23,7 +20,6 @@ export const generateModalPerson = (
   const {
     id = '',
     name = '',
-    subject = '',
     email = '',
     avatarUrl = '',
     className = '',
@@ -42,10 +38,12 @@ export const generateModalPerson = (
   // Generate subject options
   const subjectOptions = SELECT_OPTIONS.SUBJECT_LIST.map(
     (subjectOption) => `
-    <option value="${subjectOption}" ${
-      subject === subjectOption ? 'selected' : ''
-    }>${subjectOption}</option>
-  `,
+        <option value="${subjectOption}" ${
+          isItemTeacher(item) && item.subject === subjectOption
+            ? 'selected'
+            : ''
+        }>${subjectOption}</option>
+      `,
   ).join('');
 
   // Return the HTML string for the modal form

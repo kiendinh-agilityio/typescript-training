@@ -1,5 +1,5 @@
 // Import interfaces for sidebar
-import { SidebarItem } from '@/interfaces';
+import { SidebarItem } from '@/types';
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   {

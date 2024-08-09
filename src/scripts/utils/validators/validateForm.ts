@@ -9,20 +9,22 @@ import {
 } from '@/utils';
 
 // Import interfaces
-import { Person, PersonValidationError } from '@/interfaces';
-
-// Import enums
-import { PersonType } from '@/enums';
+import {
+  Person,
+  Teacher,
+  ModelValidation,
+  isItemTeacher,
+  PersonType,
+} from '@/types';
 
 // Function to validate an person form
 export const validateForm = (
-  item: Person,
+  item: Person | Teacher,
   personType: PersonType,
-): PersonValidationError => {
+): ModelValidation => {
   // Destructure the personItem properties with default empty strings
   const {
     email = '',
-    subject = '',
     name = '',
     className = '',
     avatarUrl = '',
@@ -30,7 +32,7 @@ export const validateForm = (
   } = item || {};
 
   // Initialize an object to hold validation errors
-  const errors: PersonValidationError = {};
+  const errors: ModelValidation = {};
 
   // Validate the email field and add an error if validation fails
   const emailError = validateEmailField(email);
@@ -51,8 +53,8 @@ export const validateForm = (
   }
 
   // Validate the subject field and add an error if validation fails
-  if (personType === PersonType.Teacher) {
-    const subjectError = validateSubjectField(subject);
+  if (personType === PersonType.Teacher && isItemTeacher(item)) {
+    const subjectError = validateSubjectField(item.subject);
     if (subjectError) {
       errors.subject = subjectError;
     }

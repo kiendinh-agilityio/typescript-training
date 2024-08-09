@@ -2,7 +2,7 @@
 import { BASE_API, API_METHODS, MESSAGES } from '@/constants';
 
 // Import type and interfaces
-import { Person } from '@/interfaces';
+import { Person } from '@/types';
 
 /**
  * A reusable function for making HTTP requests.

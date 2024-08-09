@@ -2,7 +2,7 @@
 import { httpServices } from '@/services';
 
 // Define the structure of person data
-import { Person } from '@/interfaces';
+import { Person } from '@/types';
 
 // Import constants
 import { MESSAGES } from '@/constants';

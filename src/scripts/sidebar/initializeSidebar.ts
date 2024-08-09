@@ -2,7 +2,7 @@
 import { SIDEBAR_ITEMS, CURRENT_PATH } from '@/constants';
 
 // Import interfaces for sidebar
-import { SidebarItem } from '@/interfaces';
+import { SidebarItem } from '@/types';
 
 // Import function handleToggleSidebar
 import { handleToggleSidebar } from '@/sidebar';

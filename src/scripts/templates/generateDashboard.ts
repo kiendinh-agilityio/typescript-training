@@ -1,5 +1,5 @@
 // Import the Person interface
-import { Person } from '@/interfaces';
+import { Person, isItemTeacher } from '@/types';
 
 // Import constants
 import { CLASSES } from '@/constants';
@@ -16,7 +16,7 @@ export const personItem = (
   isSelected?: boolean,
 ): string => {
   // Destructure properties from the item object
-  const { id, name, subject, email, className, gender, avatarUrl } = item || {};
+  const { id, name, email, className, gender, avatarUrl } = item || {};
 
   // Get the row color class
   const rowColorClass = getRowColorClass(index);
@@ -38,7 +38,7 @@ export const personItem = (
       </div>
       <div class="table-cell dashboard-item">
         <p class="${isStudentPage ? 'student-id-item' : 'subject-item'}">${
-          isStudentPage ? id : subject
+          isStudentPage ? id : isItemTeacher(item) ? item.subject : ''
         }</p>
       </div>
       <div class="table-cell dashboard-item">
