@@ -2,10 +2,7 @@
 import { generateListPerson, generateDetailStudent } from '@/templates';
 
 // Import interfaces Person data
-import { Person } from '@/interfaces';
-
-// Import enums
-import { PersonType } from '@/enums';
+import { Person, PersonType } from '@/types';
 
 // Import constants
 import {
