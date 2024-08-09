@@ -14,7 +14,7 @@ import {
 import { generateListPerson } from '@/templates';
 
 // Import interfaces Person data
-import { Person } from '@/interfaces';
+import { Person, Teacher, PersonType } from '@/types';
 
 // Import utils
 import {
@@ -33,9 +33,6 @@ import {
   stopLoadingSpinner,
   validateForm,
 } from '@/utils';
-
-// Import enums
-import { PersonType } from '@/enums';
 
 // Definition teacherList class
 export class TeacherList {
@@ -263,7 +260,7 @@ export class TeacherList {
         hasChange = oldData
           ? name !== oldData.name ||
             avatarUrl !== oldData.avatarUrl ||
-            subject !== oldData.subject ||
+            subject !== (oldData as Teacher).subject ||
             email !== oldData.email ||
             className !== oldData.className ||
             gender !== oldData.gender
@@ -314,7 +311,7 @@ export class TeacherList {
         formTeacher.querySelector(PROFILE_PERSON.GENDER) as HTMLSelectElement
       ).value;
 
-      const person: Person = {
+      const person: Teacher = {
         id: '',
         name,
         avatarUrl,
