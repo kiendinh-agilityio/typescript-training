@@ -19,7 +19,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     href: '/student',
     url: '/images/svg/student.svg',
     alt: 'Students icon',
-    label: 'Students/ classes',
+    label: 'Students / classes',
   },
   {
     href: '#',

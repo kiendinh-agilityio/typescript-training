@@ -1,8 +1,11 @@
 // Import the constant
-import { CLASS_LIST, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
+import { SELECT_OPTIONS, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 
 // Import the Teacher interface
 import { Person, Errors } from '@/interfaces';
+
+// import enums
+import { PersonType } from '@/enums';
 
 /**
  * Create HTML markup for a modal form to manage people (teachers or students).
@@ -28,11 +31,20 @@ export const generateModalPerson = (
   } = item || {};
 
   // Generate class options
-  const classOptions = CLASS_LIST.map(
+  const classOptions = SELECT_OPTIONS.CLASS_LIST.map(
     (cls) => `
     <option value="${cls}" ${
       className === cls ? 'selected' : ''
     }>${cls}</option>
+  `,
+  ).join('');
+
+  // Generate subject options
+  const subjectOptions = SELECT_OPTIONS.SUBJECT_LIST.map(
+    (subjectOption) => `
+    <option value="${subjectOption}" ${
+      subject === subjectOption ? 'selected' : ''
+    }>${subjectOption}</option>
   `,
   ).join('');
 
@@ -64,21 +76,6 @@ export const generateModalPerson = (
           />
           <p id="name-error" class="error-message-form"></p>
         </div>
-        ${
-          (isTeacher &&
-            `
-            <div class="flex-column">
-              <label class="form-text">Subject</label>
-              <input
-                id="subject"
-                class="form-input"
-                type="text"
-                value="${subject}"
-              />
-              <p id="subject-error" class="error-message-form"></p>
-            </div>`) ||
-          ''
-        }
         <div class="flex-column">
           <label class="form-text">Email address</label>
           <input
@@ -99,6 +96,27 @@ export const generateModalPerson = (
           />
           <p id="avatarUrl-error" class="error-message-form"></p>
         </div>
+        ${
+          (isTeacher &&
+            `
+            <div class="flex-column form-select">
+              <label class="form-text">Subject</label>
+              <select id="subject" name="subject" class="form-input-select">
+                <option value="">Subject</option>
+                ${subjectOptions}
+              </select>
+              <img
+                  loading="lazy"
+                  width="12px"
+                  height="8px"
+                  class="form-select-icon subject-select-icon"
+                  src="/images/svg/arrow.svg"
+                  alt="Arrow icon"
+              />
+              <p id="subject-error" class="error-message-form"></p>
+            </div>`) ||
+          ''
+        }
         <div class="form-group">
           <div class="form-select flex-column">
             <select id="class" name="class" class="form-input-select">
@@ -327,15 +345,14 @@ export const createFilterClass = (): string => `
 `;
 
 // This constant maps over CLASS_LIST to create a string of option elements for a select input.
-const classListOption: string = CLASS_LIST.map(
+const classListOption: string = SELECT_OPTIONS.CLASS_LIST.map(
   (classOption: string) =>
     `<option value="${classOption}">${classOption}</option>`,
 ).join('');
 
 // Create function common show message no results when filter class
-export const displayFilterNoResult = (): string => `
-  <p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER}</p>
-`;
+export const displayFilterNoResult = (person: PersonType): string =>
+  `<p class="filter-no-results">${MESSAGES.NO_RESULT_FILTER(person)}</p>`;
 
 /**
  * Updates error messages on the form.

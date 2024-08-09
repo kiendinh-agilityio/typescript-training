@@ -8,7 +8,10 @@ export const DISPLAY_CLASSES = {
 };
 
 // Variables for option class list
-export const CLASS_LIST = ['SS1', 'SS2', 'SS3', 'SS4', 'SS5'];
+export const SELECT_OPTIONS = {
+  CLASS_LIST: ['SS1', 'SS2', 'SS3', 'SS4', 'SS5'],
+  SUBJECT_LIST: ['English', 'Maths', 'Chemistry', 'Geography', 'Physic'],
+};
 
 // Endpoints name
 export const END_POINTS = {

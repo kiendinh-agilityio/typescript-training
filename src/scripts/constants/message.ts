@@ -1,3 +1,6 @@
+// import enums
+import { PersonType } from '@/enums';
+
 // Messages
 export const MESSAGES = {
   REQUEST_FAILED: 'Request failed!',
@@ -11,7 +14,8 @@ export const MESSAGES = {
   GET_DETAIL_ID_ERROR: 'Failed to get detail id person!',
   NO_CHANGES: 'No changes were made!',
   FILTER_FAILED: 'Failed to filter person by class!',
-  NO_RESULT_FILTER: 'No class found with the selected name!',
+  NO_RESULT_FILTER: (person: PersonType) =>
+    `No ${person} classes found with the selected name!`,
 };
 
 // Validate Message
