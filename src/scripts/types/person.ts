@@ -6,5 +6,9 @@ export interface Person {
   className: string;
   gender: string;
   avatarUrl: string;
-  subject?: string;
+}
+
+// Create interface for Teacher
+export interface Teacher extends Person {
+  subject: string;
 }

@@ -10,7 +10,7 @@ import {
 } from '@/constants';
 
 // Define the structure of advertisement data
-import { Person } from '@/interfaces';
+import { Person } from '@/types';
 
 // Import utils
 import {

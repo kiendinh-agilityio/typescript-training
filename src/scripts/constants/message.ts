@@ -1,5 +1,5 @@
-// import enums
-import { PersonType } from '@/enums';
+// import types
+import { PersonType } from '@/types';
 
 // Messages
 export const MESSAGES = {
