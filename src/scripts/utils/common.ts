@@ -4,6 +4,16 @@ import { SELECT_OPTIONS, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 // Import the Teacher interface
 import { Person, Errors, Teacher, isItemTeacher, PersonType } from '@/types';
 
+// Import function utils
+import {
+  validateEmailField,
+  validateAvatarField,
+  validateNameField,
+  validateSubjectField,
+  validateClassField,
+  validateGenderField,
+} from '@/utils';
+
 /**
  * Create HTML markup for a modal form to manage people (teachers or students).
  * @param item - Object containing person data (optional).
@@ -87,7 +97,7 @@ export const generateModalPerson = (
         <div class="flex-column">
           <label class="form-text">Avatar url</label>
           <input
-            id="avatar"
+            id="avatarUrl"
             class="form-input"
             type="text"
             value="${avatarUrl}"
@@ -117,7 +127,7 @@ export const generateModalPerson = (
         }
         <div class="form-group">
           <div class="form-select flex-column">
-            <select id="class" name="class" class="form-input-select">
+            <select id="className" name="class" class="form-input-select">
               <option value="">Class</option>
               ${classOptions}
             </select>
@@ -360,10 +370,14 @@ export const displayFilterNoResult = (person: PersonType): string =>
 const updateErrorMessages = (errors: Errors): void => {
   Object.entries(errors).forEach(([key, value]) => {
     const errorTarget = document.getElementById(`${key}-error`);
+    const inputTarget = document.getElementById(key);
 
     // If errorTarget exists, set its innerText to `value` or an empty string if `value` is falsy.
     if (errorTarget) {
       errorTarget.innerText = value || '';
+
+      // Add or remove error-border class based on whether there's an error message
+      inputTarget?.classList.toggle('error-border', !!value);
     }
   });
 };
@@ -374,3 +388,43 @@ const updateErrorMessages = (errors: Errors): void => {
  */
 export const displayFormErrors = (errors: Errors): void =>
   updateErrorMessages(errors);
+
+/**
+ * Attach blur and input event handlers to form input fields for validation.
+ * It adds 'blur' and 'input' event listeners to these input fields to handle form validation and error message updates.
+ */
+export const attachBlurEventHandlers = (): void => {
+  // Define the input fields to be validated along with their corresponding validation functions
+  const inputFields = [
+    { id: 'name', validate: validateNameField },
+    { id: 'email', validate: validateEmailField },
+    { id: 'avatarUrl', validate: validateAvatarField },
+    { id: 'subject', validate: validateSubjectField },
+    { id: 'className', validate: validateClassField },
+    { id: 'gender', validate: validateGenderField },
+  ];
+
+  // Iterate over each input field and attach the appropriate event listeners
+  inputFields.forEach(({ id, validate }) => {
+    const input = document.getElementById(id) as HTMLInputElement;
+    const errorElement = document.getElementById(`${id}-error`);
+
+    // Update the error message for the input field based on its current value
+    const updateErrorText = () => {
+      const errorMessage = validate(input.value);
+      errorElement.innerText = errorMessage || '';
+
+      // Add or remove the red border based on the validation result
+      input.classList.toggle('error-border', !!errorMessage);
+    };
+
+    // Attach a blur event listener to the input field
+    input?.addEventListener('blur', updateErrorText);
+
+    // Attach an input event listener to the input field
+    input?.addEventListener('input', () => {
+      !validate(input.value) &&
+        ((errorElement.innerText = ''), input.classList.remove('error-border'));
+    });
+  });
+};
