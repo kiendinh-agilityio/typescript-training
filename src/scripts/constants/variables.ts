@@ -32,8 +32,8 @@ export const PROFILE_PERSON = {
   NAME: '#name',
   SUBJECT: '#subject',
   EMAIL: '#email',
-  AVATAR: '#avatar',
-  CLASS: '#class',
+  AVATAR: '#avatarUrl',
+  CLASS: '#className',
   GENDER: '#gender',
 };
 
