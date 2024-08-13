@@ -19,6 +19,7 @@ import {
 
 // Import utils
 import {
+  attachBlurEventHandlers,
   createToggleDropdown,
   createFilterClass,
   displayFormErrors,
@@ -180,9 +181,8 @@ export class StudentList {
 
     dropdownButtons.forEach((button) => {
       button.addEventListener('click', (event: MouseEvent) => {
-        const mouseEvent = event as MouseEvent;
-        mouseEvent.stopPropagation();
-        const id = (mouseEvent.target as HTMLElement).getAttribute('data-id');
+        event.stopPropagation();
+        const id = (event.target as HTMLElement).getAttribute('data-id');
 
         // Find the corresponding dropdown content
         const dropdownContent = this.tableStudent.querySelector(
@@ -190,7 +190,7 @@ export class StudentList {
         );
 
         // Hide other dropdown contents
-        closeDropdowns(mouseEvent);
+        closeDropdowns(event);
 
         // Toggle the selected dropdown content
         createToggleDropdown(dropdownContent as HTMLElement);
@@ -236,6 +236,9 @@ export class StudentList {
     const formStudent = modelStudent.querySelector(
       ID_ELEMENTS.FORM_PERSON,
     ) as HTMLElement;
+
+    // Attach blur event handlers for form validation
+    attachBlurEventHandlers();
 
     // Add event listeners for close button and cancel button clicks
     closeBtn.addEventListener('click', this.closeModalHandler.bind(this));
