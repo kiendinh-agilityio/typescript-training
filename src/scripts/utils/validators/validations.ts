@@ -40,8 +40,12 @@ export const validateClassField = (className: string): string =>
   !className && REQUIRED_ERROR('Class');
 
 // Function to validate a avatarUrl field
-export const validateAvatarField = (avatarUrl: string): string =>
-  validateField(avatarUrl, 'Avatar url', REGEX.AVATAR_URL, INVALID_AVATAR_URL);
+export const validateAvatarField = (avatarUrl: string): string => {
+  const isValidImage = REGEX.AVATAR_URL.test(avatarUrl);
+
+  // If the URL is valid, return an empty string (no error). If not, return the INVALID_AVATAR_URL error message.
+  return isValidImage ? '' : INVALID_AVATAR_URL;
+};
 
 // Function to validate a gender field
 export const validateGenderField = (gender: string): string =>
