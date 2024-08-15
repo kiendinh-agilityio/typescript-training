@@ -26,7 +26,7 @@
 
 - Visual Studio Code
 
-## SUPPORT BROWSER
+## BROWSER SUPPORT
 
 - Chrome v102.0.5005.115
 - Firefox v101.0.1
@@ -50,10 +50,11 @@
 
 ## GUIDELINE
 
-| Syntax                                                                    | Description                               |
-| ------------------------------------------------------------------------- | ----------------------------------------- |
-| `git clone git@gitlab.asoft-python.com:kien.dinh/typescript-training.git` | Clone repository from GitLab              |
-| `cd feature/big-practice`                                                 | Checkout branch                           |
-| `pnpm install`                                                            | Install dependencies                      |
-| `pnpm start`                                                              | Starts local dev server at localhost:1234 |
-| `ctrl + click http://localhost:1234`                                      | Open a browser to access the local server |
+| Syntax                                                                    | Description                                        |
+| ------------------------------------------------------------------------- | -------------------------------------------------- |
+| `git clone git@gitlab.asoft-python.com:kien.dinh/typescript-training.git` | Clone repository from GitLab                       |
+| `cd feature/big-practice`                                                 | Checkout branch                                    |
+| `pnpm install`                                                            | Install dependencies                               |
+| `pnpm start`                                                              | Starts local dev server at localhost:1234          |
+| `ctrl + click http://localhost:1234`                                      | Open a browser to access the local server          |
+| `API_URL='https://6694eadd4bd61d8314c93287.mockapi.io/api/v1/'`           | Set the API URL into the .env file for the project |
