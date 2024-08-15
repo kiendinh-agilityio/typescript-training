@@ -1,5 +1,5 @@
 {
-  "name": "dashboard",
+  "name": "admin-dashboard-school",
   "version": "1.0.0",
   "scripts": {
     "start": "pnpx parcel src/pages/*.html",
