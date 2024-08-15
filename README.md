@@ -22,11 +22,11 @@
 - Commitlint v17.7.1
 - Parcel v2.9.3
 
-## DEVELOPMENT ENVIRONMENT
+## EDITOR
 
 - Visual Studio Code
 
-## SUPPORT
+## SUPPORT BROWSER
 
 - Chrome v102.0.5005.115
 - Firefox v101.0.1
@@ -35,7 +35,7 @@
 
 - **[Figma](<https://www.figma.com/design/zneLYhHlxoB45GmXeJhIcV/School-Management-Admin-Dashboard-UI-(Community)?node-id=6-3&t=NWxr1VkBqpiYtcfO-0>)**
 
-## REQUIREMENT
+## REQUIREMENTS
 
 - Improve UI/UX, HTML/CSS
 - Inherit typescript
@@ -53,6 +53,7 @@
 | Syntax                                                                    | Description                               |
 | ------------------------------------------------------------------------- | ----------------------------------------- |
 | `git clone git@gitlab.asoft-python.com:kien.dinh/typescript-training.git` | Clone repository from GitLab              |
-| `feature/big-practice`                                                    | Checkout branch                           |
+| `cd feature/big-practice`                                                 | Checkout branch                           |
 | `pnpm install`                                                            | Install dependencies                      |
 | `pnpm start`                                                              | Starts local dev server at localhost:1234 |
+| `ctrl + click http://localhost:1234`                                      | Open a browser to access the local server |
