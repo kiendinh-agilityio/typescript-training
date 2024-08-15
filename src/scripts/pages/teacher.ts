@@ -33,34 +33,34 @@ import { PersonServices } from '@/services';
  */
 export class TeacherPage {
   personServices: PersonServices;
-  teacherList: TeacherList;
+  teacherListEvent: TeacherList;
   handleSearchDebounced: () => void;
 
-  constructor(teacherList: TeacherList) {
+  constructor(teacherListEvent: TeacherList) {
     this.personServices = new PersonServices(END_POINTS.TEACHER);
-    this.teacherList = teacherList;
+    this.teacherListEvent = teacherListEvent;
     this.initialize();
 
     // Bind add handler
-    this.teacherList.bindAddTeacher(this.handleAddTeacher.bind(this));
+    this.teacherListEvent.bindAddTeacher(this.handleAddTeacher.bind(this));
 
     // Bind edit handler
-    this.teacherList.bindEditTeacher(this.handleEditTeacher.bind(this));
+    this.teacherListEvent.bindEditTeacher(this.handleEditTeacher.bind(this));
 
     // Add event edit
-    this.teacherList.bindGetDetailTeacher(
+    this.teacherListEvent.bindGetDetailTeacher(
       this.handleGetDetailTeacher.bind(this),
     );
 
     // Add event delete
-    this.teacherList.bindDeleteTeacher(this.handleDeleteTeacher.bind(this));
+    this.teacherListEvent.bindDeleteTeacher(this.handleDeleteTeacher.bind(this));
 
     // Add event listeners for search and clear search buttons
-    this.teacherList.btnSearchTeacher.addEventListener(
+    this.teacherListEvent.btnSearchTeacher.addEventListener(
       'click',
       this.handleSearch.bind(this),
     );
-    this.teacherList.clearSearchTeacher.addEventListener(
+    this.teacherListEvent.clearSearchTeacher.addEventListener(
       'click',
       this.handleClearSearch.bind(this),
     );
@@ -72,12 +72,12 @@ export class TeacherPage {
     );
 
     // Add event listeners for real-time search
-    this.teacherList.inputSearchTeacher.addEventListener('input', () => {
+    this.teacherListEvent.inputSearchTeacher.addEventListener('input', () => {
       this.handleSearchDebounced();
     });
 
     // Add event listener for pressing Enter key in the search input
-    this.teacherList.inputSearchTeacher.addEventListener(
+    this.teacherListEvent.inputSearchTeacher.addEventListener(
       'keypress',
       (event: KeyboardEvent) => {
         if (event.key === SPECIAL_KEYS.ENTER) {
@@ -87,7 +87,7 @@ export class TeacherPage {
     );
 
     // Add event for filter class
-    this.teacherList.teacherFilterClass.addEventListener(
+    this.teacherListEvent.teacherFilterClass.addEventListener(
       'change',
       this.filterClassTeacher.bind(this),
     );
@@ -103,7 +103,7 @@ export class TeacherPage {
     const data = await this.personServices.fetchPersonData();
 
     data && data.length > 0
-      ? this.teacherList.displayTeacherList(data)
+      ? this.teacherListEvent.displayTeacherList(data)
       : displayTabletNoData(PERSONS.TEACHERS);
 
     // Directly stop loading spinner after response is received
@@ -122,12 +122,12 @@ export class TeacherPage {
     this.personServices.personData.push(response);
 
     // Display the list of teacher after adding
-    this.teacherList.displayTeacherList(this.personServices.personData);
+    this.teacherListEvent.displayTeacherList(this.personServices.personData);
   }
 
   // Show the teacher modal with the given teacherData
   handleShowTeacherModal(personData: Person): void {
-    this.teacherList.showTeacherModal(personData);
+    this.teacherListEvent.showTeacherModal(personData);
   }
 
   /**
@@ -154,7 +154,7 @@ export class TeacherPage {
     editedTeacher && Object.assign(editedTeacher, response);
 
     // Display the list of teacher after edit
-    this.teacherList.displayTeacherList(this.personServices.personData);
+    this.teacherListEvent.displayTeacherList(this.personServices.personData);
   }
 
   /**
@@ -165,7 +165,7 @@ export class TeacherPage {
     const response = await this.personServices.getPersonDetail(personId);
 
     // Display the teacher modal with the retrieved details from the model.
-    this.teacherList.showTeacherModal(response);
+    this.teacherListEvent.showTeacherModal(response);
   }
 
   /**
@@ -189,7 +189,7 @@ export class TeacherPage {
 
       // Display the updated list of person and show tablet when no data
       updatedTeacherData && updatedTeacherData.length > 0
-        ? this.teacherList.displayTeacherList(updatedTeacherData)
+        ? this.teacherListEvent.displayTeacherList(updatedTeacherData)
         : displayTabletNoData(PERSONS.TEACHERS);
 
       // If the response is defined, stop the loading spinner to indicate that the operation is complete.
@@ -204,7 +204,7 @@ export class TeacherPage {
    * Handles the search action.
    */
   async handleSearch(): Promise<void> {
-    const keyword: string = this.teacherList.inputSearchTeacher.value
+    const keyword: string = this.teacherListEvent.inputSearchTeacher.value
       .trim()
       .toLowerCase();
 
@@ -236,9 +236,9 @@ export class TeacherPage {
 
     // Display matching ads if results are found
     if (filteredPerson.length) {
-      this.teacherList.displayTeacherList(filteredPerson);
+      this.teacherListEvent.displayTeacherList(filteredPerson);
     } else {
-      this.teacherList.handleSearchNoResult();
+      this.teacherListEvent.handleSearchNoResult();
     }
 
     // Stop the loading spinner
@@ -259,7 +259,7 @@ export class TeacherPage {
     startLoadingSpinner();
 
     const selectedClassTeacher = (
-      this.teacherList.teacherFilterClass as HTMLSelectElement
+      this.teacherListEvent.teacherFilterClass as HTMLSelectElement
     ).value;
 
     try {
@@ -268,9 +268,9 @@ export class TeacherPage {
         await this.personServices.filterPersonByClass(selectedClassTeacher);
 
       // Update the display with the filtered list of teacher
-      this.teacherList.displayTeacherList(filterClassTeacher);
+      this.teacherListEvent.displayTeacherList(filterClassTeacher);
     } catch (error) {
-      this.teacherList.handleFilterNoResult();
+      this.teacherListEvent.handleFilterNoResult();
     }
 
     // Stop the loading spinner
