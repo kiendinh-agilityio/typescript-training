@@ -33,35 +33,35 @@ import { PersonServices } from '@/services';
  */
 export class StudentPage {
   personServices: PersonServices;
-  studentList: StudentList;
+  studentListEvent: StudentList;
   handleSearchDebounced: () => void;
 
-  constructor(studentList: StudentList) {
+  constructor(studentListEvent: StudentList) {
     this.personServices = new PersonServices(END_POINTS.STUDENT);
-    this.studentList = studentList;
+    this.studentListEvent = studentListEvent;
     this.initialize();
 
     // Bind add handler
-    this.studentList.bindAddStudent(this.handleAddStudent.bind(this));
+    this.studentListEvent.bindAddStudent(this.handleAddStudent.bind(this));
 
     // Bind edit handler
-    this.studentList.bindEditStudent(this.handleEditStudent.bind(this));
+    this.studentListEvent.bindEditStudent(this.handleEditStudent.bind(this));
 
     // Get detail student
-    this.studentList.bindGetDetailStudent(
+    this.studentListEvent.bindGetDetailStudent(
       this.handleGetDetailStudent.bind(this),
     );
 
     // Add event delete
-    this.studentList.bindDeleteStudent(this.handleDeleteStudent.bind(this));
+    this.studentListEvent.bindDeleteStudent(this.handleDeleteStudent.bind(this));
 
     // Add event listeners for search and clear search buttons
-    this.studentList.btnSearchStudent.addEventListener(
+    this.studentListEvent.btnSearchStudent.addEventListener(
       'click',
       this.handleSearchStudent.bind(this),
     );
 
-    this.studentList.clearSearchStudent.addEventListener(
+    this.studentListEvent.clearSearchStudent.addEventListener(
       'click',
       this.handleClearSearch.bind(this),
     );
@@ -73,12 +73,12 @@ export class StudentPage {
     );
 
     // Add event listeners for real-time search
-    this.studentList.inputSearchStudent.addEventListener('input', () => {
+    this.studentListEvent.inputSearchStudent.addEventListener('input', () => {
       this.handleSearchDebounced();
     });
 
     // Add event listener for pressing Enter key in the search input
-    this.studentList.inputSearchStudent.addEventListener(
+    this.studentListEvent.inputSearchStudent.addEventListener(
       'keypress',
       (event: KeyboardEvent) => {
         if (event.key === SPECIAL_KEYS.ENTER) {
@@ -88,7 +88,7 @@ export class StudentPage {
     );
 
     // Add event for filter class
-    this.studentList.studentFilterClass.addEventListener(
+    this.studentListEvent.studentFilterClass.addEventListener(
       'change',
       this.filterClassStudent.bind(this),
     );
@@ -106,7 +106,7 @@ export class StudentPage {
 
     // Check if data is available and has items
     data && data.length > 0
-      ? this.studentList.displayStudentList(data)
+      ? this.studentListEvent.displayStudentList(data)
       : displayTabletNoData(PERSONS.STUDENTS);
 
     // Directly stop loading spinner after response is received
@@ -125,7 +125,7 @@ export class StudentPage {
     this.personServices.personData.push(response);
 
     // Display the list of student after adding
-    this.studentList.displayStudentList(this.personServices.personData);
+    this.studentListEvent.displayStudentList(this.personServices.personData);
   }
 
   /**
@@ -152,7 +152,7 @@ export class StudentPage {
     editedStudent && Object.assign(editedStudent, response);
 
     // Display the list of student after edit
-    this.studentList.displayStudentList(this.personServices.personData);
+    this.studentListEvent.displayStudentList(this.personServices.personData);
   }
 
   /**
@@ -163,10 +163,10 @@ export class StudentPage {
     const response = await this.personServices.getPersonDetail(personId);
 
     // Display the student modal with the retrieved details from the model.
-    this.studentList.showStudentModal(response);
+    this.studentListEvent.showStudentModal(response);
 
     // Display detail information for students
-    this.studentList.handleDetailStudent(personId);
+    this.studentListEvent.handleDetailStudent(personId);
   }
 
   /**
@@ -190,7 +190,7 @@ export class StudentPage {
 
       // Display the updated list of person and show tablet when no data
       updatedStudentData && updatedStudentData.length > 0
-        ? this.studentList.displayStudentList(updatedStudentData)
+        ? this.studentListEvent.displayStudentList(updatedStudentData)
         : displayTabletNoData(PERSONS.STUDENTS);
 
       // If the response is defined, stop the loading spinner to indicate that the operation is complete.
@@ -205,7 +205,7 @@ export class StudentPage {
    * Handles the search student action.
    */
   async handleSearchStudent(): Promise<void> {
-    const keyword: string = this.studentList.inputSearchStudent.value
+    const keyword: string = this.studentListEvent.inputSearchStudent.value
       .trim()
       .toLowerCase();
 
@@ -237,9 +237,9 @@ export class StudentPage {
 
     // Display matching ads if results are found
     if (filteredPerson.length) {
-      this.studentList.displayStudentList(filteredPerson);
+      this.studentListEvent.displayStudentList(filteredPerson);
     } else {
-      this.studentList.handleSearchNoResult();
+      this.studentListEvent.handleSearchNoResult();
     }
 
     // Stop loading spinner
@@ -260,7 +260,7 @@ export class StudentPage {
     startLoadingSpinner();
 
     const selectedClassStudent = (
-      this.studentList.studentFilterClass as HTMLSelectElement
+      this.studentListEvent.studentFilterClass as HTMLSelectElement
     ).value;
 
     try {
@@ -269,9 +269,9 @@ export class StudentPage {
         await this.personServices.filterPersonByClass(selectedClassStudent);
 
       // Update the display with the filtered list of students
-      this.studentList.displayStudentList(filterClassStudents);
+      this.studentListEvent.displayStudentList(filterClassStudents);
     } catch (error) {
-      this.studentList.handleFilterNoResult();
+      this.studentListEvent.handleFilterNoResult();
     }
 
     // Stop the loading spinner
