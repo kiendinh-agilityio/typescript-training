@@ -15,27 +15,28 @@
 }
 
 .btn-confirm {
-  font-family: var(--font-primary);
+  width: 131px;
+  height: 42px;
+  font-family: var(--font-semibold);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-sm);
   color: var(--color-light);
   border-radius: var(--rounded-sm);
   cursor: pointer;
-  padding: 10px 40px;
-  width: 160px;
+  padding: 12px 14px;
 }
 
 .btn-confirm:not(:last-child) {
   margin-right: 30px;
 }
 
-.btn-confirm:first-child {
+.btn-confirm:last-child {
   background-color: var(--color-btn-cancel);
   color: var(--color-dark);
   border: 1px solid var(--color-btn-cancel);
 }
 
-.btn-confirm:last-child {
+.btn-confirm:first-child {
   background-color: var(--color-danger);
 }
 
@@ -93,5 +94,5 @@ button[disabled] {
 .btn-cancel-modal {
   background-color: var(--color-btn-cancel);
   color: var(--color-dark);
-  margin-left: 10px;
+  margin-left: 30px;
 }

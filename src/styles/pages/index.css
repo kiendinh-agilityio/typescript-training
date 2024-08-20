@@ -265,10 +265,6 @@
   width: 42px;
 }
 
-.student-id-item {
-  padding: 0 25px;
-}
-
 .detail-same-class {
   font-size: var(--font-semibold);
   margin-top: 26px;
@@ -381,10 +377,6 @@
 
   .student-table {
     gap: 15px;
-  }
-
-  .btn-modal-group {
-    justify-content: end;
   }
 }
 
