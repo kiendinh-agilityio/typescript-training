@@ -23,7 +23,6 @@
   color: var(--color-light);
   border-radius: var(--rounded-sm);
   cursor: pointer;
-  padding: 12px 14px;
 }
 
 .btn-confirm:not(:last-child) {
