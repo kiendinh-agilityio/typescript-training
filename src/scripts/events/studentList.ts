@@ -429,10 +429,10 @@ export class StudentList {
 
     // Get button
     const confirmDeleteButton = modelDeleteStudent.querySelector(
-      '#confirm-delete',
+      '#confirm-btn',
     ) as HTMLElement;
     const cancelDeleteButton = modelDeleteStudent.querySelector(
-      '#cancel-delete',
+      '#cancel-btn',
     ) as HTMLElement;
     const closeDeleteModalButton = modelDeleteStudent.querySelector(
       '#close-modal-confirm',

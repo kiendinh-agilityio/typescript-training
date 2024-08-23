@@ -194,8 +194,8 @@ export const generateModalConfirm = (): string => `
       Are you sure you want to delete this item from the list?
     </p>
     <div class="flex justify-center">
-      <button id="cancel-delete" class="btn-confirm">Cancel</button>
-      <button id="confirm-delete" class="btn-confirm">Delete</button>
+      <button id="confirm-btn" class="btn-confirm">Delete</button>
+      <button id="cancel-btn" class="btn-confirm">Cancel</button>
     </div>
   </div>
 `;
