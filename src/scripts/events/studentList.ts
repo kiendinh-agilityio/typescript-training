@@ -24,7 +24,6 @@ import { PersonList } from '@/events';
 
 // Definition StudentList class
 export class StudentList extends PersonList {
-  tableStudent: HTMLElement;
   btnAddStudent: HTMLElement;
   btnSearchStudent: HTMLElement;
   inputSearchStudent: HTMLInputElement;
@@ -48,7 +47,6 @@ export class StudentList extends PersonList {
    * Initializes the DOM elements.
    */
   initElementsStudent(): void {
-    this.tableStudent = document.getElementById('list-student');
     this.btnAddStudent = document.getElementById('btn-add-student');
     this.btnSearchStudent = searchStudent.querySelector('#btn-search-student');
     this.inputSearchStudent = searchStudent.querySelector(
@@ -165,7 +163,7 @@ export class StudentList extends PersonList {
 
   // Handle the case when no search results are found
   handleSearchNoResult(): void {
-    this.tableStudent.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+    this.tableElement.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
     this.detailContainer.innerHTML = '';
   }
 
@@ -189,7 +187,7 @@ export class StudentList extends PersonList {
 
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
-    this.tableStudent.innerHTML = displayFilterNoResult(PersonType.Student);
+    this.tableElement.innerHTML = displayFilterNoResult(PersonType.Student);
     this.detailContainer.innerHTML = '';
   }
 
@@ -219,12 +217,12 @@ export class StudentList extends PersonList {
    * Highlights the selected row by adding a CSS class.
    */
   highlightSelectedRow(): void {
-    const tabletStudent = this.tableStudent.querySelectorAll('.table-row');
+    const tabletStudent = this.tableElement.querySelectorAll('.table-row');
     tabletStudent.forEach((row) => {
       row.classList.remove('highlighted');
     });
 
-    const selectedRow = this.tableStudent.querySelector(
+    const selectedRow = this.tableElement.querySelector(
       `[data-id="${this.selectedStudentId}"]`,
     );
 
