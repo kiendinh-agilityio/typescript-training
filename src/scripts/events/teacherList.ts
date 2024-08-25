@@ -39,6 +39,7 @@ export class TeacherList extends PersonList {
    * Initializes the DOM elements.
    */
   initElementsTeacher(): void {
+    this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
     this.btnSearchTeacher = searchTeacher.querySelector('#btn-search-teacher');
     this.inputSearchTeacher = searchTeacher.querySelector(
