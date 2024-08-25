@@ -18,7 +18,6 @@ import { PersonList } from '@/events';
 
 // Definition teacherList class
 export class TeacherList extends PersonList {
-  tableTeacher: HTMLElement;
   btnAdd: HTMLElement;
   btnSearchTeacher: HTMLElement;
   inputSearchTeacher: HTMLInputElement;
@@ -39,7 +38,6 @@ export class TeacherList extends PersonList {
    * Initializes the DOM elements.
    */
   initElementsTeacher(): void {
-    this.tableTeacher = document.getElementById('list-teacher');
     this.btnAdd = document.getElementById('btn-add-teacher');
     this.btnSearchTeacher = searchTeacher.querySelector('#btn-search-teacher');
     this.inputSearchTeacher = searchTeacher.querySelector(
@@ -130,7 +128,7 @@ export class TeacherList extends PersonList {
 
   // Handle the case when no search results are found
   handleSearchNoResult(): void {
-    this.tableTeacher.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
+    this.tableElement.innerHTML = `<p class="search-result-message">${MESSAGES.NO_RESULT}</p>`;
   }
 
   // Clear the search input
@@ -153,6 +151,6 @@ export class TeacherList extends PersonList {
 
   // Handle the case when filter class no results are found
   handleFilterNoResult(): void {
-    this.tableTeacher.innerHTML = displayFilterNoResult(PersonType.Teacher);
+    this.tableElement.innerHTML = displayFilterNoResult(PersonType.Teacher);
   }
 }
