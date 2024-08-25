@@ -1,5 +1,5 @@
 // Import student list
-import { generateListPerson, generateDetailStudent } from '@/templates';
+import { generateDetailStudent } from '@/templates';
 
 // Import interfaces Person data
 import { Person, PersonType } from '@/types';
@@ -9,7 +9,6 @@ import { DISPLAY_CLASSES, MESSAGES, END_POINTS, TIMES } from '@/constants';
 
 // Import utils
 import {
-  createToggleDropdown,
   createFilterClass,
   displayFilterNoResult,
   modelStudent,
@@ -27,7 +26,6 @@ import { PersonList } from '@/events';
 export class StudentList extends PersonList {
   tableStudent: HTMLElement;
   btnAddStudent: HTMLElement;
-  getDetailStudentHandler: (personId: number) => void;
   btnSearchStudent: HTMLElement;
   inputSearchStudent: HTMLInputElement;
   clearSearchStudent: HTMLElement;
@@ -37,8 +35,10 @@ export class StudentList extends PersonList {
 
   constructor() {
     super('modal-confirm-student');
+    this.initTableElement('list-student');
     this.initElementsStudent();
     this.initEventListenersStudent();
+    this.initEventListenersPerson();
     this.initializeSearchInput();
     this.selectFilterStudent();
     this.selectedStudentId = '';
@@ -69,38 +69,10 @@ export class StudentList extends PersonList {
     });
 
     // Event listener for table element click
-    this.tableStudent.addEventListener('click', async (event: MouseEvent) => {
-      const editButton = (event.target as HTMLElement)?.closest(
-        '.dropdown-content button:first-child',
-      ) as HTMLElement;
-      const deleteButton = (event.target as HTMLElement)?.closest(
-        '.dropdown-content button:last-child',
-      ) as HTMLElement;
-
+    this.tableElement.addEventListener('click', async (event: MouseEvent) => {
       const showDetailInfo = (event.target as HTMLElement)
         ?.closest('[data-id]')
         ?.getAttribute('data-id');
-
-      // Handle action click for edit and delete
-      const handleActionButtonClick = async (
-        button: HTMLElement,
-        action: (id: number) => void | Promise<void>,
-      ) => {
-        if (button) {
-          const dataId = button.getAttribute('data-id');
-          if (dataId) await action(parseInt(dataId));
-        }
-      };
-
-      // Handle edit button click
-      editButton &&
-        handleActionButtonClick(editButton, this.getDetailStudentHandler);
-
-      // Handle delete button click
-      deleteButton &&
-        handleActionButtonClick(deleteButton, (personId: number) =>
-          this.showConfirmModal(personId),
-        );
 
       // Handle show detail info student when click
       showDetailInfo &&
@@ -124,52 +96,7 @@ export class StudentList extends PersonList {
     // Newly added student will appear at the top
     const reversedStudentData = studentData.slice().reverse();
 
-    // Generate the HTML for the reversed list of students
-    const studentListHTML = generateListPerson(reversedStudentData, true);
-
-    // Update the table element's inner HTML with the new student list
-    this.tableStudent.innerHTML = studentListHTML;
-
-    // Dropdown buttons
-    const dropdownButtons = this.tableStudent.querySelectorAll('.btn-dropdown');
-    const dropdownContents =
-      this.tableStudent.querySelectorAll('.dropdown-content');
-
-    const closeDropdowns = (event: MouseEvent) => {
-      const isInsideDropdown = Array.from(dropdownContents).some((content) =>
-        content.contains(event.target as Node),
-      );
-
-      if (!isInsideDropdown) {
-        const htmlDropdownContents = Array.from(dropdownContents).filter(
-          (content): content is HTMLElement => content instanceof HTMLElement,
-        );
-
-        htmlDropdownContents.forEach(
-          (content) => (content.style.display = DISPLAY_CLASSES.HIDDEN),
-        );
-      }
-    };
-
-    dropdownButtons.forEach((button) => {
-      button.addEventListener('click', (event: MouseEvent) => {
-        event.stopPropagation();
-        const id = (event.target as HTMLElement).getAttribute('data-id');
-
-        // Find the corresponding dropdown content
-        const dropdownContent = this.tableStudent.querySelector(
-          `.dropdown-content[data-id="${id}"]`,
-        );
-
-        // Hide other dropdown contents
-        closeDropdowns(event);
-
-        // Toggle the selected dropdown content
-        createToggleDropdown(dropdownContent as HTMLElement);
-      });
-    });
-
-    document.addEventListener('click', closeDropdowns);
+    this.displayPersonList(studentData, true);
 
     // Automatically select and display the first student detail if available
     if (reversedStudentData.length > 0) {
@@ -209,7 +136,7 @@ export class StudentList extends PersonList {
 
   // Bind the handler for getting detail of an student
   bindGetDetailStudent(handler: (personId: number) => void): void {
-    this.getDetailStudentHandler = handler;
+    this.bindGetDetailHandler(handler);
   }
 
   // Bind the delete ad handler to the table element
