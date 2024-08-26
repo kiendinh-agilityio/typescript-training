@@ -25,13 +25,14 @@ export class TeacherList extends PersonList {
   teacherFilterClass: HTMLElement;
 
   constructor() {
-    super('modal-confirm-teacher');
+    super();
     this.initTableElement('list-teacher');
     this.initElementsTeacher();
     this.initEventListenersTeacher();
     this.initEventListenersPerson();
     this.initializeSearchInput();
     this.selectFilterTeacher();
+    this.initModelDeleteElement();
   }
 
   /**
