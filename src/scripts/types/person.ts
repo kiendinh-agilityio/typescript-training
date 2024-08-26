@@ -12,3 +12,9 @@ export interface Person {
 export interface Teacher extends Person {
   subject: string;
 }
+
+// Create interface for form data input, extending from Person
+export interface PersonFormData extends Partial<Person> {
+  subject?: string;
+  hasAdditionalField?: boolean;
+}
