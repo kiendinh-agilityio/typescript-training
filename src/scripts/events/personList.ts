@@ -42,9 +42,7 @@ export class PersonList {
   getDetailHandler: (personId: number) => void;
 
   constructor(modelDeleteElementId: string) {
-    this.modelDeleteElement = document.getElementById(
-      modelDeleteElementId,
-    ) as HTMLElement;
+    this.modelDeleteElement = document.getElementById(modelDeleteElementId);
   }
 
   // Method to initialize the table element
@@ -94,15 +92,13 @@ export class PersonList {
     this.modelDeleteElement.innerHTML = generateModalConfirm();
 
     // Get button
-    const confirmDeleteButton = this.modelDeleteElement.querySelector(
-      '#confirm-btn',
-    ) as HTMLElement;
-    const cancelDeleteButton = this.modelDeleteElement.querySelector(
-      '#cancel-btn',
-    ) as HTMLElement;
+    const confirmDeleteButton =
+      this.modelDeleteElement.querySelector('#confirm-btn');
+    const cancelDeleteButton =
+      this.modelDeleteElement.querySelector('#cancel-btn');
     const closeDeleteModalButton = this.modelDeleteElement.querySelector(
       '#close-modal-confirm',
-    ) as HTMLElement;
+    );
 
     // Set data-id attribute for confirm button
     confirmDeleteButton.setAttribute('data-id', personId.toString());
