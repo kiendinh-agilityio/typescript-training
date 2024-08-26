@@ -16,8 +16,10 @@ import {
 import {
   attachBlurEventHandlers,
   createToggleDropdown,
+  createPerson,
   displayFormErrors,
   displayToastMessage,
+  determinePersonType,
   generateModalConfirm,
   generateModalPerson,
   startLoadingSpinner,
@@ -27,7 +29,7 @@ import {
 } from '@/utils';
 
 // Import interfaces Person data
-import { Person, PersonType, Teacher } from '@/types';
+import { Person, Teacher } from '@/types';
 
 // Definition PersonList class
 export class PersonList {
@@ -41,8 +43,9 @@ export class PersonList {
   deleteHandler: (personId: number) => void;
   getDetailHandler: (personId: number) => void;
 
-  constructor(modelDeleteElementId: string) {
-    this.modelDeleteElement = document.getElementById(modelDeleteElementId);
+  // Method initialize the model delete element
+  initModelDeleteElement() {
+    this.modelDeleteElement = document.getElementById('modal-confirm');
   }
 
   // Method to initialize the table element
@@ -129,14 +132,18 @@ export class PersonList {
     this.modelDeleteElement.style.display = DISPLAY_CLASSES.HIDDEN;
   }
 
-  // Shared modal handler for both Student and Teacher
+  // Shared modal handler for both Person
   showPersonModal(
     personData: Person | null,
     modalElement: HTMLElement,
-    isTeacher: boolean,
+    hasAdditionalField: boolean,
   ): void {
     const title = personData ? TITLE_MODAL.EDIT : TITLE_MODAL.ADD;
-    const modalContent = generateModalPerson(personData, title, isTeacher);
+    const modalContent = generateModalPerson(
+      personData,
+      title,
+      hasAdditionalField,
+    );
 
     // Set the modal's HTML content and display it
     modalElement.innerHTML = modalContent;
@@ -175,51 +182,63 @@ export class PersonList {
     // Initialize a flag to track whether changes have been made
     let hasChange = false;
 
-    // Add event listeners for input changes to set the hasChange flag
-    const formInputs = modalElement.querySelectorAll('input, select');
-    formInputs.forEach((input) => {
-      input.addEventListener('input', () => {
-        const name = trailingString(
+    // Function to get form values
+    const getFormValues = () => {
+      return {
+        name: trailingString(
           (formPerson.querySelector(PROFILE_PERSON.NAME) as HTMLInputElement)
             .value,
-        );
-        const avatarUrl = trailingString(
+        ),
+
+        avatarUrl: trailingString(
           (formPerson.querySelector(PROFILE_PERSON.AVATAR) as HTMLInputElement)
             .value,
-        );
-        const email = trailingString(
+        ),
+
+        email: trailingString(
           (formPerson.querySelector(PROFILE_PERSON.EMAIL) as HTMLInputElement)
             .value,
-        );
-        const className = (
+        ),
+
+        className: (
           formPerson.querySelector(PROFILE_PERSON.CLASS) as HTMLSelectElement
-        ).value;
-        const gender = (
+        ).value,
+
+        gender: (
           formPerson.querySelector(PROFILE_PERSON.GENDER) as HTMLSelectElement
-        ).value;
+        ).value,
 
-        // Additional check for Teacher's subject if applicable
-        let subject = '';
+        subject: hasAdditionalField
+          ? trailingString(
+              (
+                formPerson.querySelector(
+                  PROFILE_PERSON.SUBJECT,
+                ) as HTMLInputElement
+              ).value,
+            )
+          : '',
+      };
+    };
 
-        if (isTeacher) {
-          subject = trailingString(
-            (
-              formPerson.querySelector(
-                PROFILE_PERSON.SUBJECT,
-              ) as HTMLInputElement
-            ).value,
-          );
-        }
+    // Function to update hasChange flag
+    const updateHasChange = (values: ReturnType<typeof getFormValues>) => {
+      hasChange = oldData
+        ? values.name !== oldData.name ||
+          values.avatarUrl !== oldData.avatarUrl ||
+          values.email !== oldData.email ||
+          values.className !== oldData.className ||
+          values.gender !== oldData.gender ||
+          (hasAdditionalField &&
+            values.subject !== (oldData as Teacher).subject)
+        : true;
+    };
 
-        // Check if the new data is different from the old data
-        hasChange = oldData
-          ? name !== oldData.name ||
-            avatarUrl !== oldData.avatarUrl ||
-            email !== oldData.email ||
-            className !== oldData.className ||
-            gender !== oldData.gender ||
-            (isTeacher && subject !== (oldData as Teacher).subject)
-          : true;
+    // Add event listeners for input changes to set the hasChange flag
+    const formInputs = formPerson.querySelectorAll('input, select');
+    formInputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        const values = getFormValues();
+        updateHasChange(values);
 
         // Enable the submit button when changes are made and the modal is "Edit"
         if (title === TITLE_MODAL.EDIT && hasChange) {
@@ -238,58 +257,34 @@ export class PersonList {
 
     // Handle form submission
     submitBtn.addEventListener('click', async () => {
-      const name = trailingString(
-        (formPerson.querySelector(PROFILE_PERSON.NAME) as HTMLInputElement)
-          .value,
-      );
-      const avatarUrl = trailingString(
-        (formPerson.querySelector(PROFILE_PERSON.AVATAR) as HTMLInputElement)
-          .value,
-      );
-      const email = trailingString(
-        (formPerson.querySelector(PROFILE_PERSON.EMAIL) as HTMLInputElement)
-          .value,
-      );
-      const className = (
-        formPerson.querySelector(PROFILE_PERSON.CLASS) as HTMLSelectElement
-      ).value;
-      const gender = (
-        formPerson.querySelector(PROFILE_PERSON.GENDER) as HTMLSelectElement
-      ).value;
-      let subject = '';
+      const values = getFormValues();
 
-      if (isTeacher) {
-        subject = trailingString(
-          (formPerson.querySelector(PROFILE_PERSON.SUBJECT) as HTMLInputElement)
-            .value,
-        );
-      }
-
-      const person: Person = isTeacher
-        ? ({
-            id: '',
-            name,
-            avatarUrl,
-            email,
-            className,
-            gender,
-            subject,
-          } as Teacher)
-        : ({ id: '', name, avatarUrl, email, className, gender } as Person);
+      // // Create a person object using the createPerson function with the provided values
+      const person = createPerson({
+        id: '',
+        name: values.name,
+        avatarUrl: values.avatarUrl,
+        email: values.email,
+        className: values.className,
+        gender: values.gender,
+        subject: values.subject,
+        hasAdditionalField,
+      });
 
       // Clear previous errors
       this.clearErrorMessageForm(modalElement);
 
       // Validate the form based on the type of person
-      const errors = validateForm(
-        person,
-        isTeacher ? PersonType.Teacher : PersonType.Student,
-      );
+      const typeObject = determinePersonType(hasAdditionalField);
+      const errors = validateForm(person, typeObject);
 
+      // Check if there are any validation errors
       if (Object.entries(errors).length > 0) {
         displayFormErrors(errors);
       } else if (hasChange) {
         this.closeModalHandler(modalElement);
+
+        // Start loading spinner
         startLoadingSpinner();
 
         const isEdit = !!personData;
@@ -297,6 +292,7 @@ export class PersonList {
           ? this.editPersonHandler(personData.id, person)
           : this.addPersonHandler(person));
 
+        // Stop loading spinner
         stopLoadingSpinner();
 
         // Show success toast message
@@ -307,6 +303,7 @@ export class PersonList {
       }
     });
 
+    // Check if the title matches the Edit modal title
     if (title === TITLE_MODAL.EDIT) {
       submitBtn.setAttribute(
         DISPLAY_CLASSES.DISABLED,
