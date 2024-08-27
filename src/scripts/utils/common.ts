@@ -2,7 +2,14 @@
 import { SELECT_OPTIONS, DISPLAY_CLASSES, TIMES, MESSAGES } from '@/constants';
 
 // Import the Teacher interface
-import { Person, Errors, Teacher, isItemTeacher, PersonType } from '@/types';
+import {
+  Person,
+  Errors,
+  Teacher,
+  isItemTeacher,
+  PersonType,
+  PersonFormData,
+} from '@/types';
 
 // Import function utils
 import {
@@ -428,3 +435,29 @@ export const attachBlurEventHandlers = (): void => {
     });
   });
 };
+
+/**
+ * Creates a `Person` object based on the provided form data.
+ * @returns {Person} - Returns a `Teacher` object if `hasAdditionalField` is true, otherwise returns a `Person` object without the `subject` field.
+ */
+export const createPersonItem = ({
+  id = '',
+  name,
+  avatarUrl,
+  email,
+  className,
+  gender,
+  subject = '',
+  hasAdditionalField,
+}: PersonFormData): Person => {
+  const commonFields = { id, name, avatarUrl, email, className, gender };
+
+  // Return a `Teacher` object if `hasAdditionalField` is true, otherwise return `Person`.
+  return hasAdditionalField
+    ? ({ ...commonFields, subject } as Teacher)
+    : commonFields;
+};
+
+// Create function common for determinePersonType
+export const determinePersonType = (hasAdditionalField: boolean): PersonType =>
+  hasAdditionalField ? PersonType.Teacher : PersonType.Student;

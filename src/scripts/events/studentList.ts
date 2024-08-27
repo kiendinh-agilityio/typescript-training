@@ -33,7 +33,7 @@ export class StudentList extends PersonList {
   selectedStudentId: string;
 
   constructor() {
-    super('modal-confirm-student');
+    super();
     this.initTableElement('list-student');
     this.initElementsStudent();
     this.initEventListenersStudent();
@@ -41,6 +41,7 @@ export class StudentList extends PersonList {
     this.initializeSearchInput();
     this.selectFilterStudent();
     this.selectedStudentId = '';
+    this.initModelDeleteElement();
   }
 
   /**
