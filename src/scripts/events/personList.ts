@@ -16,7 +16,7 @@ import {
 import {
   attachBlurEventHandlers,
   createToggleDropdown,
-  createPerson,
+  createPersonItem,
   displayFormErrors,
   displayToastMessage,
   determinePersonType,
@@ -259,8 +259,8 @@ export class PersonList {
     submitBtn.addEventListener('click', async () => {
       const values = getFormValues();
 
-      // // Create a person object using the createPerson function with the provided values
-      const person = createPerson({
+      // // Create a person object using the createPersonItem function with the provided values
+      const person = createPersonItem({
         id: '',
         name: values.name,
         avatarUrl: values.avatarUrl,

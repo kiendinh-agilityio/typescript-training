@@ -440,7 +440,7 @@ export const attachBlurEventHandlers = (): void => {
  * Creates a `Person` object based on the provided form data.
  * @returns {Person} - Returns a `Teacher` object if `hasAdditionalField` is true, otherwise returns a `Person` object without the `subject` field.
  */
-export const createPerson = ({
+export const createPersonItem = ({
   id = '',
   name,
   avatarUrl,
