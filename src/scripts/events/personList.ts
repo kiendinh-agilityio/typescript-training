@@ -262,12 +262,7 @@ export class PersonList {
       // // Create a person object using the createPersonItem function with the provided values
       const person = createPersonItem({
         id: '',
-        name: values.name,
-        avatarUrl: values.avatarUrl,
-        email: values.email,
-        className: values.className,
-        gender: values.gender,
-        subject: values.subject,
+        ...values,
         hasAdditionalField,
       });
 
